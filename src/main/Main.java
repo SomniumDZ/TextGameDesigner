@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Main extends Application {
+    private static FXMLLoader loader;
 
     public static void main(String[] args) {
         launch(args);
@@ -21,11 +22,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
+        loader = new FXMLLoader();
         BorderPane root = loader.load(new FileInputStream("fxmls/Main.fxml"));
         Scene scene = new Scene(root, 600, 400);
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static FXMLLoader getLoader() {
+        return loader;
     }
 }

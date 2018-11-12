@@ -15,7 +15,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MainController {
+    private static FXMLLoader loader;
     private BorderPane eventsEditor;
+    private BorderPane itemsEditor;
     @FXML
     public ImageView previewBackground;
     @FXML
@@ -24,8 +26,10 @@ public class MainController {
     public ChoiceBox edChoiceBox;
 
     public MainController() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
+        loader = new FXMLLoader();
         eventsEditor = loader.load(new FileInputStream("fxmls/Editor_Events.fxml"));
+        FXMLLoader itemsEditorLoader = new FXMLLoader();
+        itemsEditor = itemsEditorLoader.load(new FileInputStream("fxmls/Editor_Items.fxml"));
     }
 
     public void initialize(){
@@ -38,5 +42,13 @@ public class MainController {
 
     public Tab getEditorTab() {
         return editorTab;
+    }
+
+    public static FXMLLoader getLoader() {
+        return loader;
+    }
+
+    public BorderPane getItemsEditor() {
+        return itemsEditor;
     }
 }
