@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<BorderPane fx:controller="controllers.MainController" id="BorderPane" fx:id="eventsEditor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<BorderPane id="BorderPane" prefHeight="200.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.EdEventsController">
   <bottom>
     <ToolBar orientation="HORIZONTAL">
       <items>
-        <ChoiceBox value="Events">
+        <ChoiceBox fx:id="edChoiceBox" value="Events">
           <items>
             <FXCollections fx:factory="observableArrayList">
               <String fx:value="Events" />
