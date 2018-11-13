@@ -13,7 +13,9 @@
   <center>
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
-        <Tab fx:id="editorTab" content="$null" text="Events" />
+        <Tab fx:id="editorTab" text="Events">
+          <Pane fx:id="eventsRoot"/>
+        </Tab>
         <Tab text="Items">
           <BorderPane id="BorderPane" prefHeight="200.0" prefWidth="200.0">
             <bottom>
