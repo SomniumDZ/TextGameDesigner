@@ -1,7 +1,9 @@
 package controllers.events;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -12,14 +14,21 @@ import java.io.IOException;
 import static main.Main.ew;
 
 public class EventEditor {
-    private BorderPane root;
-    private FXMLLoader rootLoader;
+    @FXML
+    public Tab editorTab;
 
-    public EventEditor() {
+    EventEditorController controller;
+
+    private BorderPane root;
+    private BorderPane editor;
+
+
+    public EventEditor(BorderPane editor) {
         Stage stage;
         Scene scene;
-        rootLoader = new FXMLLoader();
-        FileInputStream edEventsRoot = null;
+
+        FXMLLoader rootLoader = new FXMLLoader();
+        FileInputStream edEventsRoot;
         try {
             edEventsRoot = new FileInputStream("fxmls/EventEditorRoot.fxml");
         } catch (
@@ -35,10 +44,16 @@ public class EventEditor {
             e.printStackTrace();
             return;
         }
+        this.editor = editor;
+
+        controller = rootLoader.getController();
+
+        controller.getEditorTab().setContent(new BorderPane(editor));
 
         stage = new Stage();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.showAndWait();
     }
+
 }

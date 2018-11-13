@@ -26,6 +26,9 @@ public abstract class VEvent{
         visual.setTranslateY(y);
     }
 
+    public VEvent() {
+    }
+
     public VBox getVisual() {
         return visual;
     }
