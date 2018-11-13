@@ -1,11 +1,13 @@
 package controllers;
 
+import controllers.events.OptionalEvent;
 import controllers.events.VEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -49,7 +51,11 @@ public class MainController {
             ecmCallY.set(event.getY());
         });
         addEvent.setOnAction(event -> {
-            eventsRoot.getChildren().add(new VEvent(ecmCallX.get(), ecmCallY.get()));
+            try {
+                eventsRoot.getChildren().addAll(new OptionalEvent(ecmCallX.get(), ecmCallY.get()).getVisual());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 }
