@@ -1,14 +1,16 @@
 package controllers;
 
+import controllers.events.VEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainController {
     @FXML
@@ -16,13 +18,20 @@ public class MainController {
     @FXML
     public Tab editorTab;
     @FXML
-    public Pane eventsRoot;
+    public AnchorPane eventsRoot;
+
+    private MenuItem addEvent;
+    private ContextMenu eventsContextMenu;
 
     public MainController() {
-
+        eventsContextMenu = new ContextMenu();
+        addEvent =  new MenuItem("Add event");
+        eventsContextMenu.getItems().add(addEvent);
     }
 
     public void initialize(){
+        AtomicReference<Double> ecmCallX = new AtomicReference<>((double) 0);
+        AtomicReference<Double> ecmCallY = new AtomicReference<>((double) 0);
         btnRunPreview.setOnAction(event -> {
             Stage preview = new Stage();
             Scene scene = null;
@@ -33,6 +42,14 @@ public class MainController {
             }
             preview.setScene(scene);
             preview.showAndWait();
+        });
+        eventsRoot.setOnContextMenuRequested(event -> {
+            eventsContextMenu.show(eventsRoot, event.getScreenX(), event.getScreenY());
+            ecmCallX.set(event.getX());
+            ecmCallY.set(event.getY());
+        });
+        addEvent.setOnAction(event -> {
+            eventsRoot.getChildren().add(new VEvent(ecmCallX.get(), ecmCallY.get()));
         });
     }
 }
