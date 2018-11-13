@@ -8,16 +8,27 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<VBox prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #adadad;">
+<VBox prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #adadad;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <HBox alignment="CENTER_LEFT" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="SOMETIMES">
+    <GridPane VBox.vgrow="SOMETIMES">
       <children>
-        <Label text="Message" />
+        <Label text="Message" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
       </children>
+      <columnConstraints>
+        <ColumnConstraints fillWidth="true" halignment="LEFT" hgrow="NEVER" minWidth="-1.0" prefWidth="-1.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="-1.0" />
+      </columnConstraints>
       <padding>
-        <Insets left="5.0" />
+        <Insets />
       </padding>
-    </HBox>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <VBox.margin>
+        <Insets left="-10.0" />
+      </VBox.margin>
+    </GridPane>
     <GridPane>
       <children>
         <GridPane alignment="CENTER_LEFT" gridLinesVisible="false" hgap="0.0" prefWidth="-1.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">

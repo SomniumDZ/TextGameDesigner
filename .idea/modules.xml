@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Library/ErrorWindow/ErrorWindow.iml" filepath="$PROJECT_DIR$/../Library/ErrorWindow/ErrorWindow.iml" />
       <module fileurl="file://$PROJECT_DIR$/TextGameDesigner.iml" filepath="$PROJECT_DIR$/TextGameDesigner.iml" />
     </modules>
   </component>
