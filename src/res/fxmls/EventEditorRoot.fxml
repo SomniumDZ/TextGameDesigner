@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<BorderPane fx:controller="controllers.events.EventEditorController" id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.events.EventEditorController">
   <center>
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
-        <Tab fx:id="editorTab" text="Editor">
-        </Tab>
+        <Tab fx:id="editorTab" content="$null" text="Editor" />
         <Tab text="Preview">
           <content>
             <BorderPane prefHeight="400.0" prefWidth="600.0">

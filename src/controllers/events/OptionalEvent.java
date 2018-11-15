@@ -2,7 +2,6 @@ package controllers.events;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,11 +12,11 @@ public class OptionalEvent extends VEvent {
     private BorderPane editor;
     private OptionalEventController controller;
     public OptionalEvent(double x, double y) throws IOException {
-        super(x, y,"fxmls/VAEvent.fxml");
+        super(x, y, "fxmls/4OptionsEvent.fxml");
         controller = new OptionalEventController();
 
         editorLoader = new FXMLLoader();
-        editorFile = new FileInputStream("fxmls/4OptionalEventEditor.fxml");
+        editorFile = new FileInputStream("fxmls/4OptionsEventEditor.fxml");
         editor = editorLoader.load(editorFile);
 
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<BorderPane fx:controller="controllers.events.OptionalEventController" id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<BorderPane id="BorderPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.events.OptionalEventController">
   <center>
     <VBox prefHeight="200.0" prefWidth="100.0">
       <children>
@@ -23,9 +23,9 @@
                 </ImageView>
                 <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                   <children>
-                    <HBox alignment="CENTER_LEFT" maxHeight="-1.0" maxWidth="-1.0" minHeight="0.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
+                    <HBox alignment="CENTER_LEFT" maxHeight="-1.0" maxWidth="-1.0" minHeight="0.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                       <children>
-                        <TextArea prefWidth="-1.0" promptText="Event message" text="message" wrapText="true" />
+                        <TextArea maxWidth="-1.0" prefWidth="-1.0" promptText="Event message" text="Message" wrapText="true" />
                       </children>
                       <padding>
                         <Insets left="10.0" />
@@ -34,7 +34,7 @@
                         <Insets />
                       </VBox.margin>
                     </HBox>
-                    <GridPane VBox.vgrow="SOMETIMES">
+                    <GridPane VBox.vgrow="ALWAYS">
                       <children>
                         <TextField prefWidth="-1.0" promptText="First option" text="option1" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="SOMETIMES">
                           <GridPane.margin>
