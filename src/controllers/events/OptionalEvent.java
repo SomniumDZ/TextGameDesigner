@@ -2,11 +2,12 @@ package controllers.events;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class OptionalEvent extends VEvent {
+public class OptionalEvent extends VEvent<GridPane> {
     private FileInputStream editorFile;
     private FXMLLoader editorLoader;
     private BorderPane editor;

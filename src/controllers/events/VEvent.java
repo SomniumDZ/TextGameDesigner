@@ -1,6 +1,7 @@
 package controllers.events;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.FileInputStream;
@@ -8,9 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-public abstract class VEvent{
+public abstract class VEvent <Visual extends Pane>{
     private FXMLLoader optionalLoader;
-    private VBox visual;
+    private Visual visual;
 
     public VEvent(double x, double y, String fxmlPath) throws IOException {
         optionalLoader = new FXMLLoader();
@@ -29,7 +30,7 @@ public abstract class VEvent{
     public VEvent() {
     }
 
-    public VBox getVisual() {
+    public Visual getVisual() {
         return visual;
     }
 }
