@@ -17,14 +17,15 @@ public class EventEditor {
     @FXML
     public Tab editorTab;
 
-    EventEditorController controller;
+    FOptionsEventsEditorController controller;
 
     private BorderPane root;
     private BorderPane editor;
 
+    private Stage stage;
 
-    public EventEditor(BorderPane editor) {
-        Stage stage;
+
+    EventEditor(BorderPane editor) {
         Scene scene;
 
         FXMLLoader rootLoader = new FXMLLoader();
@@ -53,7 +54,9 @@ public class EventEditor {
         stage = new Stage();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.showAndWait();
     }
 
+    public Stage getStage() {
+        return stage;
+    }
 }

@@ -8,11 +8,11 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<GridPane prefWidth="155.0" style="-fx-background-color: #adadad;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<GridPane fx:controller="controllers.events.FOptionsEventVisualController" prefWidth="155.0" style="-fx-background-color: #adadad;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <GridPane alignment="CENTER_LEFT" gridLinesVisible="false" hgap="0.0" prefWidth="101.0" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
       <children>
-        <Label prefWidth="-1.0" text="option1" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="0" GridPane.vgrow="SOMETIMES" />
+        <Label fx:id="option1" prefWidth="-1.0" text="option1" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="0" GridPane.vgrow="SOMETIMES" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
@@ -28,7 +28,7 @@
     </GridPane>
     <GridPane alignment="CENTER_LEFT" gridLinesVisible="false" hgap="0.0" prefWidth="101.0" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
       <children>
-        <Label text="option2" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label fx:id="option2" text="option2" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
@@ -44,7 +44,7 @@
     </GridPane>
     <GridPane alignment="CENTER_LEFT" gridLinesVisible="false" hgap="0.0" prefWidth="101.0" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
       <children>
-        <Label text="option3" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label fx:id="option3" text="option3" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>
@@ -60,7 +60,7 @@
     </GridPane>
     <GridPane alignment="CENTER_LEFT" gridLinesVisible="false" hgap="0.0" prefWidth="101.0" GridPane.columnIndex="0" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
       <children>
-        <Label text="option4" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label fx:id="option4" text="option4" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </children>
       <columnConstraints>

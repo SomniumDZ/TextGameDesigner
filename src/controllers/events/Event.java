@@ -9,31 +9,36 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 
-public abstract class Event<Visual extends Pane> extends Node<Visual> {
+public abstract class Event<Visual extends Pane, VC extends VisualController> extends Node<Visual, VC> {
     private Event[] childEvents;
 
-    private FileInputStream editorFile;
     private FXMLLoader editorLoader;
     private BorderPane editor;
-    private FOptionalEventController controller;
 
     Event(double x, double y, String fxmlPath, String editorPath, Event[] childEventsContainer) throws IOException {
         super(x,y,fxmlPath);
 
         editorLoader = new FXMLLoader();
-        editorFile = new FileInputStream(editorPath);
+        FileInputStream editorFile = new FileInputStream(editorPath);
         editor = editorLoader.load(editorFile);
-
-        controller = editorLoader.getController();
 
         childEvents = childEventsContainer;
 
+        EventEditor eventEditor = new EventEditor(editor);
+
         getVisual().setOnMouseClicked(event -> {
             if (event.getClickCount() == 2){
-                new EventEditor(editor);
+                eventEditor.getStage().showAndWait();
             }
         });
+
+
+        eventEditor.getStage().setOnCloseRequest(event -> onEditorCloses());
+
     }
+
+
+    abstract void onEditorCloses();
 
     public BorderPane getEditor() {
         return editor;
@@ -43,7 +48,7 @@ public abstract class Event<Visual extends Pane> extends Node<Visual> {
         return childEvents;
     }
 
-    public FOptionalEventController getController() {
-        return controller;
+    public EventEditorController getController() {
+        return editorLoader.getController();
     }
 }

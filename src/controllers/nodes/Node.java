@@ -1,13 +1,13 @@
 package controllers.nodes;
 
+import controllers.events.VisualController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public abstract class Node <Visual extends Pane> {
+public abstract class Node <Visual extends Pane, VC extends VisualController>{
     private Visual visual;
     private FXMLLoader visualLoader;
 
@@ -23,6 +23,10 @@ public abstract class Node <Visual extends Pane> {
         );
         visual.setTranslateX(x);
         visual.setTranslateY(y);
+    }
+
+    public VC getVisualController(){
+        return visualLoader.getController();
     }
 
     public Visual getVisual() {
