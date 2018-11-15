@@ -7,17 +7,16 @@ import javafx.scene.layout.GridPane;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class FOptionalEvent extends VEvent<GridPane> {
+public class FOptionalEvent extends Event<GridPane> {
     private FileInputStream editorFile;
     private FXMLLoader editorLoader;
     private BorderPane editor;
     private FOptionalEventController controller;
-    private VEvent[] options;
-    public FOptionalEvent(double x, double y) throws IOException {
-        super(x, y, "fxmls/4OptionsEvent.fxml", new VEvent[4]);
-        controller = new FOptionalEventController();
 
-        options = new VEvent[4];
+
+    public FOptionalEvent(double x, double y) throws IOException {
+        super(x, y, "fxmls/4OptionsEvent.fxml", new Event[4]);
+        controller = new FOptionalEventController();
 
         editorLoader = new FXMLLoader();
         editorFile = new FileInputStream("fxmls/4OptionsEventEditor.fxml");

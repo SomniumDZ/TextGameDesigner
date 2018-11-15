@@ -1,22 +1,19 @@
-package controllers.events;
+package controllers.nodes;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-
-public abstract class VEvent <Visual extends Pane>{
-    private VEvent[] childEvents;
-    private FXMLLoader optionalLoader;
+public abstract class Node <Visual extends Pane> {
     private Visual visual;
+    private FXMLLoader visualLoader;
 
-    public VEvent(double x, double y, String fxmlPath, VEvent[] childEventsContainer) throws IOException {
-        optionalLoader = new FXMLLoader();
-        this.visual = optionalLoader.load(new FileInputStream(fxmlPath));
+    public Node(double x, double y, String fxmlPath) throws IOException {
+        visualLoader = new FXMLLoader();
+        this.visual = visualLoader.load(new FileInputStream(fxmlPath));
         visual.setStyle("-fx-background-color: #adadad;"
 //               +"-fx-border-image-source: url(Border.png);" +
 //                "-fx-border-image-slice: 6px;" +
@@ -26,17 +23,10 @@ public abstract class VEvent <Visual extends Pane>{
         );
         visual.setTranslateX(x);
         visual.setTranslateY(y);
-        childEvents = childEventsContainer;
-    }
-
-    public VEvent() {
     }
 
     public Visual getVisual() {
         return visual;
     }
 
-    public VEvent[] getChildEvents() {
-        return childEvents;
-    }
 }
