@@ -10,10 +10,11 @@ import java.io.IOException;
 
 
 public abstract class VEvent <Visual extends Pane>{
+    private VEvent[] childEvents;
     private FXMLLoader optionalLoader;
     private Visual visual;
 
-    public VEvent(double x, double y, String fxmlPath) throws IOException {
+    public VEvent(double x, double y, String fxmlPath, VEvent[] childEventsContainer) throws IOException {
         optionalLoader = new FXMLLoader();
         this.visual = optionalLoader.load(new FileInputStream(fxmlPath));
         visual.setStyle("-fx-background-color: #adadad;"
@@ -25,6 +26,7 @@ public abstract class VEvent <Visual extends Pane>{
         );
         visual.setTranslateX(x);
         visual.setTranslateY(y);
+        childEvents = childEventsContainer;
     }
 
     public VEvent() {
@@ -32,5 +34,9 @@ public abstract class VEvent <Visual extends Pane>{
 
     public Visual getVisual() {
         return visual;
+    }
+
+    public VEvent[] getChildEvents() {
+        return childEvents;
     }
 }

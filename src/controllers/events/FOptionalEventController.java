@@ -6,9 +6,9 @@ import javafx.scene.layout.BorderPane;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class OptionalEventController {
+public class FOptionalEventController {
 
-    public OptionalEventController() throws IOException {
+    public FOptionalEventController() throws IOException {
 
     }
 
