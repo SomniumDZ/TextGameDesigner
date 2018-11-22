@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.nodes.EmptyNode;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -20,15 +21,15 @@ public class MainController {
     @FXML
     public AnchorPane eventsRoot;
 
-    private MenuItem add4OptionsEvent;
+    private MenuItem addEmptyNode;
     private ContextMenu eventsContextMenu;
 
     public MainController() {
         eventsContextMenu = new ContextMenu();
         Menu addEvent = new Menu("Add event...");
-        add4OptionsEvent = new MenuItem("4Option event");
+        addEmptyNode = new MenuItem("4Option event");
         eventsContextMenu.getItems().add(addEvent);
-        addEvent.getItems().addAll(add4OptionsEvent);
+        addEvent.getItems().addAll(addEmptyNode);
     }
 
     public void initialize(){
@@ -57,8 +58,8 @@ public class MainController {
             }
         });
 
-        add4OptionsEvent.setOnAction(event -> {
-            eventsRoot.getChildren().addAll();
+        addEmptyNode.setOnAction(event -> {
+            eventsRoot.getChildren().addAll(new EmptyNode());
         });
     }
 }
