@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.events.FOptionsEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -59,11 +58,7 @@ public class MainController {
         });
 
         add4OptionsEvent.setOnAction(event -> {
-            try {
-                eventsRoot.getChildren().addAll(new FOptionsEvent(ecmCallX.get(), ecmCallY.get()).getVisual());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            eventsRoot.getChildren().addAll();
         });
     }
 }
