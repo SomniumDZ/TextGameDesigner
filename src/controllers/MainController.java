@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.nodes.EmptyNode;
+import controllers.nodes.Node;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -18,16 +19,18 @@ public class MainController {
     public MenuItem btnRunPreview;
     @FXML
     public Tab editorTab;
+
     @FXML
     public AnchorPane eventsRoot;
 
     private MenuItem addEmptyNode;
     private ContextMenu eventsContextMenu;
+    private static Node draggedNode;
 
     public MainController() {
         eventsContextMenu = new ContextMenu();
         Menu addEvent = new Menu("Add event...");
-        addEmptyNode = new MenuItem("4Option event");
+        addEmptyNode = new MenuItem("Empty node");
         eventsContextMenu.getItems().add(addEvent);
         addEvent.getItems().addAll(addEmptyNode);
     }
@@ -58,8 +61,25 @@ public class MainController {
             }
         });
 
+        eventsRoot.setOnDragOver(event -> {
+            draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY());
+            event.consume();
+        });
+
         addEmptyNode.setOnAction(event -> {
             eventsRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
         });
+    }
+
+    public AnchorPane getEventsRoot() {
+        return eventsRoot;
+    }
+
+    public static Node getDraggedNode() {
+        return draggedNode;
+    }
+
+    public static void setDraggedNode(Node draggedNode) {
+        MainController.draggedNode = draggedNode;
     }
 }
