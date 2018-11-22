@@ -59,7 +59,7 @@ public class MainController {
         });
 
         addEmptyNode.setOnAction(event -> {
-            eventsRoot.getChildren().addAll(new EmptyNode());
+            eventsRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
         });
     }
 }

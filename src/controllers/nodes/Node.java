@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import static main.Main.ew;
 
-public abstract class Node extends VBox {
-    public Node() {
+abstract class Node extends VBox {
+    Node(double x, double y) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Node.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -18,5 +18,12 @@ public abstract class Node extends VBox {
             e.printStackTrace();
             ew.throwError("FXML error");
         }
+
+        setTranslatePosition(x, y);
+    }
+
+    public void setTranslatePosition(double x, double y){
+        setTranslateX(x);
+        setTranslateY(y);
     }
 }
