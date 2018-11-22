@@ -8,6 +8,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.Main;
 
@@ -18,7 +19,9 @@ import static main.Main.ew;
 public abstract class Node extends VBox {
 
     @FXML
-    HBox titleBar;
+    private HBox titleBar;
+    @FXML
+    private VBox workSpace;
 
     private double dragOffsetX;
     private double dragOffsetY;
@@ -35,7 +38,7 @@ public abstract class Node extends VBox {
             ew.throwError("FXML error");
         }
 
-        setTranslatePosition(x, y);
+        setTranslatePosition(x, y, false);
     }
 
     @FXML
@@ -57,9 +60,18 @@ public abstract class Node extends VBox {
         });
     }
 
-    public void setTranslatePosition(double x, double y){
-        Point2D local = ((MainController)Main.getLoader().getController()).getEventsRoot().sceneToLocal(x, y);
-        setTranslateX(local.getX()-dragOffsetX);
-        setTranslateY(local.getY()-dragOffsetY);
+    public void setTranslatePosition(double x, double y, boolean toLocal){
+        if (toLocal) {
+            Point2D local = ((MainController)Main.getLoader().getController()).getEventsRoot().sceneToLocal(x, y);
+            setTranslateX(local.getX()-dragOffsetX);
+            setTranslateY(local.getY()-dragOffsetY);
+        }else {
+            setTranslateY(y);
+            setTranslateX(x);
+        }
+    }
+
+    public Pane getWorkSpace() {
+        return workSpace;
     }
 }

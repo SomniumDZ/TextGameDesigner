@@ -2,9 +2,8 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<fx:root fx:id="workSpace" type="VBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <HBox fx:id="titleBar" style="-fx-background-color: lightgray;">
     <Label text="NodeName" />
   </HBox>
-  <Region fx:id="workSpace" style="-fx-background-color: #e0e0e0" minHeight="40.0" minWidth="40.0" />
 </fx:root>

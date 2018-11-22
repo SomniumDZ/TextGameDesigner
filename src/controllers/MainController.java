@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.nodes.EmptyNode;
+import controllers.nodes.Event;
 import controllers.nodes.Node;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -24,6 +25,7 @@ public class MainController {
     public AnchorPane eventsRoot;
 
     private MenuItem addEmptyNode;
+    private MenuItem addEventNode;
     private ContextMenu eventsContextMenu;
     private static Node draggedNode;
 
@@ -31,8 +33,9 @@ public class MainController {
         eventsContextMenu = new ContextMenu();
         Menu addEvent = new Menu("Add event...");
         addEmptyNode = new MenuItem("Empty node");
+        addEventNode = new MenuItem("Event");
         eventsContextMenu.getItems().add(addEvent);
-        addEvent.getItems().addAll(addEmptyNode);
+        addEvent.getItems().addAll(addEmptyNode,addEventNode);
     }
 
     public void initialize(){
@@ -62,12 +65,15 @@ public class MainController {
         });
 
         eventsRoot.setOnDragOver(event -> {
-            draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY());
+            draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
             event.consume();
         });
 
         addEmptyNode.setOnAction(event -> {
             eventsRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
+        });
+        addEventNode.setOnAction(event -> {
+            eventsRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
         });
     }
 
