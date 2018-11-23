@@ -4,17 +4,14 @@ import controllers.nodes.EmptyNode;
 import controllers.nodes.Event;
 import controllers.nodes.Node;
 import controllers.nodes.Output;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.input.Dragboard;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.CubicCurve;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -85,6 +82,10 @@ public class MainController {
         eventsRoot.setOnDragDropped(event -> {
             draggedNode = null;
             draggedOut = null;
+            Dragboard db = event.getDragboard();
+            db.clear();
+            event.setDropCompleted(true);
+            event.consume();
         });
 
         addEmptyNode.setOnAction(event -> {
@@ -93,28 +94,6 @@ public class MainController {
         addEventNode.setOnAction(event -> {
             eventsRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
         });
-    }
-
-    public void spawnNewConnectionCurve(AnchorPane container, Rectangle connector){
-        CubicCurve curve = new CubicCurve();
-
-        curve.controlX1Property().bind(Bindings.add(curve.startXProperty(), 100));
-        curve.controlX2Property().bind(Bindings.add(curve.endXProperty(), 100));
-        curve.controlY1Property().bind(Bindings.add(curve.startYProperty(), 100));
-        curve.controlY2Property().bind(Bindings.add(curve.endYProperty(), 100));
-
-        curve.toBack();
-
-        curve.startXProperty().bind(container.translateXProperty());
-        curve.startYProperty().bind(container.translateYProperty());
-
-        curve.endXProperty().bind(connector.translateXProperty());
-        curve.endYProperty().bind(connector.translateYProperty());
-
-        curve.setFill(Color.rgb(0,0,0,0));
-        curve.setStroke(Color.rgb(0,0,0,1));
-
-        eventsRoot.getChildren().add(curve);
     }
 
     public AnchorPane getEventsRoot() {
