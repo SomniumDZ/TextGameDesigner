@@ -8,6 +8,9 @@ import java.io.IOException;
 import static main.Main.ew;
 
 public class Input extends GridPane {
+
+    NodeLink nodeLink;
+
     public Input() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Input.fxml"));
         loader.setRoot(this);
@@ -18,5 +21,8 @@ public class Input extends GridPane {
             e.printStackTrace();
             ew.throwError("FXML read error");
         }
+
+        nodeLink = new NodeLink();
+
     }
 }
