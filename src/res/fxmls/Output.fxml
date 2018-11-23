@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<fx:root type="GridPane" style="-fx-background-color: #dbdbdb" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <columnConstraints>
+    <ColumnConstraints halignment="RIGHT" hgrow="NEVER" percentWidth="-1.0" />
+    <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="30.0" percentWidth="-1.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  <Label prefWidth="48.0" text="Outut" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+  <Rectangle fx:id="outContainer" arcHeight="5.0" arcWidth="5.0" fill="#0c9900" height="20.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <GridPane.margin>
+      <Insets right="-7.0" />
+    </GridPane.margin>
+  </Rectangle>
+  <CubicCurve fx:id="link" controlX1="-50.0" controlX2="50.0" controlY1="-100.0" controlY2="100.0" fill="#fffdcc00" stroke="BLACK" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+  <Rectangle fx:id="outConnector" arcHeight="5.0" arcWidth="5.0" fill="#10cc00" height="15.0" stroke="BLACK" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <GridPane.margin>
+      <Insets right="-5.0" />
+    </GridPane.margin>
+  </Rectangle>
+</fx:root>

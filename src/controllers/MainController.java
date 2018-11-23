@@ -3,6 +3,7 @@ package controllers;
 import controllers.nodes.EmptyNode;
 import controllers.nodes.Event;
 import controllers.nodes.Node;
+import controllers.nodes.Output;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -28,6 +29,7 @@ public class MainController {
     private MenuItem addEventNode;
     private ContextMenu eventsContextMenu;
     private static Node draggedNode;
+    private static Output draggedOut;
 
     public MainController() {
         eventsContextMenu = new ContextMenu();
@@ -37,6 +39,8 @@ public class MainController {
         eventsContextMenu.getItems().add(addEvent);
         addEvent.getItems().addAll(addEmptyNode,addEventNode);
     }
+
+
 
     public void initialize(){
         AtomicReference<Double> ecmCallX = new AtomicReference<>((double) 0);
@@ -65,8 +69,18 @@ public class MainController {
         });
 
         eventsRoot.setOnDragOver(event -> {
-            draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
+            if (draggedNode !=null) {
+                draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
+            }
+            if (draggedOut!=null){
+                draggedOut.setOutConnectorPosition(event.getSceneX(), event.getSceneY());
+            }
             event.consume();
+        });
+
+        eventsRoot.setOnDragDropped(event -> {
+            draggedNode = null;
+            draggedOut = null;
         });
 
         addEmptyNode.setOnAction(event -> {
@@ -87,5 +101,9 @@ public class MainController {
 
     public static void setDraggedNode(Node draggedNode) {
         MainController.draggedNode = draggedNode;
+    }
+
+    public static void setDraggedOut(Output draggedOut) {
+        MainController.draggedOut = draggedOut;
     }
 }
