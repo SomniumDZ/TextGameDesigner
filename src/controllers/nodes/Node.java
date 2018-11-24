@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import main.Main;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 import static main.Main.ew;
@@ -24,13 +25,14 @@ public abstract class Node extends VBox {
     @FXML
     private VBox workSpace;
 
+    HashMap<String, Output> outputs = new HashMap<>();
+
     private double dragOffsetX;
     private double dragOffsetY;
 
 
     Node(double x, double y) {
         setId(UUID.randomUUID().toString());
-        getController().getNodeMap().put(getId(), this);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Node.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -61,7 +63,7 @@ public abstract class Node extends VBox {
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 
             ClipboardContent content = new ClipboardContent();
-            content.putString("");
+            content.putString(getId());
             db.setContent(content);
             event.consume();
         });

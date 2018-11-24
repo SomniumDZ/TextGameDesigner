@@ -20,6 +20,8 @@ import javafx.scene.shape.Rectangle;
 import main.Main;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
 import static main.Main.ew;
 
@@ -32,6 +34,7 @@ public class Output extends GridPane {
     private double dragOffsetX;
     private double dragOffsetY;
     private CubicCurve curve;
+    private Node contacted;
 
     private final DoubleProperty controlDirectionX1 = new SimpleDoubleProperty();
     private final DoubleProperty controlDirectionY1 = new SimpleDoubleProperty();
@@ -40,6 +43,7 @@ public class Output extends GridPane {
 
 
     public Output() {
+        setId(UUID.randomUUID().toString());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Output.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -56,7 +60,7 @@ public class Output extends GridPane {
         parentProperty().addListener((ChangeListener<? super javafx.scene.Parent>) (observable, oldValue, newValue) -> {
             parent = newValue;
         });
-
+        getOutputMap().put(getId(), this);
 
         connector.setOnDragDetected(event -> {
             dragOffsetX = event.getX();
@@ -65,7 +69,7 @@ public class Output extends GridPane {
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 
             ClipboardContent content = new ClipboardContent();
-            content.putString("");
+            content.putString(getId());
             db.setContent(content);
 
             if (curve==null) {
@@ -163,5 +167,21 @@ public class Output extends GridPane {
         Point2D local = getEventRoot().sceneToLocal(x, y);
         connector.setTranslateX(local.getX()-dragOffsetX-parent.getTranslateX()-getLayoutX()-connector.getLayoutX());
         connector.setTranslateY(local.getY()-dragOffsetY-parent.getTranslateY()-getLayoutY()-connector.getLayoutY());
+    }
+
+    public Node getContacted() {
+        return contacted;
+    }
+
+    public void setContacted(Node contacted) {
+        this.contacted = contacted;
+    }
+
+    private HashMap<String, Output> getOutputMap(){
+        return ((MainController)Main.getLoader().getController()).getNodeMap();
+    }
+
+    public Rectangle getConnector() {
+        return connector;
     }
 }
