@@ -17,7 +17,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
   <Label prefWidth="48.0" text="Input" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+  <Rectangle fx:id="container" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
     <GridPane.margin>
       <Insets left="-5.0" />
     </GridPane.margin>

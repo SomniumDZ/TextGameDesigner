@@ -15,7 +15,6 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
 import main.Main;
@@ -141,8 +140,12 @@ public class Output extends GridPane {
                         .add(connector.heightProperty().divide(2))
         );
 
-        curve.setFill(Color.rgb(0,0,0,0));
-        curve.setStroke(Color.rgb(0,0,0,1));
+        curve.setStyle(""+
+                "-fx-fill: transparent;"+
+                "-fx-stroke-width: 2;" +
+                "-fx-stroke: #7c7c7c;"
+
+        );
 
 
         return curve;
