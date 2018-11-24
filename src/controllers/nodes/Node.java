@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import main.Main;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import static main.Main.ew;
 
@@ -28,6 +29,8 @@ public abstract class Node extends VBox {
 
 
     Node(double x, double y) {
+        setId(UUID.randomUUID().toString());
+        getController().getNodeMap().put(getId(), this);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Node.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -39,6 +42,10 @@ public abstract class Node extends VBox {
         }
 
         setTranslatePosition(x, y, false);
+    }
+
+    private MainController getController() {
+        return Main.getLoader().getController();
     }
 
     @FXML

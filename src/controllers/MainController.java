@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MainController {
@@ -26,6 +27,8 @@ public class MainController {
 
     @FXML
     public AnchorPane eventsRoot;
+
+    private HashMap<String, Node> nodes = new HashMap<>();
 
     private MenuItem addEmptyNode;
     private MenuItem addEventNode;
@@ -113,5 +116,9 @@ public class MainController {
 
     public static void setDraggedOut(Output draggedOut) {
         MainController.draggedOut = draggedOut;
+    }
+
+    public HashMap<String, Node> getNodeMap() {
+        return nodes;
     }
 }
