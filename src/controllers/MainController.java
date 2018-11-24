@@ -11,6 +11,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -70,6 +71,7 @@ public class MainController {
         });
 
         eventsRoot.setOnDragOver(event -> {
+            event.acceptTransferModes(TransferMode.ANY);
             if (draggedNode !=null) {
                 draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
             }
@@ -80,6 +82,7 @@ public class MainController {
         });
 
         eventsRoot.setOnDragDropped(event -> {
+            event.acceptTransferModes(TransferMode.ANY);
             draggedNode = null;
             draggedOut = null;
             Dragboard db = event.getDragboard();
