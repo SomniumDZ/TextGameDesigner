@@ -2,6 +2,9 @@ package controllers.nodes;
 
 import controllers.MainController;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.When;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +33,11 @@ public class Output extends GridPane {
     private double dragOffsetX;
     private double dragOffsetY;
     private CubicCurve curve;
+
+    private final DoubleProperty controlDirectionX1 = new SimpleDoubleProperty();
+    private final DoubleProperty controlDirectionY1 = new SimpleDoubleProperty();
+    private final DoubleProperty controlDirectionX2 = new SimpleDoubleProperty();
+    private final DoubleProperty controlDirectionY2 = new SimpleDoubleProperty();
 
 
     public Output() {
@@ -64,7 +72,6 @@ public class Output extends GridPane {
             if (curve==null) {
                 curve = spawnNewConnectionCurve(container, connector);
                 getEventRoot().getChildren().add(curve);
-                curve.toBack();
             }
 
             event.consume();
@@ -74,19 +81,65 @@ public class Output extends GridPane {
     public CubicCurve spawnNewConnectionCurve(AnchorPane container, Rectangle connector){
         CubicCurve curve = new CubicCurve();
 
-        curve.controlX1Property().bind(Bindings.add(curve.startXProperty(), 100));
-        curve.controlX2Property().bind(Bindings.add(curve.endXProperty(), 100));
-        curve.controlY1Property().bind(Bindings.add(curve.startYProperty(), 100));
-        curve.controlY2Property().bind(Bindings.add(curve.endYProperty(), 100));
+        controlDirectionX1.bind(new When(
+                curve.startXProperty().greaterThan(curve.endXProperty()))
+                .then(-1.0).otherwise(1.0)
+        );
 
-        curve.setTranslateX(parent.getTranslateX()+getLayoutX()+container.getLayoutX()+container.getWidth()/2);
-        curve.setTranslateY(parent.getTranslateY()+getLayoutY()+container.getHeight()/2);
+        controlDirectionX2.bind(new When (
+                curve.startXProperty().greaterThan(curve.endXProperty()))
+                .then(1.0).otherwise(-1.0)
+        );
 
-        curve.startXProperty().bind(container.translateXProperty());
-        curve.startYProperty().bind(container.translateYProperty());
+        curve.controlX1Property().bind(
+                Bindings.add(
+                        curve.startXProperty(), controlDirectionX1.multiply(100)
+                )
+        );
 
-        curve.endXProperty().bind(connector.translateXProperty());
-        curve.endYProperty().bind(connector.translateYProperty());
+        curve.controlX2Property().bind(
+                Bindings.add(
+                        curve.endXProperty(), controlDirectionX2.multiply(100)
+                )
+        );
+
+        curve.controlY1Property().bind(
+                Bindings.add(
+                        curve.startYProperty(), controlDirectionY1.multiply(50)
+                )
+        );
+
+        curve.controlY2Property().bind(
+                Bindings.add(
+                        curve.endYProperty(), controlDirectionY2.multiply(50)
+                )
+        );
+
+        curve.startXProperty().bind(
+                parent.translateXProperty()
+                        .add(layoutXProperty())
+                        .add(container.layoutXProperty())
+                        .add(container.widthProperty().divide(2))
+        );
+        curve.startYProperty().bind(
+                parent.translateYProperty()
+                        .add(layoutYProperty())
+                        .add(container.heightProperty().divide(2))
+        );
+
+        curve.endXProperty().bind(
+                connector.translateXProperty()
+                        .add(parent.translateXProperty())
+                        .add(translateXProperty())
+                        .add(connector.layoutXProperty())
+        );
+        curve.endYProperty().bind(
+                connector.translateYProperty()
+                        .add(parent.translateYProperty())
+                        .add(layoutYProperty())
+                        .add(connector.layoutYProperty())
+                        .add(connector.heightProperty().divide(2))
+        );
 
         curve.setFill(Color.rgb(0,0,0,0));
         curve.setStroke(Color.rgb(0,0,0,1));
