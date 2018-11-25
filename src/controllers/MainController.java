@@ -87,7 +87,10 @@ public class MainController {
         eventsRoot.setOnDragDropped(event -> {
             event.acceptTransferModes(TransferMode.ANY);
             draggedNode = null;
-            draggedOut = null;
+            if (draggedOut!=null) {
+                draggedOut.reset();
+                draggedOut = null;
+            }
             Dragboard db = event.getDragboard();
             db.clear();
             event.setDropCompleted(true);
