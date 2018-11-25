@@ -5,7 +5,6 @@ import controllers.nodes.Node;
 import controllers.nodes.Output;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class Event extends Node {
     private Input input;
@@ -14,10 +13,10 @@ public class Event extends Node {
         super(x, y);
         input = new Input();
         getWorkSpace().getChildren().add(input);
-        addOutput(UUID.randomUUID().toString(), new Output());
-        addOutput(UUID.randomUUID().toString(), new Output());
-        addOutput(UUID.randomUUID().toString(), new Output());
-        addOutput(UUID.randomUUID().toString(), new Output());
+        addOutput(new Output());
+        addOutput(new Output());
+        addOutput(new Output());
+        addOutput(new Output());
         setName("EventName");
         setOnMouseClicked(event -> {
             if (event.getClickCount()==2){
@@ -34,19 +33,22 @@ public class Event extends Node {
         EventEditor editor = new EventEditor(this);
         input.setText(editor.getEventMessage());
         clearOutputs();
-        editor.getOutputs().forEach(this::addOutput);
+        editor.getOutputs().forEach((s, output) -> addOutput(output));
     }
 
     public String getInput() {
         return input.getMessage();
     }
 
-    public void addOutput(String id, Output output){
-        getOutputs().put(id, output);
+    public void addOutput(Output output){
+        getOutputs().put(output.getId(), output);
         getWorkSpace().getChildren().add(output);
     }
     public void clearOutputs(){
-        getOutputs().forEach((s, output) -> getWorkSpace().getChildren().remove(output));
+        getOutputs().forEach((s, output) -> {
+            getWorkSpace().getChildren().remove(output);
+            output.reset();
+        });
         getOutputs().clear();
     }
 }
