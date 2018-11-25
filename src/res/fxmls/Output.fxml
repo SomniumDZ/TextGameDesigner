@@ -17,14 +17,5 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
   <Label prefWidth="48.0" text="Output" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-  <AnchorPane fx:id="container" GridPane.columnIndex="1" GridPane.rowIndex="0">
-    <GridPane.margin>
-      <Insets right="-7.0" />
-    </GridPane.margin>
-  </AnchorPane>
-  <Rectangle fx:id="connector" arcHeight="5.0" arcWidth="5.0" fill="#10cc00" height="15.0" stroke="BLACK" strokeType="INSIDE" width="20.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-    <GridPane.margin>
-      <Insets right="-5.0" />
-    </GridPane.margin>
-  </Rectangle>
+  <AnchorPane fx:id="container" style="-fx-background-color: #4d8046" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 </fx:root>

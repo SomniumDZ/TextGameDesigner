@@ -28,7 +28,6 @@ import static main.Main.ew;
 public class Output extends GridPane {
     @FXML
     private AnchorPane container;
-    @FXML
     private Rectangle connector;
     // TODO: 24.11.2018 Вывести коннэктор за ноду
     private Parent parent;
@@ -63,7 +62,7 @@ public class Output extends GridPane {
         });
         getOutputMap().put(getId(), this);
 
-        connector.setOnDragDetected(event -> {
+        container.setOnDragDetected(event -> {
             dragOffsetX = event.getX();
             dragOffsetY = event.getY();
             MainController.setDraggedOut(this);
@@ -74,16 +73,17 @@ public class Output extends GridPane {
             db.setContent(content);
 
             if (curve==null) {
-                curve = spawnNewConnectionCurve(container, connector);
-                getEventRoot().getChildren().add(curve);
+                curve = spawnNewConnectionCurve(container);
+                getEventRoot().getChildren().addAll(curve, connector);
             }
 
             event.consume();
         });
     }
 
-    public CubicCurve spawnNewConnectionCurve(AnchorPane container, Rectangle connector){
+    public CubicCurve spawnNewConnectionCurve(AnchorPane container){
         CubicCurve curve = new CubicCurve();
+        this.connector = new Rectangle();
 
         controlDirectionX1.bind(new When(
                 curve.startXProperty().greaterThan(curve.endXProperty()))
@@ -151,6 +151,17 @@ public class Output extends GridPane {
                 "-fx-stroke: #7c7c7c;"
 
         );
+
+        connector.setStyle("" +
+                "-fx-arc-width: 5.0;" +
+                "-fx-arc-height: 5.0;" +
+                "-fx-fill: #10cc00;" +
+                "-fx-stroke: black;" +
+                "-fx-stroke-type: inside;"
+        );
+
+        connector.setWidth(20);
+        connector.setHeight(15);
 
 
         return curve;
