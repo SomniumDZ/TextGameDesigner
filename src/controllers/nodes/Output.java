@@ -74,6 +74,7 @@ public class Output extends GridPane {
 
             if (curve==null) {
                 curve = spawnNewConnectionCurve(container);
+                connector.setMouseTransparent(true);
                 getEventRoot().getChildren().addAll(curve, connector);
             }
 
@@ -168,8 +169,8 @@ public class Output extends GridPane {
 
     public void setConnectorPosition(double x, double y) {
         Point2D local = getEventRoot().sceneToLocal(x, y);
-        connector.setTranslateX(local.getX()-dragOffsetX);
-        connector.setTranslateY(local.getY()-dragOffsetY);
+        connector.setTranslateX(local.getX()-connector.getWidth()/2);
+        connector.setTranslateY(local.getY()-connector.getHeight()/2);
     }
 
     public Node getContacted() {
