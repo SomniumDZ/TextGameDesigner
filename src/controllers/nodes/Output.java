@@ -63,9 +63,10 @@ public class Output extends GridPane {
         getOutputMap().put(getId(), this);
 
         container.setOnDragDetected(event -> {
+            reset();
             dragOffsetX = event.getX();
             dragOffsetY = event.getY();
-            MainController.setDraggedOut(this);
+            getController().setDraggedOut(this);
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 
             ClipboardContent content = new ClipboardContent();
@@ -74,6 +75,7 @@ public class Output extends GridPane {
 
             if (curve==null) {
                 curve = spawnNewConnectionCurve(container);
+                curve.setMouseTransparent(true);
                 connector.setMouseTransparent(true);
                 getEventRoot().getChildren().addAll(curve, connector);
             }
@@ -159,6 +161,12 @@ public class Output extends GridPane {
         return curve;
     }
 
+    public void reset() {
+        getEventRoot().getChildren().removeAll(curve, connector);
+        connector = null;
+        curve = null;
+    }
+
     private AnchorPane getEventRoot() {
         return ((MainController) Main.getLoader().getController()).getEventsRoot();
     }
@@ -189,9 +197,7 @@ public class Output extends GridPane {
         return connector;
     }
 
-    public void reset() {
-        getEventRoot().getChildren().removeAll(curve, connector);
-        connector = null;
-        curve = null;
+    private MainController getController() {
+        return Main.getLoader().getController();
     }
 }

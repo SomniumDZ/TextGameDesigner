@@ -59,7 +59,7 @@ public abstract class Node extends VBox {
         titleBar.setOnDragDetected(event -> {
             dragOffsetX = event.getX();
             dragOffsetY = event.getY();
-            MainController.setDraggedNode(this);
+            getController().setDraggedNode(this);
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 
             ClipboardContent content = new ClipboardContent();

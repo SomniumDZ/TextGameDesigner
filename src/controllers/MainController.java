@@ -33,8 +33,8 @@ public class MainController {
     private MenuItem addEmptyNode;
     private MenuItem addEventNode;
     private ContextMenu eventsContextMenu;
-    private static Node draggedNode;
-    private static Output draggedOut;
+    private Node draggedNode;
+    private Output draggedOut;
 
     public MainController() {
         eventsContextMenu = new ContextMenu();
@@ -109,16 +109,20 @@ public class MainController {
         return eventsRoot;
     }
 
-    public static Node getDraggedNode() {
+    public Node getDraggedNode() {
         return draggedNode;
     }
 
-    public static void setDraggedNode(Node draggedNode) {
-        MainController.draggedNode = draggedNode;
+    public void setDraggedNode(Node draggedNode) {
+        this.draggedNode = draggedNode;
     }
 
-    public static void setDraggedOut(Output draggedOut) {
-        MainController.draggedOut = draggedOut;
+    public Output getDraggedOut() {
+        return draggedOut;
+    }
+
+    public void setDraggedOut(Output draggedOut) {
+        this.draggedOut = draggedOut;
     }
 
     public HashMap<String, Output> getNodeMap() {

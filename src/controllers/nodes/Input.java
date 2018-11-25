@@ -55,8 +55,10 @@ public class Input extends GridPane {
                         .add(layoutYProperty())
                         .add(connector.heightProperty().divide(2))
                 );
-            }
 
+                connector.setMouseTransparent(false);
+            }
+            ((MainController)Main.getLoader().getController()).setDraggedOut(null);
             event.consume();
         });
     }
