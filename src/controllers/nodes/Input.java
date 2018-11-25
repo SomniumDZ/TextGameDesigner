@@ -43,8 +43,19 @@ public class Input extends GridPane {
             container.setFill(Color.RED);
             Dragboard db = event.getDragboard();
             if (db.hasString()){
-                Rectangle connector = getOutputsMap().get(db.getString()).getConnector();
-                getOutputsMap().get(db.getString()).setContacted(this.parentNode);
+                StringBuilder nodeId = new StringBuilder();
+                StringBuilder outputId = new StringBuilder();
+                for (int i = 0; i < 36; i++) {
+                    nodeId.append(db.getString().toCharArray()[i]);
+                }
+                for (int i = 36; i < 72; i++) {
+                    outputId.append(db.getString().toCharArray()[i]);
+                }
+                System.out.println(nodeId.toString()+ " " + outputId.toString());
+                Rectangle connector = getNodesMap().get(nodeId.toString()).getOutputs().get(outputId.toString()).getConnector();
+                Node node = getNodesMap().get(nodeId.toString());
+                Output output = node.outputs.get(outputId.toString());
+                output.setContacted(this.parentNode);
                 connector.translateXProperty().bind(
                         container.translateXProperty()
                                 .add(parentNode.translateXProperty())
@@ -63,7 +74,7 @@ public class Input extends GridPane {
         });
     }
 
-    private HashMap<String, Output> getOutputsMap(){
+    private HashMap<String, Node> getNodesMap(){
         return ((MainController)Main.getLoader().getController()).getNodeMap();
     }
 }

@@ -28,7 +28,7 @@ public class MainController {
     @FXML
     public AnchorPane eventsRoot;
 
-    private HashMap<String, Output> outputs = new HashMap<>();
+    private HashMap<String, Node> nodes = new HashMap<>();
 
     private MenuItem addEmptyNode;
     private MenuItem addEventNode;
@@ -125,7 +125,7 @@ public class MainController {
         this.draggedOut = draggedOut;
     }
 
-    public HashMap<String, Output> getNodeMap() {
-        return outputs;
+    public HashMap<String, Node> getNodeMap() {
+        return nodes;
     }
 }

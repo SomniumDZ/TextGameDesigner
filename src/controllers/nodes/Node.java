@@ -33,6 +33,7 @@ public abstract class Node extends VBox {
 
     Node(double x, double y) {
         setId(UUID.randomUUID().toString());
+        getController().getNodeMap().put(getId(), this);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Node.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -78,6 +79,10 @@ public abstract class Node extends VBox {
             setTranslateY(y);
             setTranslateX(x);
         }
+    }
+
+    public HashMap<String, Output> getOutputs() {
+        return outputs;
     }
 
     public Pane getWorkSpace() {

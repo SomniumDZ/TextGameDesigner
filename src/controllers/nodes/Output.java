@@ -20,7 +20,6 @@ import javafx.scene.shape.Rectangle;
 import main.Main;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.UUID;
 
 import static main.Main.ew;
@@ -29,7 +28,7 @@ public class Output extends GridPane {
     @FXML
     private AnchorPane container;
     private Rectangle connector;
-    private Parent parent;
+    private Node parent;
     private double dragOffsetX;
     private double dragOffsetY;
     private CubicCurve curve;
@@ -57,9 +56,11 @@ public class Output extends GridPane {
     @FXML
     public void initialize(){
         parentProperty().addListener((ChangeListener<? super javafx.scene.Parent>) (observable, oldValue, newValue) -> {
-            parent = newValue;
+            parent = (Node) newValue;
+            if (!parent.getOutputs().containsKey(getId())){
+                parent.getOutputs().put(getId(), this);
+            }
         });
-        getOutputMap().put(getId(), this);
 
         container.setOnDragDetected(event -> {
             reset();
@@ -69,7 +70,7 @@ public class Output extends GridPane {
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 
             ClipboardContent content = new ClipboardContent();
-            content.putString(getId());
+            content.putString(parent.getId()+getId());
             db.setContent(content);
 
             if (curve==null) {
@@ -186,10 +187,6 @@ public class Output extends GridPane {
 
     public void setContacted(Node contacted) {
         this.contacted = contacted;
-    }
-
-    private HashMap<String, Output> getOutputMap(){
-        return ((MainController)Main.getLoader().getController()).getNodeMap();
     }
 
     public Rectangle getConnector() {
