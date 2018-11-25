@@ -29,7 +29,6 @@ public class Output extends GridPane {
     @FXML
     private AnchorPane container;
     private Rectangle connector;
-    // TODO: 24.11.2018 Вывести коннэктор за ноду
     private Parent parent;
     private double dragOffsetX;
     private double dragOffsetY;
