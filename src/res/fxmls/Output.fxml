@@ -16,6 +16,6 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
-  <Label prefWidth="48.0" text="Output" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+  <Label prefWidth="48.0" fx:id="message" text="Output" GridPane.columnIndex="0" GridPane.rowIndex="0" />
   <AnchorPane fx:id="container" style="-fx-background-color: #4d8046" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 </fx:root>

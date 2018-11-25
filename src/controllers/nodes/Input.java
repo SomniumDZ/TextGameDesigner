@@ -3,6 +3,8 @@ package controllers.nodes;
 import controllers.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
@@ -22,7 +24,11 @@ public class Input extends GridPane {
 
     private Node parentNode;
 
+    private HashMap<String, Output> connectedOutputs = new HashMap<>();
+    private ContextMenu inputMenu;
+
     public Input() {
+        inputMenu = new ContextMenu();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Input.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -37,6 +43,11 @@ public class Input extends GridPane {
     public void initialize(){
 
         parentProperty().addListener((observable, oldValue, newValue) -> parentNode = (Node) newValue);
+
+        container.setOnContextMenuRequested(event -> {
+            inputMenu.show(container, event.getScreenX(), event.getScreenY());
+            event.consume();
+        });
 
         container.setOnDragOver(event -> event.acceptTransferModes(TransferMode.ANY));
         container.setOnDragDropped(event -> {
@@ -67,7 +78,11 @@ public class Input extends GridPane {
                         .add(connector.heightProperty().divide(2))
                 );
 
-                connector.setMouseTransparent(false);
+//                connector.setMouseTransparent(false);
+                connectedOutputs.put(nodeId.toString(), output);
+                MenuItem menuItem = new MenuItem("delete link to "+node.getName());
+
+                inputMenu.getItems().add(menuItem);
             }
             ((MainController)Main.getLoader().getController()).setDraggedOut(null);
             event.consume();
@@ -76,5 +91,9 @@ public class Input extends GridPane {
 
     private HashMap<String, Node> getNodesMap(){
         return ((MainController)Main.getLoader().getController()).getNodeMap();
+    }
+
+    public HashMap<String, Output> getConnectedOutputs() {
+        return connectedOutputs;
     }
 }

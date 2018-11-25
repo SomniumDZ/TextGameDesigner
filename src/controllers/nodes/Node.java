@@ -4,6 +4,7 @@ import controllers.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -24,6 +25,8 @@ public abstract class Node extends VBox {
     private HBox titleBar;
     @FXML
     private VBox workSpace;
+    @FXML
+    private Label name;
 
     HashMap<String, Output> outputs = new HashMap<>();
 
@@ -87,5 +90,13 @@ public abstract class Node extends VBox {
 
     public Pane getWorkSpace() {
         return workSpace;
+    }
+
+    public String getName(){
+        return name.getText();
+    }
+
+    public void setName(String name){
+        this.name.setText(name);
     }
 }

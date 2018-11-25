@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -27,10 +28,11 @@ import static main.Main.ew;
 public class Output extends GridPane {
     @FXML
     private AnchorPane container;
+    @FXML
+    private Label message;
+
     private Rectangle connector;
     private Node parent;
-    private double dragOffsetX;
-    private double dragOffsetY;
     private CubicCurve curve;
     private Node contacted;
 
@@ -64,8 +66,6 @@ public class Output extends GridPane {
 
         container.setOnDragDetected(event -> {
             reset();
-            dragOffsetX = event.getX();
-            dragOffsetY = event.getY();
             getController().setDraggedOut(this);
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 

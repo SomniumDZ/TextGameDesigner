@@ -4,6 +4,6 @@
 <?import javafx.scene.layout.*?>
 <fx:root fx:id="workSpace" type="VBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <HBox fx:id="titleBar" style="-fx-background-color: lightgray;">
-    <Label text="NodeName" />
+    <Label fx:id="name" text="NodeName" />
   </HBox>
 </fx:root>

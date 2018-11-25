@@ -14,5 +14,6 @@ public class Event extends Node {
         outputs.add(output);
         getWorkSpace().getChildren().add(message);
         getWorkSpace().getChildren().add(output);
+        setName("EventName");
     }
 }
