@@ -131,18 +131,9 @@ public class Output extends GridPane {
                         .add(container.heightProperty().divide(2))
         );
 
-        curve.endXProperty().bind(
-                connector.translateXProperty()
-                        .add(parent.translateXProperty())
-                        .add(translateXProperty())
-                        .add(connector.layoutXProperty())
-        );
-        curve.endYProperty().bind(
-                connector.translateYProperty()
-                        .add(parent.translateYProperty())
-                        .add(layoutYProperty())
-                        .add(connector.layoutYProperty())
-                        .add(connector.heightProperty().divide(2))
+        curve.endXProperty().bind(connector.translateXProperty());
+        curve.endYProperty().bind(connector.translateYProperty()
+                .add(connector.heightProperty().divide(2))
         );
 
         curve.setStyle(""+
