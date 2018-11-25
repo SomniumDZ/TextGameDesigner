@@ -55,13 +55,15 @@ public class Output extends GridPane {
         }
     }
 
+    public Output(String text) {
+        this();
+        message.setText(text);
+    }
+
     @FXML
     public void initialize(){
         parentProperty().addListener((ChangeListener<? super javafx.scene.Parent>) (observable, oldValue, newValue) -> {
             parent = (Node) newValue;
-            if (!parent.getOutputs().containsKey(getId())){
-                parent.getOutputs().put(getId(), this);
-            }
         });
 
         container.setOnDragDetected(event -> {
@@ -195,5 +197,13 @@ public class Output extends GridPane {
 
     private MainController getController() {
         return Main.getLoader().getController();
+    }
+
+    public String getMessage() {
+        return message.getText();
+    }
+
+    public void setText(String text) {
+        message.setText(text);
     }
 }

@@ -16,24 +16,19 @@
           <center>
             <VBox prefHeight="200.0" prefWidth="100.0">
               <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                <VBox minWidth="372.0" prefHeight="376.0" prefWidth="372.0"
-                      HBox.hgrow="SOMETIMES">
-                  <ImageView id="" fitHeight="176.765625" fitWidth="419.0"
-                             pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                    <Image url="/res/debugBackgroundImage.jpg"/>
+                <VBox minWidth="372.0" prefHeight="376.0" prefWidth="372.0" HBox.hgrow="SOMETIMES">
+                  <ImageView id="" fitHeight="176.765625" fitWidth="419.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                    <Image url="/res/debugBackgroundImage.jpg" />
                   </ImageView>
                   <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-                    <TextArea prefWidth="200.0" wrapText="true"/>
-                    <BorderPane prefHeight="200.0" prefWidth="200.0">
+                    <TextArea fx:id="messageField" prefWidth="200.0" promptText="Event message" wrapText="true" />
+                    <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                       <center>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                          <center>
-                            <VBox prefHeight="200.0" prefWidth="100.0"/>
-                          </center>
-                          <right>
-                            <ScrollBar orientation="VERTICAL"/>
-                          </right>
-                        </BorderPane>
+                        <ScrollPane fx:id="scrollPane" prefHeight="-1.0" prefWidth="-1.0">
+                          <content>
+                            <VBox fx:id="optionsBox" prefHeight="-1.0" prefWidth="-1.0" />
+                          </content>
+                        </ScrollPane>
                       </center>
                     </BorderPane>
                   </VBox>
@@ -42,10 +37,9 @@
             </VBox>
           </center>
           <right>
-            <VBox alignment="TOP_RIGHT" disable="true" focusTraversable="false" maxWidth="250.0" prefHeight="345.0"
-                  prefWidth="134.0" spacing="5.0" style="-fx-background-color: lightgray;">
+            <VBox alignment="TOP_RIGHT" disable="true" focusTraversable="false" maxWidth="250.0" prefHeight="345.0" prefWidth="134.0" spacing="5.0" style="-fx-background-color: lightgray;" visible="true">
               <padding>
-                <Insets right="6.0"/>
+                <Insets right="6.0" />
               </padding>
             </VBox>
           </right>
@@ -61,13 +55,12 @@
                     <children>
                       <VBox minWidth="372.0" prefHeight="376.0" prefWidth="372.0" HBox.hgrow="SOMETIMES">
                         <children>
-                          <ImageView id="" fitHeight="176.765625" fitWidth="419.0" focusTraversable="false"
-                                     pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                          <ImageView id="" fitHeight="176.765625" fitWidth="419.0" focusTraversable="false" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                             <image>
-                              <Image url="/res/debugBackgroundImage.jpg"/>
+                              <Image url="/res/debugBackgroundImage.jpg" />
                             </image>
                           </ImageView>
-                          <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS"/>
+                          <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                         </children>
                       </VBox>
                     </children>
@@ -76,10 +69,9 @@
               </VBox>
             </center>
             <right>
-              <VBox alignment="TOP_RIGHT" disable="true" focusTraversable="false" maxWidth="250.0" prefHeight="345.0"
-                    prefWidth="134.0" spacing="5.0" style="-fx-background-color: lightgray;">
+              <VBox alignment="TOP_RIGHT" disable="true" focusTraversable="false" maxWidth="250.0" prefHeight="345.0" prefWidth="134.0" spacing="5.0" style="-fx-background-color: lightgray;">
                 <padding>
-                  <Insets right="6.0"/>
+                  <Insets right="6.0" />
                 </padding>
               </VBox>
             </right>

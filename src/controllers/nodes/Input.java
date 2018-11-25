@@ -4,6 +4,7 @@ import controllers.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -21,6 +22,8 @@ public class Input extends GridPane {
 
     @FXML
     private Rectangle container;
+    @FXML
+    private Label message;
 
     private Node parentNode;
 
@@ -117,5 +120,13 @@ public class Input extends GridPane {
 
     public HashMap<String, Output> getConnectedOutputs() {
         return connectedOutputs;
+    }
+
+    public String getMessage() {
+        return message.getText();
+    }
+
+    public void setText(String eventMessage) {
+        message.setText(eventMessage);
     }
 }
