@@ -1,7 +1,7 @@
 package controllers;
 
 import controllers.nodes.EmptyNode;
-import controllers.nodes.Event;
+import controllers.nodes.events.Event;
 import controllers.nodes.Node;
 import controllers.nodes.Output;
 import javafx.fxml.FXML;

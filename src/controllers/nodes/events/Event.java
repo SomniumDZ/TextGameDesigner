@@ -1,4 +1,8 @@
-package controllers.nodes;
+package controllers.nodes.events;
+
+import controllers.nodes.Input;
+import controllers.nodes.Node;
+import controllers.nodes.Output;
 
 import java.util.ArrayList;
 

@@ -34,7 +34,7 @@ public abstract class Node extends VBox {
     private double dragOffsetY;
 
 
-    Node(double x, double y) {
+    public Node(double x, double y) {
         setId(UUID.randomUUID().toString());
         getController().getNodeMap().put(getId(), this);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Node.fxml"));
