@@ -43,10 +43,21 @@ public class Input extends GridPane {
             container.setFill(Color.RED);
             Dragboard db = event.getDragboard();
             if (db.hasString()){
+                Rectangle connector = getOutputsMap().get(db.getString()).getConnector();
                 getOutputsMap().get(db.getString()).setContacted(this.parentNode);
-                getOutputsMap().get(db.getString()).getConnector().translateXProperty().bind(container.translateXProperty());
-                getOutputsMap().get(db.getString()).getConnector().translateYProperty().bind(container.translateYProperty());
+                connector.translateXProperty().bind(
+                        container.translateXProperty()
+                                .add(parentNode.translateXProperty())
+                                .add(layoutXProperty())
+                );
+                connector.translateYProperty().bind(container.translateYProperty()
+                        .add(parentNode.translateYProperty())
+                        .add(layoutYProperty())
+                        .add(connector.heightProperty().divide(2))
+                );
             }
+
+            event.consume();
         });
     }
 
