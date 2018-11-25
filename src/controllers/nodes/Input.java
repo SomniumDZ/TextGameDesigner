@@ -78,10 +78,12 @@ public class Input extends GridPane {
                         .add(connector.heightProperty().divide(2))
                 );
 
-//                connector.setMouseTransparent(false);
                 connectedOutputs.put(nodeId.toString(), output);
                 MenuItem menuItem = new MenuItem("delete link to "+node.getName());
-
+                menuItem.setOnAction(event1 -> {
+                    output.reset();
+                    connectedOutputs.remove(nodeId.toString());
+                });
                 inputMenu.getItems().add(menuItem);
             }
             ((MainController)Main.getLoader().getController()).setDraggedOut(null);
