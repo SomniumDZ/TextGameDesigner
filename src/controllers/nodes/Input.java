@@ -26,6 +26,7 @@ public class Input extends GridPane {
 
     private HashMap<String, Output> connectedOutputs = new HashMap<>();
     private ContextMenu inputMenu;
+    private MenuItem deleteAllOutputs;
 
     public Input() {
         inputMenu = new ContextMenu();
@@ -43,9 +44,20 @@ public class Input extends GridPane {
     public void initialize(){
 
         parentProperty().addListener((observable, oldValue, newValue) -> parentNode = (Node) newValue);
-
+        deleteAllOutputs = new MenuItem("delete all links");
+        deleteAllOutputs.setOnAction(event -> {
+            connectedOutputs.forEach((id,output) -> output.reset());
+            container.setFill(Color.DODGERBLUE);
+            inputMenu.getItems().clear();
+            connectedOutputs.clear();
+        });
         container.setOnContextMenuRequested(event -> {
             inputMenu.show(container, event.getScreenX(), event.getScreenY());
+            if (connectedOutputs.size()>1) {
+                if (!inputMenu.getItems().contains(deleteAllOutputs)) {
+                    inputMenu.getItems().add(deleteAllOutputs);
+                }
+            }else inputMenu.getItems().remove(deleteAllOutputs);
             event.consume();
         });
 
@@ -83,8 +95,16 @@ public class Input extends GridPane {
                 menuItem.setOnAction(event1 -> {
                     output.reset();
                     connectedOutputs.remove(nodeId.toString());
+                    inputMenu.getItems().remove(menuItem);
+                    if (connectedOutputs.isEmpty()){
+                        container.setFill(Color.DODGERBLUE);
+                    }
                 });
                 inputMenu.getItems().add(menuItem);
+                if (inputMenu.getItems().contains(deleteAllOutputs)) {
+                    inputMenu.getItems().remove(deleteAllOutputs);
+                    inputMenu.getItems().add(deleteAllOutputs);
+                }
             }
             ((MainController)Main.getLoader().getController()).setDraggedOut(null);
             event.consume();
