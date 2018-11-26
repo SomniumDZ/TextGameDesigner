@@ -56,11 +56,6 @@ public class Input extends GridPane {
         });
         container.setOnContextMenuRequested(event -> {
             inputMenu.show(container, event.getScreenX(), event.getScreenY());
-            if (connectedOutputs.size()>1) {
-                if (!inputMenu.getItems().contains(deleteAllOutputs)) {
-                    inputMenu.getItems().add(deleteAllOutputs);
-                }
-            }else inputMenu.getItems().remove(deleteAllOutputs);
             event.consume();
         });
 
@@ -93,21 +88,27 @@ public class Input extends GridPane {
                         .add(connector.heightProperty().divide(2))
                 );
 
-                connectedOutputs.put(nodeId.toString(), output);
+                connectedOutputs.put(outputId.toString(), output);
                 MenuItem menuItem = new MenuItem("delete link to "+node.getName());
                 menuItem.setOnAction(event1 -> {
                     output.reset();
-                    connectedOutputs.remove(nodeId.toString());
-                    inputMenu.getItems().remove(menuItem);
-                    if (connectedOutputs.isEmpty()){
+                    connectedOutputs.remove(outputId.toString());
+                    if (connectedOutputs.size()<1){
                         container.setFill(Color.DODGERBLUE);
                     }
+                    inputMenu.getItems().remove(menuItem);
+
                 });
                 inputMenu.getItems().add(menuItem);
                 if (inputMenu.getItems().contains(deleteAllOutputs)) {
                     inputMenu.getItems().remove(deleteAllOutputs);
                     inputMenu.getItems().add(deleteAllOutputs);
                 }
+                if (inputMenu.getItems().size()>1){
+                    if (!inputMenu.getItems().contains(deleteAllOutputs)){
+                        inputMenu.getItems().add(deleteAllOutputs);
+                    }
+                }else inputMenu.getItems().remove(deleteAllOutputs);
             }
             ((MainController)Main.getLoader().getController()).setDraggedOut(null);
             event.consume();
