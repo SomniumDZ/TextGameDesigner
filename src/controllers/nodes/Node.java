@@ -4,6 +4,7 @@ import controllers.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -31,6 +32,8 @@ public abstract class Node extends VBox {
     HashMap<String, Output> outputs = new HashMap<>();
     private Input input = new Input();
 
+    private ContextMenu contextMenu = new ContextMenu();
+
     private double dragOffsetX;
     private double dragOffsetY;
 
@@ -49,6 +52,10 @@ public abstract class Node extends VBox {
         }
 
         setTranslatePosition(x, y, false);
+
+        setOnContextMenuRequested(event -> {
+            contextMenu.show(this, event.getScreenX(), event.getScreenY());
+        });
     }
 
     private MainController getController() {
@@ -115,5 +122,9 @@ public abstract class Node extends VBox {
 
     public void setName(String name){
         this.name.setText(name);
+    }
+
+    public ContextMenu getContextMenu() {
+        return contextMenu;
     }
 }
