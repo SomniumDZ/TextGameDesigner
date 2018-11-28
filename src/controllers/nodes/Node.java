@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import main.Main;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.UUID;
 
 import static main.Main.ew;
@@ -30,8 +30,7 @@ public abstract class Node extends VBox {
     @FXML
     private Label name;
 
-    // FIXME: 28.11.2018 HashMap isn`t sorted
-    HashMap<String, Output> outputs = new HashMap<>();
+    LinkedHashMap<String, Output> outputs = new LinkedHashMap<>();
     private Input input = new Input();
 
     private ContextMenu contextMenu = new ContextMenu();
@@ -117,7 +116,7 @@ public abstract class Node extends VBox {
         });
         getOutputs().clear();
     }
-    public HashMap<String, Output> getOutputs() {
+    public LinkedHashMap<String, Output> getOutputs() {
         return outputs;
     }
 
