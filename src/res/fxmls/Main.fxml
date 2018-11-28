@@ -14,7 +14,14 @@
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab fx:id="editorTab" text="Events">
-          <AnchorPane fx:id="eventsRoot"/>
+          <BorderPane prefHeight="-1.0" prefWidth="-1.0">
+            <center>
+              <AnchorPane fx:id="eventsRoot" />
+            </center>
+            <right>
+              <VBox disable="false" focusTraversable="false" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: lightgray;" visible="true" />
+            </right>
+          </BorderPane>
         </Tab>
         <Tab text="Items">
           <BorderPane id="BorderPane" prefHeight="200.0" prefWidth="200.0">
@@ -46,7 +53,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Preview">
           <items>
-            <MenuItem  fx:id="btnRunPreview" mnemonicParsing="false" text="Run preview" />
+            <MenuItem mnemonicParsing="false" text="Run preview" fx:id="btnRunPreview" />
           </items>
         </Menu>
       </menus>
