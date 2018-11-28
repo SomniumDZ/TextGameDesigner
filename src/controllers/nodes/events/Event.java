@@ -32,7 +32,6 @@ public class Event extends Node {
         editor.getOutputs().forEach((s, output) -> addOutput(output));
     }
 
-    // TODO: 28.11.2018 divide input and message
     public String getEventMessage() {
         return getInput().getMessage();
     }
