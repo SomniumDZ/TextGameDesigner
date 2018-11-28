@@ -1,11 +1,10 @@
 package controllers;
 
 import controllers.nodes.EmptyNode;
-import controllers.nodes.events.Event;
 import controllers.nodes.Node;
 import controllers.nodes.Output;
+import controllers.nodes.events.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -13,9 +12,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import main.Preview;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -35,6 +33,7 @@ public class MainController {
     private ContextMenu eventsContextMenu;
     private Node draggedNode;
     private Output draggedOut;
+    private Node initialNode;
 
     public MainController() {
         eventsContextMenu = new ContextMenu();
@@ -51,15 +50,7 @@ public class MainController {
         AtomicReference<Double> ecmCallX = new AtomicReference<>((double) 0);
         AtomicReference<Double> ecmCallY = new AtomicReference<>((double) 0);
         btnRunPreview.setOnAction(event -> {
-            Stage preview = new Stage();
-            Scene scene = null;
-            try {
-                scene = new Scene(new Preview().getRoot(), 600, 400);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            preview.setScene(scene);
-            preview.showAndWait();
+            new Preview(initialNode);
         });
         eventsRoot.setOnContextMenuRequested(event -> {
             eventsContextMenu.show(eventsRoot, event.getScreenX(), event.getScreenY());
@@ -103,6 +94,10 @@ public class MainController {
         addEventNode.setOnAction(event -> {
             eventsRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
         });
+
+        initialNode = new Event(50,50);
+        initialNode.setName("Initial node");
+        eventsRoot.getChildren().add(initialNode);
     }
 
     public AnchorPane getEventsRoot() {
@@ -127,5 +122,9 @@ public class MainController {
 
     public HashMap<String, Node> getNodeMap() {
         return nodes;
+    }
+
+    public Node getInitialNode() {
+        return initialNode;
     }
 }

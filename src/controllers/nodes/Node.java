@@ -29,6 +29,7 @@ public abstract class Node extends VBox {
     private Label name;
 
     HashMap<String, Output> outputs = new HashMap<>();
+    private Input input = new Input();
 
     private double dragOffsetX;
     private double dragOffsetY;
@@ -57,6 +58,7 @@ public abstract class Node extends VBox {
     @FXML
     private void initialize(){
         buildNodeDrag();
+        getWorkSpace().getChildren().add(input);
     }
 
     private void buildNodeDrag() {
@@ -84,8 +86,23 @@ public abstract class Node extends VBox {
         }
     }
 
+    public void addOutput(Output output){
+        getOutputs().put(output.getId(), output);
+        getWorkSpace().getChildren().add(output);
+    }
+    public void clearOutputs(){
+        getOutputs().forEach((s, output) -> {
+            getWorkSpace().getChildren().remove(output);
+            output.reset();
+        });
+        getOutputs().clear();
+    }
     public HashMap<String, Output> getOutputs() {
         return outputs;
+    }
+
+    public Input getInput() {
+        return input;
     }
 
     public Pane getWorkSpace() {

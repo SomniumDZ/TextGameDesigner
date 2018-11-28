@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<fx:root prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" type="BorderPane">
   <center>
     <VBox prefHeight="200.0" prefWidth="100.0">
       <children>
@@ -28,7 +28,7 @@
                   <children>
                     <HBox alignment="CENTER_LEFT" maxHeight="-1.0" maxWidth="-1.0" minHeight="0.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER">
                       <children>
-                        <Label text="message" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="eventMessage" text="message" HBox.hgrow="ALWAYS" />
                       </children>
                       <padding>
                         <Insets left="10.0" />
@@ -39,7 +39,7 @@
                     </HBox>
                     <ScrollPane prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="SOMETIMES">
                       <content>
-                        <VBox prefHeight="-1.0" prefWidth="-1.0">
+                        <VBox fx:id="outputsBox" prefHeight="-1.0" prefWidth="-1.0">
                           <padding>
                             <Insets left="10.0" top="5.0" />
                           </padding>
@@ -64,4 +64,4 @@
       </children>
     </VBox>
   </center>
-</BorderPane>
+</fx:root>

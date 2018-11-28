@@ -36,7 +36,7 @@ public class EventEditor extends BorderPane {
 
     @FXML
     public void initialize(){
-        messageField.setText(item.getInput());
+        messageField.setText(item.getEventMessage());
         item.getOutputs().forEach((id, output) ->{
             OptionEditor cur = null;
             try {

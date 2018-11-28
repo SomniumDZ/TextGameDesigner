@@ -1,6 +1,7 @@
 package controllers.nodes;
 
 import controllers.MainController;
+import controllers.nodes.Output.ContactedType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
@@ -77,6 +78,14 @@ public class Input extends GridPane {
                 Node node = getNodesMap().get(nodeId.toString());
                 Output output = node.outputs.get(outputId.toString());
                 output.setContacted(this.parentNode);
+                System.out.println(parentNode.getClass().getName());
+                switch (this.parentNode.getClass().getName()){
+                    case "controllers.nodes.events.Event":
+                        output.setContactedType(ContactedType.Event);
+                        break;
+                    default:
+                        output.setContactedType(ContactedType.none);
+                }
                 connector.translateXProperty().bind(
                         container.translateXProperty()
                                 .add(parentNode.translateXProperty())

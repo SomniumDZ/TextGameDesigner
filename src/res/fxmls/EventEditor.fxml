@@ -45,7 +45,7 @@
           </right>
         </BorderPane>
       </Tab>
-      <Tab text="Preview">
+      <Tab text="main.Preview">
         <content>
           <BorderPane prefHeight="400.0" prefWidth="600.0">
             <center>

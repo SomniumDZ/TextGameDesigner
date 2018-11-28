@@ -36,6 +36,12 @@ public class Output extends GridPane {
     private CubicCurve curve;
     private Node contacted;
 
+    public enum ContactedType {
+        Event, Action, none
+    }
+
+    private ContactedType contactedType = ContactedType.none;
+
     private final DoubleProperty controlDirectionX1 = new SimpleDoubleProperty();
     private final DoubleProperty controlDirectionY1 = new SimpleDoubleProperty();
     private final DoubleProperty controlDirectionX2 = new SimpleDoubleProperty();
@@ -201,6 +207,14 @@ public class Output extends GridPane {
 
     public String getMessage() {
         return message.getText();
+    }
+
+    public ContactedType getContactedType() {
+        return contactedType;
+    }
+
+    public void setContactedType(ContactedType contactedType) {
+        this.contactedType = contactedType;
     }
 
     public void setText(String text) {
