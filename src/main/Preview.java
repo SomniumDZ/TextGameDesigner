@@ -33,7 +33,6 @@ public class Preview extends BorderPane {
             ew.throwError("FXML read error");
         }
 
-        // FIXME: 28.11.2018 load Node that MARKED initial
         loadEvent((Event) initialNode);
         show();
     }

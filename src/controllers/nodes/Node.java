@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -29,6 +30,7 @@ public abstract class Node extends VBox {
     @FXML
     private Label name;
 
+    // FIXME: 28.11.2018 HashMap isn`t sorted
     HashMap<String, Output> outputs = new HashMap<>();
     private Input input = new Input();
 
@@ -55,6 +57,7 @@ public abstract class Node extends VBox {
 
         setOnContextMenuRequested(event -> {
             contextMenu.show(this, event.getScreenX(), event.getScreenY());
+            event.consume();
         });
     }
 
@@ -66,6 +69,16 @@ public abstract class Node extends VBox {
     private void initialize(){
         buildNodeDrag();
         getWorkSpace().getChildren().add(input);
+        MenuItem markInitial = new MenuItem("Mark as initial");
+        markInitial.setOnAction(event -> {
+            getController().setInitialNode(this);
+            titleBar.setStyle("-fx-background-color: #985d5a");
+            getController().getNodeMap().forEach((id, node) -> {
+                node.getTitleBar().setStyle("-fx-background-color: lightgray");
+            });
+            event.consume();
+        });
+        contextMenu.getItems().add(markInitial);
     }
 
     private void buildNodeDrag() {
@@ -118,6 +131,10 @@ public abstract class Node extends VBox {
 
     public String getName(){
         return name.getText();
+    }
+
+    public HBox getTitleBar() {
+        return titleBar;
     }
 
     public void setName(String name){

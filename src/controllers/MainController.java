@@ -96,7 +96,6 @@ public class MainController {
         });
 
         initialNode = new Event(50,50);
-        initialNode.setName("Initial node");
         eventsRoot.getChildren().add(initialNode);
     }
 
@@ -126,5 +125,9 @@ public class MainController {
 
     public Node getInitialNode() {
         return initialNode;
+    }
+
+    public void setInitialNode(Node node) {
+        initialNode = node;
     }
 }
