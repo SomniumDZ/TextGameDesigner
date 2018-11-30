@@ -176,7 +176,7 @@ public class Output extends GridPane {
     }
 
     private AnchorPane getEventRoot() {
-        return ((MainController) Main.getLoader().getController()).getEventsRoot();
+        return ((MainController) Main.getLoader().getController()).getSequenceEditorRoot();
     }
 
     public Parent getParentNode(){

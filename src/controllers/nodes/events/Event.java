@@ -14,18 +14,10 @@ public class Event extends Node {
         addOutput(new Output());
         addOutput(new Output());
         setName("EventName");
-        setOnMouseClicked(event -> {
-            if (event.getClickCount()==2){
-                try {
-                    edit();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+
     }
 
-    private void edit() throws IOException {
+    public void edit() throws IOException {
         EventEditor editor = new EventEditor(this);
         getInput().setText(editor.getEventMessage());
         clearOutputs();

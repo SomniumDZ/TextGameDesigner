@@ -16,10 +16,10 @@
         <Tab fx:id="editorTab" text="Events&amp;Actions">
           <BorderPane>
             <center>
-              <AnchorPane fx:id="editorRoot"/>
+              <AnchorPane fx:id="sequenceEditorRoot"/>
             </center>
             <right>
-              <VBox fx:id="editorTools" style="-fx-background-color: lightgray;"/>
+              <VBox fx:id="sequenceEditorTools" style="-fx-background-color: lightgray;"/>
             </right>
           </BorderPane>
         </Tab>

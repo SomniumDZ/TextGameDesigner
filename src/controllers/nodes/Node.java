@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -78,7 +79,24 @@ public abstract class Node extends VBox {
             event.consume();
         });
         contextMenu.getItems().add(markInitial);
+
+        setOnMouseClicked(event -> {
+            if (event.getClickCount()>=2){
+                try {
+                    edit();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    ew.throwError("Editor error");
+                }
+            }else {
+                if (event.getButton()!= MouseButton.SECONDARY) {
+                    getController().setChosenNode(this);
+                }
+            }
+        });
     }
+
+    public abstract void edit() throws IOException;
 
     private void buildNodeDrag() {
         titleBar.setOnDragDetected(event -> {
@@ -96,7 +114,7 @@ public abstract class Node extends VBox {
 
     public void setTranslatePosition(double x, double y, boolean toLocal){
         if (toLocal) {
-            Point2D local = ((MainController)Main.getLoader().getController()).getEventsRoot().sceneToLocal(x, y);
+            Point2D local = ((MainController)Main.getLoader().getController()).getSequenceEditorRoot().sceneToLocal(x, y);
             setTranslateX(local.getX()-dragOffsetX);
             setTranslateY(local.getY()-dragOffsetY);
         }else {

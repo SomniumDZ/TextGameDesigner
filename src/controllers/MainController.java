@@ -5,14 +5,13 @@ import controllers.nodes.Node;
 import controllers.nodes.Output;
 import controllers.nodes.events.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
+import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import main.Preview;
 
 import java.util.HashMap;
@@ -25,11 +24,14 @@ public class MainController {
     public Tab editorTab;
 
     @FXML
-    public AnchorPane editorRoot;
+    public AnchorPane sequenceEditorRoot;
     @FXML
-    public VBox editorTools;
+    public VBox sequenceEditorTools;
 
     private HashMap<String, Node> nodes = new HashMap<>();
+
+    private Node chosenNode;
+    private TitledPane eventToolPane = new TitledPane();
 
     private MenuItem addEmptyNode;
     private MenuItem addEventNode;
@@ -55,19 +57,21 @@ public class MainController {
         btnRunPreview.setOnAction(event -> {
             new Preview(initialNode);
         });
-        editorRoot.setOnContextMenuRequested(event -> {
-            eventsContextMenu.show(editorRoot, event.getScreenX(), event.getScreenY());
+        sequenceEditorRoot.setOnContextMenuRequested(event -> {
+            eventsContextMenu.show(sequenceEditorRoot, event.getScreenX(), event.getScreenY());
             ecmCallX.set(event.getX());
             ecmCallY.set(event.getY());
         });
 
-        editorRoot.setOnMouseClicked(event -> {
+        sequenceEditorRoot.setOnMouseClicked(event -> {
+            chosenNode = null;
+            nodes.forEach((s, node) -> node.setEffect(null));
             if (eventsContextMenu.isShowing()){
                 eventsContextMenu.hide();
             }
         });
 
-        editorRoot.setOnDragOver(event -> {
+        sequenceEditorRoot.setOnDragOver(event -> {
             event.acceptTransferModes(TransferMode.ANY);
             if (draggedNode !=null) {
                 draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
@@ -78,7 +82,7 @@ public class MainController {
             event.consume();
         });
 
-        editorRoot.setOnDragDropped(event -> {
+        sequenceEditorRoot.setOnDragDropped(event -> {
             event.acceptTransferModes(TransferMode.ANY);
             draggedNode = null;
             if (draggedOut!=null) {
@@ -92,18 +96,20 @@ public class MainController {
         });
 
         addEmptyNode.setOnAction(event -> {
-            editorRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
+            sequenceEditorRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
         });
         addEventNode.setOnAction(event -> {
-            editorRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
+            sequenceEditorRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
         });
 
         initialNode = new Event(50,50);
-        editorRoot.getChildren().add(initialNode);
+        sequenceEditorRoot.getChildren().add(initialNode);
+
+
     }
 
-    public AnchorPane getEventsRoot() {
-        return editorRoot;
+    public AnchorPane getSequenceEditorRoot() {
+        return sequenceEditorRoot;
     }
 
     public Node getDraggedNode() {
@@ -132,5 +138,14 @@ public class MainController {
 
     public void setInitialNode(Node node) {
         initialNode = node;
+    }
+
+    public void setChosenNode(Node node) {
+        chosenNode = node;
+        nodes.forEach((s, node1) -> node1.setEffect(null));
+        if (chosenNode != null) {
+            DropShadow effect = new DropShadow(15, Color.DARKORANGE);
+            chosenNode.setEffect(effect);
+        }
     }
 }
