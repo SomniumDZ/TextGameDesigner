@@ -13,13 +13,13 @@
   <center>
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
-        <Tab fx:id="editorTab" text="Events">
-          <BorderPane prefHeight="-1.0" prefWidth="-1.0">
+        <Tab fx:id="editorTab" text="Events&amp;Actions">
+          <BorderPane>
             <center>
-              <AnchorPane fx:id="eventsRoot" />
+              <AnchorPane fx:id="editorRoot"/>
             </center>
             <right>
-              <VBox disable="false" focusTraversable="false" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: lightgray;" visible="true" />
+              <VBox fx:id="editorTools" style="-fx-background-color: lightgray;"/>
             </right>
           </BorderPane>
         </Tab>

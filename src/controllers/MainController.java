@@ -12,6 +12,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import main.Preview;
 
 import java.util.HashMap;
@@ -24,7 +25,9 @@ public class MainController {
     public Tab editorTab;
 
     @FXML
-    public AnchorPane eventsRoot;
+    public AnchorPane editorRoot;
+    @FXML
+    public VBox editorTools;
 
     private HashMap<String, Node> nodes = new HashMap<>();
 
@@ -52,19 +55,19 @@ public class MainController {
         btnRunPreview.setOnAction(event -> {
             new Preview(initialNode);
         });
-        eventsRoot.setOnContextMenuRequested(event -> {
-            eventsContextMenu.show(eventsRoot, event.getScreenX(), event.getScreenY());
+        editorRoot.setOnContextMenuRequested(event -> {
+            eventsContextMenu.show(editorRoot, event.getScreenX(), event.getScreenY());
             ecmCallX.set(event.getX());
             ecmCallY.set(event.getY());
         });
 
-        eventsRoot.setOnMouseClicked(event -> {
+        editorRoot.setOnMouseClicked(event -> {
             if (eventsContextMenu.isShowing()){
                 eventsContextMenu.hide();
             }
         });
 
-        eventsRoot.setOnDragOver(event -> {
+        editorRoot.setOnDragOver(event -> {
             event.acceptTransferModes(TransferMode.ANY);
             if (draggedNode !=null) {
                 draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
@@ -75,7 +78,7 @@ public class MainController {
             event.consume();
         });
 
-        eventsRoot.setOnDragDropped(event -> {
+        editorRoot.setOnDragDropped(event -> {
             event.acceptTransferModes(TransferMode.ANY);
             draggedNode = null;
             if (draggedOut!=null) {
@@ -89,18 +92,18 @@ public class MainController {
         });
 
         addEmptyNode.setOnAction(event -> {
-            eventsRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
+            editorRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
         });
         addEventNode.setOnAction(event -> {
-            eventsRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
+            editorRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
         });
 
         initialNode = new Event(50,50);
-        eventsRoot.getChildren().add(initialNode);
+        editorRoot.getChildren().add(initialNode);
     }
 
     public AnchorPane getEventsRoot() {
-        return eventsRoot;
+        return editorRoot;
     }
 
     public Node getDraggedNode() {
