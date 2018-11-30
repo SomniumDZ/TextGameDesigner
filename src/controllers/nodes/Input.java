@@ -79,8 +79,8 @@ public class Input extends GridPane {
                 Output output = node.outputs.get(outputId.toString());
                 output.setContacted(this.parentNode);
                 System.out.println(parentNode.getClass().getName());
-                switch (this.parentNode.getClass().getName()){
-                    case "controllers.nodes.events.Event":
+                switch (this.parentNode.getClass().getSimpleName()){
+                    case "Event":
                         output.setContactedType(ContactedType.Event);
                         break;
                     default:

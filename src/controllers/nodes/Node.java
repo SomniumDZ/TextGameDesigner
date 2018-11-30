@@ -91,6 +91,7 @@ public abstract class Node extends VBox {
             }else {
                 if (event.getButton()!= MouseButton.SECONDARY) {
                     getController().setChosenNode(this);
+                    event.consume();
                 }
             }
         });

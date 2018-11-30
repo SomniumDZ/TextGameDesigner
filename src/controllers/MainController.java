@@ -31,7 +31,7 @@ public class MainController {
     private HashMap<String, Node> nodes = new HashMap<>();
 
     private Node chosenNode;
-    private TitledPane eventToolPane = new TitledPane();
+    private VBox eventToolBox = new VBox();
 
     private MenuItem addEmptyNode;
     private MenuItem addEventNode;
@@ -108,6 +108,27 @@ public class MainController {
 
     }
 
+    public void setChosenNode(Node node) {
+        chosenNode = node;
+        nodes.forEach((s, node1) -> node1.setEffect(null));
+        if (chosenNode != null) {
+            DropShadow effect = new DropShadow(15, Color.DARKORANGE);
+            chosenNode.setEffect(effect);
+        }
+        if (chosenNode != null) {
+            switch (chosenNode.getClass().getSimpleName()){
+                case "Event":
+                    showEventTools();
+            }
+        }
+
+    }
+
+    private void showEventTools(){
+        TitledPane root = new TitledPane("Event", eventToolBox);
+        sequenceEditorTools.getChildren().add(root);
+    }
+
     public AnchorPane getSequenceEditorRoot() {
         return sequenceEditorRoot;
     }
@@ -138,14 +159,5 @@ public class MainController {
 
     public void setInitialNode(Node node) {
         initialNode = node;
-    }
-
-    public void setChosenNode(Node node) {
-        chosenNode = node;
-        nodes.forEach((s, node1) -> node1.setEffect(null));
-        if (chosenNode != null) {
-            DropShadow effect = new DropShadow(15, Color.DARKORANGE);
-            chosenNode.setEffect(effect);
-        }
     }
 }
