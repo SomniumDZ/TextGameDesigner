@@ -16,10 +16,10 @@
         <Tab fx:id="editorTab" text="Events&amp;Actions">
           <BorderPane>
             <center>
-              <AnchorPane fx:id="sequenceEditorRoot"/>
+              <AnchorPane fx:id="sequenceEditorRoot" />
             </center>
             <right>
-              <VBox fx:id="sequenceEditorTools" style="-fx-background-color: lightgray;"/>
+              <VBox fx:id="sequenceEditorTools" style="-fx-background-color: lightgray;" />
             </right>
           </BorderPane>
         </Tab>
@@ -38,7 +38,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">

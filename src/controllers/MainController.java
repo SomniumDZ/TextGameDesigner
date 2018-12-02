@@ -12,10 +12,22 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import main.Preview;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static main.Main.ew;
 
 public class MainController {
     @FXML
@@ -27,6 +39,8 @@ public class MainController {
     public AnchorPane sequenceEditorRoot;
     @FXML
     public VBox sequenceEditorTools;
+    @FXML
+    public MenuItem save;
 
     private HashMap<String, Node> nodes = new HashMap<>();
 
@@ -35,17 +49,19 @@ public class MainController {
 
     private MenuItem addEmptyNode;
     private MenuItem addEventNode;
-    private ContextMenu eventsContextMenu;
+    private ContextMenu sequenceRootContextMenu;
     private Node draggedNode;
     private Output draggedOut;
     private Node initialNode;
 
+    private final FileChooser saveDirChooser = new FileChooser();
+
     public MainController() {
-        eventsContextMenu = new ContextMenu();
+        sequenceRootContextMenu = new ContextMenu();
         Menu addEvent = new Menu("Add event...");
         addEmptyNode = new MenuItem("Empty node");
         addEventNode = new MenuItem("Event");
-        eventsContextMenu.getItems().add(addEvent);
+        sequenceRootContextMenu.getItems().add(addEvent);
         addEvent.getItems().addAll(addEmptyNode,addEventNode);
     }
 
@@ -58,7 +74,7 @@ public class MainController {
             new Preview(initialNode);
         });
         sequenceEditorRoot.setOnContextMenuRequested(event -> {
-            eventsContextMenu.show(sequenceEditorRoot, event.getScreenX(), event.getScreenY());
+            sequenceRootContextMenu.show(sequenceEditorRoot, event.getScreenX(), event.getScreenY());
             ecmCallX.set(event.getX());
             ecmCallY.set(event.getY());
         });
@@ -66,8 +82,8 @@ public class MainController {
         sequenceEditorRoot.setOnMouseClicked(event -> {
             chosenNode = null;
             nodes.forEach((s, node) -> node.setEffect(null));
-            if (eventsContextMenu.isShowing()){
-                eventsContextMenu.hide();
+            if (sequenceRootContextMenu.isShowing()){
+                sequenceRootContextMenu.hide();
             }
         });
 
@@ -104,8 +120,73 @@ public class MainController {
 
         initialNode = new Event(50,50);
         sequenceEditorRoot.getChildren().add(initialNode);
+        nodes.put(initialNode.getId(), initialNode);
 
+//        Saving
+        save.setOnAction(event -> {
+            Stage stage = new Stage();
+            String path;
 
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            Document saveDocument = null;
+            try {
+                saveDocument = factory.newDocumentBuilder().newDocument();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+                ew.throwError("Save error");
+            }
+            assert saveDocument != null;
+            Element root = saveDocument.createElement("Nodes");
+            saveDocument.appendChild(root);
+            Element events = saveDocument.createElement("events");
+            root.appendChild(events);
+
+            Document finalSaveDocument = saveDocument;
+            nodes.forEach((nid, node) -> {
+                switch (node.getClass().getSimpleName()){
+                   case "Event":
+                       Element eventElement = finalSaveDocument.createElement("event");
+                       eventElement.setAttribute("id", nid);
+                       eventElement.setAttribute("title", node.getName());
+                       eventElement.setAttribute("message", node.getInput().getMessage());
+                       eventElement.setAttribute("x", String.valueOf(node.getTranslateX()));
+                       eventElement.setAttribute("y", String.valueOf(node.getTranslateY()));
+                       node.getOutputs().forEach((oid, output) -> {
+                           Element outputElement = finalSaveDocument.createElement("output");
+                           outputElement.setAttribute("id", oid);
+                           if (output.getContacted() != null) {
+                               outputElement.setAttribute("contacted", output.getContacted().getId());
+                           }
+                           outputElement.setAttribute("message", output.getMessage());
+                           events.appendChild(outputElement);
+                       });
+                       root.appendChild(eventElement);
+                       break;
+               }
+            });
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                    "Text Game Designer save file (*.tgd)", "*.tgd");
+            saveDirChooser.getExtensionFilters().add(extFilter);
+
+            Transformer transformer = null;
+            try {
+                transformer = TransformerFactory.newInstance().newTransformer();
+            } catch (TransformerConfigurationException e) {
+                e.printStackTrace();
+                ew.throwError("Save error");
+            }
+            assert transformer != null;
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            try {
+                File file = saveDirChooser.showSaveDialog(stage);
+                transformer.transform(new DOMSource(finalSaveDocument), new StreamResult(file));
+            } catch (TransformerException e) {
+                e.printStackTrace();
+                ew.throwError("Save error");
+            }
+        });
+        sequenceRootContextMenu.getItems().add(save);
     }
 
     public void setChosenNode(Node node) {
