@@ -1,7 +1,6 @@
 package controllers;
 
-import com.sun.deploy.xml.XMLNode;
-import com.sun.deploy.xml.XMLParser;
+import com.somnium.handler.XMLHandler;
 import controllers.nodes.EmptyNode;
 import controllers.nodes.Node;
 import controllers.nodes.Output;
@@ -24,10 +23,13 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -60,7 +62,7 @@ public class MainController {
     private Output draggedOut;
     private Node initialNode;
 
-    private final FileChooser saveDirChooser = new FileChooser();
+    private final FileChooser saveFileChooser = new FileChooser();
 
 
     public MainController() {
@@ -129,6 +131,10 @@ public class MainController {
         sequenceEditorRoot.getChildren().add(initialNode);
         nodes.put(initialNode.getId(), initialNode);
 
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                "Text Game Designer save file (*.tgd)", "*.tgd");
+        saveFileChooser.getExtensionFilters().add(extFilter);
+
 //        Saving
         save.setOnAction(event -> {
             Stage stage = new Stage();
@@ -172,10 +178,6 @@ public class MainController {
                }
             });
 
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                    "Text Game Designer save file (*.tgd)", "*.tgd");
-            saveDirChooser.getExtensionFilters().add(extFilter);
-
             Transformer transformer = null;
             try {
                 transformer = TransformerFactory.newInstance().newTransformer();
@@ -186,7 +188,7 @@ public class MainController {
             assert transformer != null;
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             try {
-                File file = saveDirChooser.showSaveDialog(stage);
+                File file = saveFileChooser.showSaveDialog(stage);
                 transformer.transform(new DOMSource(finalSaveDocument), new StreamResult(file));
             } catch (TransformerException e) {
                 e.printStackTrace();
@@ -198,9 +200,21 @@ public class MainController {
         open.setOnAction(event -> {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            File opened = saveDirChooser.showOpenDialog(stage);
+            File opened = saveFileChooser.showOpenDialog(stage);
 
+            if (opened == null) return;
 
+            XMLHandler handler;
+
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            try {
+                handler = new XMLHandler();
+                SAXParser parser = factory.newSAXParser();
+                parser.parse(opened, handler);
+            } catch (ParserConfigurationException | SAXException | IOException e) {
+                e.printStackTrace();
+                ew.throwError("Save parsing error");
+            }
         });
 
 
