@@ -1,5 +1,7 @@
 package controllers;
 
+import com.sun.deploy.xml.XMLNode;
+import com.sun.deploy.xml.XMLParser;
 import controllers.nodes.EmptyNode;
 import controllers.nodes.Node;
 import controllers.nodes.Output;
@@ -13,10 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Preview;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -41,6 +45,8 @@ public class MainController {
     public VBox sequenceEditorTools;
     @FXML
     public MenuItem save;
+    @FXML
+    private MenuItem open;
 
     private HashMap<String, Node> nodes = new HashMap<>();
 
@@ -55,6 +61,7 @@ public class MainController {
     private Node initialNode;
 
     private final FileChooser saveDirChooser = new FileChooser();
+
 
     public MainController() {
         sequenceRootContextMenu = new ContextMenu();
@@ -186,6 +193,18 @@ public class MainController {
                 ew.throwError("Save error");
             }
         });
+
+//        Opening
+        open.setOnAction(event -> {
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            File opened = saveDirChooser.showOpenDialog(stage);
+
+
+        });
+
+
+        sequenceRootContextMenu.getItems().add(open);
         sequenceRootContextMenu.getItems().add(save);
     }
 
