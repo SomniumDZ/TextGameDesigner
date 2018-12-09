@@ -13,6 +13,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.CubicCurve;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -138,7 +139,6 @@ public class MainController {
 //        Saving
         save.setOnAction(event -> {
             Stage stage = new Stage();
-            String path;
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             Document saveDocument = null;
@@ -171,9 +171,9 @@ public class MainController {
                                outputElement.setAttribute("contacted", output.getContacted().getId());
                            }
                            outputElement.setAttribute("message", output.getMessage());
-                           events.appendChild(outputElement);
+                           eventElement.appendChild(outputElement);
                        });
-                       root.appendChild(eventElement);
+                       events.appendChild(eventElement);
                        break;
                }
             });
@@ -189,6 +189,7 @@ public class MainController {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             try {
                 File file = saveFileChooser.showSaveDialog(stage);
+                if (file == null) return;
                 transformer.transform(new DOMSource(finalSaveDocument), new StreamResult(file));
             } catch (TransformerException e) {
                 e.printStackTrace();
@@ -214,7 +215,10 @@ public class MainController {
             } catch (ParserConfigurationException | SAXException | IOException e) {
                 e.printStackTrace();
                 ew.throwError("Save parsing error");
+                return;
             }
+
+            parseSaveFile(handler.getRoot());
         });
 
 
@@ -222,14 +226,66 @@ public class MainController {
         sequenceRootContextMenu.getItems().add(save);
     }
 
+    private void parseSaveFile(com.somnium.handler.Element root) {
+        HashMap<String, Node> reserve = new HashMap<>(getNodeMap());
+        getNodeMap().clear();
+
+        root.getChildElements().forEach(element -> {
+            switch (element.getName()){
+                case "events":
+                    element.getChildElements().forEach(event ->{
+                        Event current = new Event(
+                                Double.parseDouble(event.getAttribute("x")),
+                                Double.parseDouble(event.getAttribute("y")),
+                                event.getAttributes().get("id")
+                        );
+                        current.setName(event.getAttribute("title"));
+                        event.getChildElements().forEach(output -> {
+                            current.addOutput(new Output(
+                                    output.getAttribute("id"),
+                                    output.getAttribute("message")
+                            ));
+                        });
+                    });
+                    element.getChildElements().forEach(event ->{
+                        event.getChildElements().forEach(output ->{
+                            if (output.containsAttribute("contacted")){
+                                Output out = getNodeMap().get(event.getAttribute("id")).getOutputs()
+                                        .get(output.getAttribute("id"));
+                                CubicCurve curve = out.spawnNewConnectionCurve(out.getContainer());
+                                curve.setMouseTransparent(true);
+                                out.getConnector().setMouseTransparent(true);
+                                getSequenceEditorRoot().getChildren().addAll(curve, out.getConnector());
+                                getNodeMap().get(output.getAttribute("contacted")).getInput().connect(
+                                        event.getAttribute("id"),
+                                        output.getAttribute("id")
+                                );
+                            }
+                        });
+                    });
+                    break;
+            }
+        });
+
+
+
+        redrawNodes();
+    }
+
+    void redrawNodes(){
+        sequenceEditorRoot.getChildren().clear();
+        getNodeMap().forEach((s, node) -> {
+            sequenceEditorRoot.getChildren().add(node);
+        });
+    }
+
     public void setChosenNode(Node node) {
         chosenNode = node;
         nodes.forEach((s, node1) -> node1.setEffect(null));
         if (chosenNode != null) {
+            sequenceEditorTools.getChildren().clear();
             DropShadow effect = new DropShadow(15, Color.DARKORANGE);
             chosenNode.setEffect(effect);
-        }
-        if (chosenNode != null) {
             switch (chosenNode.getClass().getSimpleName()){
                 case "Event":
                     showEventTools();
@@ -273,5 +329,9 @@ public class MainController {
 
     public void setInitialNode(Node node) {
         initialNode = node;
+    }
+
+    public Node getChosenNode() {
+        return chosenNode;
     }
 }

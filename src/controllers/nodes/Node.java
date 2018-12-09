@@ -40,9 +40,9 @@ public abstract class Node extends VBox {
     private double dragOffsetY;
 
 
-    public Node(double x, double y) {
-        setId(UUID.randomUUID().toString());
-        getController().getNodeMap().put(getId(), this);
+    public Node(double x, double y, String id) {
+        getController().getNodeMap().put(id, this);
+        setId(id);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Node.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -59,6 +59,10 @@ public abstract class Node extends VBox {
             contextMenu.show(this, event.getScreenX(), event.getScreenY());
             event.consume();
         });
+    }
+
+    public Node(Double x, Double y) {
+        this(x, y, UUID.randomUUID().toString());
     }
 
     private MainController getController() {
@@ -90,7 +94,9 @@ public abstract class Node extends VBox {
                 }
             }else {
                 if (event.getButton()!= MouseButton.SECONDARY) {
-                    getController().setChosenNode(this);
+                    if (getController().getChosenNode() != this) {
+                        getController().setChosenNode(this);
+                    }
                     event.consume();
                 }
             }

@@ -7,6 +7,10 @@ import java.io.IOException;
 
 public class Event extends Node {
 
+    public Event(double x, double y, String id) {
+        super(x, y, id);
+    }
+
     public Event(double x, double y) {
         super(x, y);
         addOutput(new Output());
@@ -14,7 +18,6 @@ public class Event extends Node {
         addOutput(new Output());
         addOutput(new Output());
         setName("EventName");
-
     }
 
     public void edit() throws IOException {

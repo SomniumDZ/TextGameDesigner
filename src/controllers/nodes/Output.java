@@ -36,6 +36,10 @@ public class Output extends GridPane {
     private CubicCurve curve;
     private Node contacted;
 
+    public Output() {
+        this("Output");
+    }
+
     public enum ContactedType {
         Event, Action, none
     }
@@ -48,22 +52,22 @@ public class Output extends GridPane {
     private final DoubleProperty controlDirectionY2 = new SimpleDoubleProperty();
 
 
-    public Output() {
-        setId(UUID.randomUUID().toString());
+    public Output(String id, String message) {
+        setId(id);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Output.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
+            this.message.setText(message);
         } catch (IOException e) {
             e.printStackTrace();
             ew.throwError("FXML read error");
         }
     }
 
-    public Output(String text) {
-        this();
-        message.setText(text);
+    public Output(String message) {
+        this(UUID.randomUUID().toString(), message);
     }
 
     @FXML
@@ -83,8 +87,6 @@ public class Output extends GridPane {
 
             if (curve==null) {
                 curve = spawnNewConnectionCurve(container);
-                curve.setMouseTransparent(true);
-                connector.setMouseTransparent(true);
                 getEventRoot().getChildren().addAll(curve, connector);
             }
 
@@ -165,6 +167,8 @@ public class Output extends GridPane {
         connector.setWidth(20);
         connector.setHeight(15);
 
+        curve.setMouseTransparent(true);
+        connector.setMouseTransparent(true);
 
         return curve;
     }
@@ -199,6 +203,10 @@ public class Output extends GridPane {
 
     public Rectangle getConnector() {
         return connector;
+    }
+
+    public AnchorPane getContainer() {
+        return container;
     }
 
     private MainController getController() {

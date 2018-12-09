@@ -1,7 +1,6 @@
 package controllers.nodes;
 
 import controllers.MainController;
-import controllers.nodes.Output.ContactedType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
@@ -45,6 +44,7 @@ public class Input extends GridPane {
         }
     }
 
+    @FXML
     public void initialize(){
 
         parentProperty().addListener((observable, oldValue, newValue) -> parentNode = (Node) newValue);
@@ -62,7 +62,6 @@ public class Input extends GridPane {
 
         container.setOnDragOver(event -> event.acceptTransferModes(TransferMode.ANY));
         container.setOnDragDropped(event -> {
-            container.setFill(Color.RED);
             Dragboard db = event.getDragboard();
             if (db.hasString()){
                 StringBuilder nodeId = new StringBuilder();
@@ -73,55 +72,60 @@ public class Input extends GridPane {
                 for (int i = 36; i < 72; i++) {
                     outputId.append(db.getString().toCharArray()[i]);
                 }
-                System.out.println(nodeId.toString()+ " " + outputId.toString());
-                Rectangle connector = getNodesMap().get(nodeId.toString()).getOutputs().get(outputId.toString()).getConnector();
-                Node node = getNodesMap().get(nodeId.toString());
-                Output output = node.outputs.get(outputId.toString());
-                output.setContacted(this.parentNode);
-                System.out.println(parentNode.getClass().getName());
-                switch (this.parentNode.getClass().getSimpleName()){
-                    case "Event":
-                        output.setContactedType(ContactedType.Event);
-                        break;
-                    default:
-                        output.setContactedType(ContactedType.none);
-                }
-                connector.translateXProperty().bind(
-                        container.translateXProperty()
-                                .add(parentNode.translateXProperty())
-                                .add(layoutXProperty())
-                );
-                connector.translateYProperty().bind(container.translateYProperty()
-                        .add(parentNode.translateYProperty())
-                        .add(layoutYProperty())
-                        .add(connector.heightProperty().divide(2))
-                );
-
-                connectedOutputs.put(outputId.toString(), output);
-                MenuItem menuItem = new MenuItem("delete link to "+node.getName());
-                menuItem.setOnAction(event1 -> {
-                    output.reset();
-                    connectedOutputs.remove(outputId.toString());
-                    if (connectedOutputs.size()<1){
-                        container.setFill(Color.DODGERBLUE);
-                    }
-                    inputMenu.getItems().remove(menuItem);
-
-                });
-                inputMenu.getItems().add(menuItem);
-                if (inputMenu.getItems().contains(deleteAllOutputs)) {
-                    inputMenu.getItems().remove(deleteAllOutputs);
-                    inputMenu.getItems().add(deleteAllOutputs);
-                }
-                if (inputMenu.getItems().size()>1){
-                    if (!inputMenu.getItems().contains(deleteAllOutputs)){
-                        inputMenu.getItems().add(deleteAllOutputs);
-                    }
-                }else inputMenu.getItems().remove(deleteAllOutputs);
+                connect(nodeId.toString(), outputId.toString());
             }
             ((MainController)Main.getLoader().getController()).setDraggedOut(null);
             event.consume();
         });
+    }
+
+    public void connect(String  nodeId, String  outputId){
+        container.setFill(Color.RED);
+        System.out.println(nodeId + " " + outputId);
+        Rectangle connector = getNodesMap().get(nodeId).getOutputs().get(outputId).getConnector();
+        Node node = getNodesMap().get(nodeId);
+        Output output = node.outputs.get(outputId);
+        output.setContacted(this.parentNode);
+        System.out.println(parentNode.getClass().getName());
+        switch (this.parentNode.getClass().getSimpleName()){
+            case "Event":
+                output.setContactedType(Output.ContactedType.Event);
+                break;
+            default:
+                output.setContactedType(Output.ContactedType.none);
+        }
+        connector.translateXProperty().bind(
+                container.translateXProperty()
+                        .add(parentNode.translateXProperty())
+                        .add(layoutXProperty())
+        );
+        connector.translateYProperty().bind(container.translateYProperty()
+                .add(parentNode.translateYProperty())
+                .add(layoutYProperty())
+                .add(connector.heightProperty().divide(2))
+        );
+
+        connectedOutputs.put(outputId, output);
+        MenuItem menuItem = new MenuItem("delete link to "+node.getName());
+        menuItem.setOnAction(event1 -> {
+            output.reset();
+            connectedOutputs.remove(outputId);
+            if (connectedOutputs.size()<1){
+                container.setFill(Color.DODGERBLUE);
+            }
+            inputMenu.getItems().remove(menuItem);
+
+        });
+        inputMenu.getItems().add(menuItem);
+        if (inputMenu.getItems().contains(deleteAllOutputs)) {
+            inputMenu.getItems().remove(deleteAllOutputs);
+            inputMenu.getItems().add(deleteAllOutputs);
+        }
+        if (inputMenu.getItems().size()>1){
+            if (!inputMenu.getItems().contains(deleteAllOutputs)){
+                inputMenu.getItems().add(deleteAllOutputs);
+            }
+        }else inputMenu.getItems().remove(deleteAllOutputs);
     }
 
     private HashMap<String, Node> getNodesMap(){
