@@ -2,6 +2,12 @@ package controllers.nodes.events;
 
 import controllers.nodes.Node;
 import controllers.nodes.Output;
+import javafx.geometry.Orientation;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -17,7 +23,7 @@ public class Event extends Node {
         addOutput(new Output());
         addOutput(new Output());
         addOutput(new Output());
-        setName("EventName");
+        setTitle("EventName");
     }
 
     public void edit() throws IOException {
@@ -25,6 +31,28 @@ public class Event extends Node {
         getInput().setText(editor.getEventMessage());
         clearOutputs();
         editor.getOutputs().forEach((s, output) -> addOutput(output));
+    }
+
+    @Override
+    public VBox getTools() {
+        VBox toolBox = new VBox(5);
+        Label titleLabel = new Label("Title");
+        TextField titleField = new TextField(getTitle());
+
+        Separator separator = new Separator(Orientation.HORIZONTAL);
+
+        GridPane positionPane = new GridPane();
+        positionPane.add(new Label("X:"), 0, 0);
+        positionPane.add(new Label("Y:"), 0, 1);
+        positionPane.add(new TextField(getTranslateX()+""), 1, 0);
+        positionPane.add(new TextField(getTranslateY()+""), 1, 1);
+
+        toolBox.getChildren().addAll(
+                titleLabel, titleField,
+                separator,
+                positionPane
+        );
+        return toolBox;
     }
 
     public String getEventMessage() {

@@ -29,7 +29,7 @@ public abstract class Node extends VBox {
     @FXML
     private VBox workSpace;
     @FXML
-    private Label name;
+    private Label title;
 
     LinkedHashMap<String, Output> outputs = new LinkedHashMap<>();
     private Input input = new Input();
@@ -153,19 +153,23 @@ public abstract class Node extends VBox {
         return workSpace;
     }
 
-    public String getName(){
-        return name.getText();
+    public String getTitle(){
+        return title.getText();
     }
 
     public HBox getTitleBar() {
         return titleBar;
     }
 
-    public void setName(String name){
-        this.name.setText(name);
+    public void setTitle(String title){
+        if (this.title != null) {
+            this.title.setText(title);
+        }else this.title = new Label(title);
     }
 
     public ContextMenu getContextMenu() {
         return contextMenu;
     }
+
+    public abstract VBox getTools();
 }

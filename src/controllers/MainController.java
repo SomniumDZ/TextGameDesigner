@@ -55,7 +55,6 @@ public class MainController {
     private HashMap<String, Node> nodes = new HashMap<>();
 
     private Node selectedNode;
-    private VBox eventToolBox = new VBox();
 
     private MenuItem addEmptyNode;
     private MenuItem addEventNode;
@@ -162,7 +161,7 @@ public class MainController {
                    case "Event":
                        Element eventElement = finalSaveDocument.createElement("event");
                        eventElement.setAttribute("id", nid);
-                       eventElement.setAttribute("title", node.getName());
+                       eventElement.setAttribute("title", node.getTitle());
                        eventElement.setAttribute("message", node.getInput().getMessage());
                        eventElement.setAttribute("x", String.valueOf(node.getTranslateX()));
                        eventElement.setAttribute("y", String.valueOf(node.getTranslateY()));
@@ -241,7 +240,7 @@ public class MainController {
                                 Double.parseDouble(event.getAttribute("y")),
                                 event.getAttributes().get("id")
                         );
-                        current.setName(event.getAttribute("title"));
+                        current.setTitle(event.getAttribute("title"));
                         event.getChildElements().forEach(output -> {
                             current.addOutput(new Output(
                                     output.getAttribute("id"),
@@ -284,25 +283,21 @@ public class MainController {
     public void setSelectedNode(Node node) {
         selectedNode = node;
         nodes.forEach((s, node1) -> node1.setEffect(null));
-        clearEventTools();
+        sequenceEditorTools.getChildren().clear();
         if (selectedNode != null) {
             sequenceEditorTools.getChildren().clear();
             DropShadow effect = new DropShadow(15, Color.DARKORANGE);
             selectedNode.setEffect(effect);
             switch (selectedNode.getClass().getSimpleName()){
                 case "Event":
-                    showEventTools();
+                    showEventTools(node);
             }
         }
 
     }
 
-    private void clearEventTools() {
-        sequenceEditorTools.getChildren().clear();
-    }
-
-    private void showEventTools(){
-        TitledPane root = new TitledPane("Event", eventToolBox);
+    private void showEventTools(Node node){
+        TitledPane root = new TitledPane("Event", node.getTools());
         sequenceEditorTools.getChildren().add(root);
     }
 

@@ -106,7 +106,7 @@ public class Input extends GridPane {
         );
 
         connectedOutputs.put(outputId, output);
-        MenuItem menuItem = new MenuItem("delete link to "+node.getName());
+        MenuItem menuItem = new MenuItem("delete link to "+node.getTitle());
         menuItem.setOnAction(event1 -> {
             output.reset();
             connectedOutputs.remove(outputId);
