@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -53,7 +54,7 @@ public class MainController {
 
     private HashMap<String, Node> nodes = new HashMap<>();
 
-    private Node chosenNode;
+    private Node selectedNode;
     private VBox eventToolBox = new VBox();
 
     private MenuItem addEmptyNode;
@@ -90,8 +91,9 @@ public class MainController {
         });
 
         sequenceEditorRoot.setOnMouseClicked(event -> {
-            chosenNode = null;
-            nodes.forEach((s, node) -> node.setEffect(null));
+            if (event.getButton() == MouseButton.PRIMARY) {
+                setSelectedNode(null);
+            }
             if (sequenceRootContextMenu.isShowing()){
                 sequenceRootContextMenu.hide();
             }
@@ -279,19 +281,24 @@ public class MainController {
         });
     }
 
-    public void setChosenNode(Node node) {
-        chosenNode = node;
+    public void setSelectedNode(Node node) {
+        selectedNode = node;
         nodes.forEach((s, node1) -> node1.setEffect(null));
-        if (chosenNode != null) {
+        clearEventTools();
+        if (selectedNode != null) {
             sequenceEditorTools.getChildren().clear();
             DropShadow effect = new DropShadow(15, Color.DARKORANGE);
-            chosenNode.setEffect(effect);
-            switch (chosenNode.getClass().getSimpleName()){
+            selectedNode.setEffect(effect);
+            switch (selectedNode.getClass().getSimpleName()){
                 case "Event":
                     showEventTools();
             }
         }
 
+    }
+
+    private void clearEventTools() {
+        sequenceEditorTools.getChildren().clear();
     }
 
     private void showEventTools(){
@@ -331,7 +338,7 @@ public class MainController {
         initialNode = node;
     }
 
-    public Node getChosenNode() {
-        return chosenNode;
+    public Node getSelectedNode() {
+        return selectedNode;
     }
 }
