@@ -162,9 +162,7 @@ public abstract class Node extends VBox {
     }
 
     public void setTitle(String title){
-        if (this.title != null) {
-            this.title.setText(title);
-        }else this.title = new Label(title);
+        this.title.setText(title);
     }
 
     public ContextMenu getContextMenu() {

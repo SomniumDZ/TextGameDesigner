@@ -41,19 +41,36 @@ public class Event extends Node {
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
 
+        Label positionLabel = new Label("Position");
         GridPane positionPane = new GridPane();
         positionPane.add(new Label("X:"), 0, 0);
         positionPane.add(new Label("Y:"), 0, 1);
-        positionPane.add(new TextField(getTranslateX()+""), 1, 0);
-        positionPane.add(new TextField(getTranslateY()+""), 1, 1);
+        TextField xField = new TextField(getTranslateX()+"");
+        TextField yField = new TextField(getTranslateY()+"");
+        positionPane.add(xField, 1, 0);
+        positionPane.add(yField, 1, 1);
+
+        xField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.equals("")) {
+                setTranslateX(Double.parseDouble(newValue));
+            }else xField.setText(0+"");
+        });
+
+        yField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.equals("")) {
+                setTranslateY(Double.parseDouble(newValue));
+            }else yField.setText(0+"");
+        });
 
         toolBox.getChildren().addAll(
                 titleLabel, titleField,
                 separator,
-                positionPane
+                positionLabel, positionPane
         );
         return toolBox;
     }
+
+
 
     public String getEventMessage() {
         return getInput().getMessage();
