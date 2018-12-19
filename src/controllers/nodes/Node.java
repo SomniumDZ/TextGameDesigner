@@ -165,6 +165,10 @@ public abstract class Node extends VBox {
         this.title.setText(title);
     }
 
+    protected Label getTitleLabel() {
+        return title;
+    }
+
     public ContextMenu getContextMenu() {
         return contextMenu;
     }

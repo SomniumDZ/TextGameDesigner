@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 
 public class Event extends Node {
 
@@ -38,6 +39,7 @@ public class Event extends Node {
         VBox toolBox = new VBox(5);
         Label titleLabel = new Label("Title");
         TextField titleField = new TextField(getTitle());
+        titleField.textProperty().bindBidirectional(getTitleLabel().textProperty());
 
         Separator separator = new Separator(Orientation.HORIZONTAL);
 
@@ -49,18 +51,8 @@ public class Event extends Node {
         TextField yField = new TextField(getTranslateY()+"");
         positionPane.add(xField, 1, 0);
         positionPane.add(yField, 1, 1);
-
-        xField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
-                setTranslateX(Double.parseDouble(newValue));
-            }else xField.setText(0+"");
-        });
-
-        yField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
-                setTranslateY(Double.parseDouble(newValue));
-            }else yField.setText(0+"");
-        });
+        yField.textProperty().bindBidirectional(translateYProperty(), NumberFormat.getInstance());
+        xField.textProperty().bindBidirectional(translateXProperty(), NumberFormat.getInstance());
 
         toolBox.getChildren().addAll(
                 titleLabel, titleField,
@@ -69,7 +61,6 @@ public class Event extends Node {
         );
         return toolBox;
     }
-
 
 
     public String getEventMessage() {
