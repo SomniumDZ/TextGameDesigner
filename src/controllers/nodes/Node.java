@@ -41,8 +41,8 @@ public abstract class Node extends VBox {
 
 
     public Node(double x, double y, String id) {
-        getController().getNodeMap().put(id, this);
         setId(id);
+        getController().getNodeMap().put(getId(), this);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Node.fxml"));
         loader.setController(this);
         loader.setRoot(this);

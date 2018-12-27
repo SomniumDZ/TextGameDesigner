@@ -228,4 +228,8 @@ public class Output extends GridPane {
     public void setText(String text) {
         message.setText(text);
     }
+
+    public void setCurve(CubicCurve curve){
+        this.curve = curve;
+    }
 }

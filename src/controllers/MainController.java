@@ -230,6 +230,7 @@ public class MainController {
     private void parseSaveFile(com.somnium.handler.Element root) {
         HashMap<String, Node> reserve = new HashMap<>(getNodeMap());
         getNodeMap().clear();
+        sequenceEditorRoot.getChildren().clear();
 
         root.getChildElements().forEach(element -> {
             switch (element.getName()){
@@ -254,6 +255,7 @@ public class MainController {
                                 Output out = getNodeMap().get(event.getAttribute("id")).getOutputs()
                                         .get(output.getAttribute("id"));
                                 CubicCurve curve = out.spawnNewConnectionCurve(out.getContainer());
+                                out.setCurve(curve);
                                 curve.setMouseTransparent(true);
                                 out.getConnector().setMouseTransparent(true);
                                 getSequenceEditorRoot().getChildren().addAll(curve, out.getConnector());
@@ -268,15 +270,9 @@ public class MainController {
             }
         });
 
-
-
-        redrawNodes();
-    }
-
-    void redrawNodes(){
-        sequenceEditorRoot.getChildren().clear();
         getNodeMap().forEach((s, node) -> {
             sequenceEditorRoot.getChildren().add(node);
+            node.toBack();
         });
     }
 

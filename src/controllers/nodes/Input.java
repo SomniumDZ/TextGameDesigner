@@ -94,11 +94,15 @@ public class Input extends GridPane {
             default:
                 output.setContactedType(Output.ContactedType.none);
         }
+
+        connector.setTranslateX(container.getTranslateX() + parentNode.getTranslateX() + getLayoutX());
         connector.translateXProperty().bind(
                 container.translateXProperty()
                         .add(parentNode.translateXProperty())
                         .add(layoutXProperty())
         );
+
+        connector.setTranslateY(container.getTranslateY() + parentNode.getTranslateY() + getLayoutY());
         connector.translateYProperty().bind(container.translateYProperty()
                 .add(parentNode.translateYProperty())
                 .add(layoutYProperty())
