@@ -12,7 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class EventEditor extends BorderPane {
 
@@ -71,8 +71,8 @@ public class EventEditor extends BorderPane {
         return messageField.getText();
     }
 
-    public HashMap<String, Output> getOutputs(){
-        HashMap<String, Output> returned = new HashMap<>();
+    public LinkedHashMap<String, Output> getOutputs(){
+        LinkedHashMap<String, Output> returned = new LinkedHashMap<>();
         optionsBox.getChildren().forEach(node -> {
             returned.put(((OptionEditor)node).getOptionId(), new Output(((OptionEditor)node).getText()));
         });
