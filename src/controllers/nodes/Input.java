@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import main.Main;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static main.Main.ew;
@@ -27,7 +28,7 @@ public class Input extends GridPane {
 
     private Node parentNode;
 
-    private HashMap<String, Output> connectedOutputs = new HashMap<>();
+    private ArrayList<Output> connectedOutputs = new ArrayList<>();
     private ContextMenu inputMenu;
     private MenuItem deleteAllOutputs;
 
@@ -46,11 +47,10 @@ public class Input extends GridPane {
 
     @FXML
     public void initialize(){
-
         parentProperty().addListener((observable, oldValue, newValue) -> parentNode = (Node) newValue);
         deleteAllOutputs = new MenuItem("delete all links");
         deleteAllOutputs.setOnAction(event -> {
-            connectedOutputs.forEach((id,output) -> output.reset());
+            connectedOutputs.forEach(Output::reset);
             container.setFill(Color.DODGERBLUE);
             inputMenu.getItems().clear();
             connectedOutputs.clear();
@@ -109,11 +109,16 @@ public class Input extends GridPane {
                 .add(connector.heightProperty().divide(2))
         );
 
-        connectedOutputs.put(outputId, output);
-        MenuItem menuItem = new MenuItem("delete link to "+node.getTitle());
+        connectedOutputs.add(output);
+
+        MenuItem menuItem = new MenuItem("delete link to "+ node.getTitle() + "("+output.getIndex()+")");
+        node.getTitleLabel().textProperty().addListener((observable, oldValue, newValue) -> {
+            menuItem.setText("delete link to "+ newValue + "("+output.getIndex()+")");
+        });
+
         menuItem.setOnAction(event1 -> {
             output.reset();
-            connectedOutputs.remove(outputId);
+            connectedOutputs.remove(output);
             if (connectedOutputs.size()<1){
                 container.setFill(Color.DODGERBLUE);
             }
@@ -136,7 +141,7 @@ public class Input extends GridPane {
         return ((MainController)Main.getLoader().getController()).getNodeMap();
     }
 
-    public HashMap<String, Output> getConnectedOutputs() {
+    public ArrayList<Output> getConnectedOutputs() {
         return connectedOutputs;
     }
 

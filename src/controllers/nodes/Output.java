@@ -35,9 +35,14 @@ public class Output extends GridPane {
     private Node parent;
     private CubicCurve curve;
     private Node contacted;
+    private int index;
 
     public Output() {
         this("Output");
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public enum ContactedType {
@@ -74,6 +79,7 @@ public class Output extends GridPane {
     public void initialize(){
         parentProperty().addListener((ChangeListener<? super javafx.scene.Parent>) (observable, oldValue, newValue) -> {
             parent = (Node) newValue;
+            index = parent.getOutputs().size();
         });
 
         container.setOnDragDetected(event -> {
