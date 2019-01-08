@@ -121,7 +121,7 @@ public abstract class Node extends VBox {
 
     public void setTranslatePosition(double x, double y, boolean toLocal){
         if (toLocal) {
-            Point2D local = ((MainController)Main.getLoader().getController()).getSequenceEditorRoot().sceneToLocal(x, y);
+            Point2D local = ((MainController)Main.getLoader().getController()).getChosenSequenceEditorRoot().sceneToLocal(x, y);
             setTranslateX(local.getX()-dragOffsetX);
             setTranslateY(local.getY()-dragOffsetY);
         }else {

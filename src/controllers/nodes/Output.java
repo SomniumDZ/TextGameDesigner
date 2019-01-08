@@ -16,6 +16,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Rectangle;
 import main.Main;
@@ -185,8 +186,8 @@ public class Output extends GridPane {
         curve = null;
     }
 
-    private AnchorPane getEventRoot() {
-        return ((MainController) Main.getLoader().getController()).getSequenceEditorRoot();
+    private Pane getEventRoot() {
+        return ((MainController) Main.getLoader().getController()).getChosenSequenceEditorRoot();
     }
 
     public Parent getParentNode(){

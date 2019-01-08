@@ -14,21 +14,42 @@
     <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab fx:id="editorTab" text="Events&amp;Actions">
-          <BorderPane>
+          <BorderPane fx:id="eventsEditor">
             <center>
               <AnchorPane fx:id="sequenceEditorRoot" />
             </center>
             <right>
               <VBox fx:id="sequenceEditorTools" style="-fx-background-color: lightgray;" />
             </right>
+            <top>
+              <ToolBar>
+                <items>
+                  <ChoiceBox fx:id="locationChoiceBox">
+                    <items>
+                      <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Item 1" />
+                        <String fx:value="Item 2" />
+                        <String fx:value="Item 3" />
+                      </FXCollections>
+                    </items>
+                  </ChoiceBox>
+                </items>
+              </ToolBar>
+            </top>
           </BorderPane>
         </Tab>
         <Tab text="Items">
-          <BorderPane id="BorderPane" prefHeight="200.0" prefWidth="200.0">
-            <bottom>
-              <ToolBar />
-            </bottom>
-          </BorderPane>
+          <VBox prefHeight="200.0" prefWidth="100.0" />
+        </Tab>
+        <Tab text="NPC`s">
+          <content>
+            <VBox fx:id="npcList" prefHeight="200.0" prefWidth="100.0" />
+          </content>
+        </Tab>
+        <Tab text="Locations">
+          <content>
+            <FlowPane fx:id="locationsList" prefHeight="200.0" prefWidth="200.0" />
+          </content>
         </Tab>
       </tabs>
     </TabPane>
@@ -38,8 +59,8 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="save" mnemonicParsing="false" text="Save" />
-            <MenuItem fx:id="open" mnemonicParsing="false" text="Open" />
+            <MenuItem mnemonicParsing="false" text="Save" fx:id="save" />
+            <MenuItem mnemonicParsing="false" text="Open" fx:id="open" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">

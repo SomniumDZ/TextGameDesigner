@@ -5,13 +5,16 @@ import controllers.nodes.EmptyNode;
 import controllers.nodes.Node;
 import controllers.nodes.Output;
 import controllers.nodes.events.Event;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
@@ -22,6 +25,7 @@ import main.Preview;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+import pawn.Location;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,17 +46,24 @@ public class MainController {
     public MenuItem btnRunPreview;
     @FXML
     public Tab editorTab;
-
     @FXML
-    public AnchorPane sequenceEditorRoot;
+    public VBox npcList;
+    @FXML
+    public FlowPane locationsList;
     @FXML
     public VBox sequenceEditorTools;
     @FXML
     public MenuItem save;
     @FXML
+    public ChoiceBox<MenuItem> locationChoiceBox;
+    @FXML
+    public BorderPane eventsEditor;
+
+
+    @FXML
     private MenuItem open;
 
-    private HashMap<String, Node> nodes = new HashMap<>();
+    private Location chosenLocation;
 
     private Node selectedNode;
 
@@ -78,18 +89,33 @@ public class MainController {
 
 
     public void initialize(){
+        locationsList.getChildren().addListener((ListChangeListener<? super javafx.scene.Node>) c -> {
+            locationChoiceBox.getItems().clear();
+            locationsList.getChildren().forEach(location -> {
+                MenuItem menuItem = new MenuItem(((Button)location).getText());
+                locationChoiceBox.getItems().add(menuItem);
+                menuItem.setOnAction(event -> {
+                    chosenLocation = (Location) location;
+                    eventsEditor.setCenter(((Location) location).getSequenceRoot());
+                });
+            });
+        });
+
+        chosenLocation = new Location("World", null);
+        locationsList.getChildren().add(chosenLocation);
+
         AtomicReference<Double> ecmCallX = new AtomicReference<>((double) 0);
         AtomicReference<Double> ecmCallY = new AtomicReference<>((double) 0);
         btnRunPreview.setOnAction(event -> {
             new Preview(initialNode);
         });
-        sequenceEditorRoot.setOnContextMenuRequested(event -> {
-            sequenceRootContextMenu.show(sequenceEditorRoot, event.getScreenX(), event.getScreenY());
+        getChosenSequenceEditorRoot().setOnContextMenuRequested(event -> {
+            sequenceRootContextMenu.show(getChosenSequenceEditorRoot(), event.getScreenX(), event.getScreenY());
             ecmCallX.set(event.getX());
             ecmCallY.set(event.getY());
         });
 
-        sequenceEditorRoot.setOnMouseClicked(event -> {
+        getChosenSequenceEditorRoot().setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 setSelectedNode(null);
             }
@@ -98,7 +124,7 @@ public class MainController {
             }
         });
 
-        sequenceEditorRoot.setOnDragOver(event -> {
+        getChosenSequenceEditorRoot().setOnDragOver(event -> {
             event.acceptTransferModes(TransferMode.ANY);
             if (draggedNode !=null) {
                 draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
@@ -109,7 +135,7 @@ public class MainController {
             event.consume();
         });
 
-        sequenceEditorRoot.setOnDragDropped(event -> {
+        getChosenSequenceEditorRoot().setOnDragDropped(event -> {
             event.acceptTransferModes(TransferMode.ANY);
             draggedNode = null;
             if (draggedOut!=null) {
@@ -123,15 +149,15 @@ public class MainController {
         });
 
         addEmptyNode.setOnAction(event -> {
-            sequenceEditorRoot.getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
+            getChosenSequenceEditorRoot().getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
         });
         addEventNode.setOnAction(event -> {
-            sequenceEditorRoot.getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
+            getChosenSequenceEditorRoot().getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
         });
 
         initialNode = new Event(50,50);
-        sequenceEditorRoot.getChildren().add(initialNode);
-        nodes.put(initialNode.getId(), initialNode);
+        getChosenSequenceEditorRoot().getChildren().add(initialNode);
+        chosenLocation.getNodes().put(initialNode.getId(), initialNode);
 
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
                 "Text Game Designer save file (*.tgd)", "*.tgd");
@@ -156,7 +182,7 @@ public class MainController {
             root.appendChild(events);
 
             Document finalSaveDocument = saveDocument;
-            nodes.forEach((nid, node) -> {
+            chosenLocation.getNodes().forEach((nid, node) -> {
                 switch (node.getClass().getSimpleName()){
                    case "Event":
                        Element eventElement = finalSaveDocument.createElement("event");
@@ -225,12 +251,14 @@ public class MainController {
 
         sequenceRootContextMenu.getItems().add(open);
         sequenceRootContextMenu.getItems().add(save);
+
+
     }
 
     private void parseSaveFile(com.somnium.handler.Element root) {
         HashMap<String, Node> reserve = new HashMap<>(getNodeMap());
         getNodeMap().clear();
-        sequenceEditorRoot.getChildren().clear();
+        getChosenSequenceEditorRoot().getChildren().clear();
 
         root.getChildElements().forEach(element -> {
             switch (element.getName()){
@@ -258,7 +286,7 @@ public class MainController {
                                 out.setCurve(curve);
                                 curve.setMouseTransparent(true);
                                 out.getConnector().setMouseTransparent(true);
-                                getSequenceEditorRoot().getChildren().addAll(curve, out.getConnector());
+                                getChosenSequenceEditorRoot().getChildren().addAll(curve, out.getConnector());
                                 getNodeMap().get(output.getAttribute("contacted")).getInput().connect(
                                         event.getAttribute("id"),
                                         output.getAttribute("id")
@@ -271,14 +299,14 @@ public class MainController {
         });
 
         getNodeMap().forEach((s, node) -> {
-            sequenceEditorRoot.getChildren().add(node);
+            getChosenSequenceEditorRoot().getChildren().add(node);
             node.toBack();
         });
     }
 
     public void setSelectedNode(Node node) {
         selectedNode = node;
-        nodes.forEach((s, node1) -> node1.setEffect(null));
+        chosenLocation.getNodes().forEach((s, node1) -> node1.setEffect(null));
         sequenceEditorTools.getChildren().clear();
         if (selectedNode != null) {
             sequenceEditorTools.getChildren().clear();
@@ -297,8 +325,8 @@ public class MainController {
         sequenceEditorTools.getChildren().add(root);
     }
 
-    public AnchorPane getSequenceEditorRoot() {
-        return sequenceEditorRoot;
+    public Pane getChosenSequenceEditorRoot() {
+        return chosenLocation.getSequenceRoot();
     }
 
     public Node getDraggedNode() {
@@ -318,7 +346,7 @@ public class MainController {
     }
 
     public HashMap<String, Node> getNodeMap() {
-        return nodes;
+        return chosenLocation.getNodes();
     }
 
     public Node getInitialNode() {

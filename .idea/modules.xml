@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Library/ErrorWindow/ErrorWindow.iml" filepath="$PROJECT_DIR$/../Library/ErrorWindow/ErrorWindow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TGDLauncher/Launcher.iml" filepath="$PROJECT_DIR$/../TGDLauncher/Launcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/TextGameDesigner.iml" filepath="$PROJECT_DIR$/TextGameDesigner.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Library/XMLHandler/XMLHandler.iml" filepath="$PROJECT_DIR$/../Library/XMLHandler/XMLHandler.iml" />
     </modules>
