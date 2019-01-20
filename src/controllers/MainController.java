@@ -1,7 +1,6 @@
 package controllers;
 
 import com.somnium.handler.XMLHandler;
-import controllers.nodes.EmptyNode;
 import controllers.nodes.Node;
 import controllers.nodes.Output;
 import controllers.nodes.events.Event;
@@ -10,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -37,7 +35,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static main.Main.ew;
 
@@ -55,7 +52,7 @@ public class MainController {
     @FXML
     public MenuItem save;
     @FXML
-    public ChoiceBox<MenuItem> locationChoiceBox;
+    public ComboBox<MenuItem> locationChoiceBox;
     @FXML
     public BorderPane eventsEditor;
 
@@ -67,9 +64,6 @@ public class MainController {
 
     private Node selectedNode;
 
-    private MenuItem addEmptyNode;
-    private MenuItem addEventNode;
-    private ContextMenu sequenceRootContextMenu;
     private Node draggedNode;
     private Output draggedOut;
     private Node initialNode;
@@ -78,22 +72,14 @@ public class MainController {
 
 
     public MainController() {
-        sequenceRootContextMenu = new ContextMenu();
-        Menu addEvent = new Menu("Add event...");
-        addEmptyNode = new MenuItem("Empty node");
-        addEventNode = new MenuItem("Event");
-        sequenceRootContextMenu.getItems().add(addEvent);
-        addEvent.getItems().addAll(addEmptyNode,addEventNode);
     }
-
-
 
     public void initialize(){
         locationsList.getChildren().addListener((ListChangeListener<? super javafx.scene.Node>) c -> {
             locationChoiceBox.getItems().clear();
             locationsList.getChildren().forEach(location -> {
                 MenuItem menuItem = new MenuItem(((Button)location).getText());
-                locationChoiceBox.getItems().add(menuItem);
+                locationChoiceBox.getItems();
                 menuItem.setOnAction(event -> {
                     chosenLocation = (Location) location;
                     eventsEditor.setCenter(((Location) location).getSequenceRoot());
@@ -104,25 +90,11 @@ public class MainController {
         chosenLocation = new Location("World", null);
         locationsList.getChildren().add(chosenLocation);
 
-        AtomicReference<Double> ecmCallX = new AtomicReference<>((double) 0);
-        AtomicReference<Double> ecmCallY = new AtomicReference<>((double) 0);
+
         btnRunPreview.setOnAction(event -> {
             new Preview(initialNode);
         });
-        getChosenSequenceEditorRoot().setOnContextMenuRequested(event -> {
-            sequenceRootContextMenu.show(getChosenSequenceEditorRoot(), event.getScreenX(), event.getScreenY());
-            ecmCallX.set(event.getX());
-            ecmCallY.set(event.getY());
-        });
 
-        getChosenSequenceEditorRoot().setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                setSelectedNode(null);
-            }
-            if (sequenceRootContextMenu.isShowing()){
-                sequenceRootContextMenu.hide();
-            }
-        });
 
         getChosenSequenceEditorRoot().setOnDragOver(event -> {
             event.acceptTransferModes(TransferMode.ANY);
@@ -148,12 +120,7 @@ public class MainController {
             event.consume();
         });
 
-        addEmptyNode.setOnAction(event -> {
-            getChosenSequenceEditorRoot().getChildren().addAll(new EmptyNode(ecmCallX.get(), ecmCallY.get()));
-        });
-        addEventNode.setOnAction(event -> {
-            getChosenSequenceEditorRoot().getChildren().add(new Event(ecmCallX.get(), ecmCallY.get()));
-        });
+
 
         initialNode = new Event(50,50);
         getChosenSequenceEditorRoot().getChildren().add(initialNode);
@@ -247,12 +214,6 @@ public class MainController {
 
             parseSaveFile(handler.getRoot());
         });
-
-
-        sequenceRootContextMenu.getItems().add(open);
-        sequenceRootContextMenu.getItems().add(save);
-
-
     }
 
     private void parseSaveFile(com.somnium.handler.Element root) {
