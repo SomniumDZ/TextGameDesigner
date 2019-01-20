@@ -24,7 +24,7 @@
             <top>
               <ToolBar>
                 <items>
-                  <ChoiceBox fx:id="locationChoiceBox">
+                  <ChoiceBox fx:id="locationComboBox">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />

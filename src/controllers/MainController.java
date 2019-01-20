@@ -52,7 +52,7 @@ public class MainController {
     @FXML
     public MenuItem save;
     @FXML
-    public ComboBox<MenuItem> locationChoiceBox;
+    public ChoiceBox<String> locationComboBox;
     @FXML
     public BorderPane eventsEditor;
 
@@ -76,15 +76,15 @@ public class MainController {
 
     public void initialize(){
         locationsList.getChildren().addListener((ListChangeListener<? super javafx.scene.Node>) c -> {
-            locationChoiceBox.getItems().clear();
+            locationComboBox.getItems().clear();
             locationsList.getChildren().forEach(location -> {
-                MenuItem menuItem = new MenuItem(((Button)location).getText());
-                locationChoiceBox.getItems();
-                menuItem.setOnAction(event -> {
-                    chosenLocation = (Location) location;
-                    eventsEditor.setCenter(((Location) location).getSequenceRoot());
-                });
+                locationComboBox.getItems().add(((Button)location).getText());
             });
+        });
+
+        locationComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            chosenLocation = (Location) locationsList.getChildren().get(newValue.intValue());
+            eventsEditor.setCenter(chosenLocation.getSequenceRoot());
         });
 
         chosenLocation = new Location("World", null);
