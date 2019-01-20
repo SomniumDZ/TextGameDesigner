@@ -16,7 +16,6 @@
         <Tab fx:id="editorTab" text="Events&amp;Actions">
           <BorderPane fx:id="eventsEditor">
             <center>
-              <AnchorPane fx:id="sequenceEditorRoot" />
             </center>
             <right>
               <VBox fx:id="sequenceEditorTools" style="-fx-background-color: lightgray;" />
@@ -24,7 +23,7 @@
             <top>
               <ToolBar>
                 <items>
-                  <ChoiceBox fx:id="locationComboBox">
+                  <ChoiceBox fx:id="locationChoiceBox">
                     <items>
                       <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Item 1" />
