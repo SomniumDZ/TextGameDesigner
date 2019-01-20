@@ -1,4 +1,4 @@
-package pawn;
+package pawn.inventory;
 
 public class Inventory {
 }
