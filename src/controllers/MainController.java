@@ -74,6 +74,8 @@ public class MainController {
     public MainController() {
     }
 
+
+
     public void initialize(){
         locationsList.getChildren().addListener((ListChangeListener<? super javafx.scene.Node>) c -> {
             locationComboBox.getItems().clear();
@@ -89,6 +91,7 @@ public class MainController {
 
         chosenLocation = new Location("World", null);
         locationsList.getChildren().add(chosenLocation);
+        locationComboBox.setValue("World");
 
 
         btnRunPreview.setOnAction(event -> {
@@ -215,6 +218,7 @@ public class MainController {
             parseSaveFile(handler.getRoot());
         });
     }
+
 
     private void parseSaveFile(com.somnium.handler.Element root) {
         HashMap<String, Node> reserve = new HashMap<>(getNodeMap());
