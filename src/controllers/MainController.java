@@ -46,7 +46,7 @@ public class MainController {
     @FXML
     public VBox npcList;
     @FXML
-    public FlowPane locationsList;
+    public FlowPane locationsPane;
     @FXML
     public VBox sequenceEditorTools;
     @FXML
@@ -77,20 +77,20 @@ public class MainController {
 
 
     public void initialize(){
-        locationsList.getChildren().addListener((ListChangeListener<? super javafx.scene.Node>) c -> {
+        locationsPane.getChildren().addListener((ListChangeListener<? super javafx.scene.Node>) c -> {
             locationChoiceBox.getItems().clear();
-            locationsList.getChildren().forEach(location -> {
+            locationsPane.getChildren().forEach(location -> {
                 locationChoiceBox.getItems().add(((Button)location).getText());
             });
         });
 
         locationChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            chosenLocation = (Location) locationsList.getChildren().get(newValue.intValue());
+            chosenLocation = (Location) locationsPane.getChildren().get(newValue.intValue());
             eventsEditor.setCenter(chosenLocation.getSequenceRoot());
         });
 
         chosenLocation = new Location("World", null);
-        locationsList.getChildren().add(chosenLocation);
+        locationsPane.getChildren().add(chosenLocation);
         locationChoiceBox.setValue("World");
 
 

@@ -47,7 +47,7 @@
         </Tab>
         <Tab text="Locations">
           <content>
-            <FlowPane fx:id="locationsList" prefHeight="200.0" prefWidth="200.0" />
+            <FlowPane fx:id="locationsPane" prefHeight="200.0" prefWidth="200.0" />
           </content>
         </Tab>
       </tabs>
