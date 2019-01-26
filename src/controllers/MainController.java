@@ -72,6 +72,7 @@ public class MainController {
 
 
     public MainController() {
+        Button addLocationButton = new Button("Add location");
     }
 
 
