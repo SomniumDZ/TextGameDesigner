@@ -13,7 +13,7 @@ import main.Main;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Location extends ToggleButton {
+public class Location extends Button {
 
     public static final int LOCATION_ICON_HEIGHT = 64;
 
