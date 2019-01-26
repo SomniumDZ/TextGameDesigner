@@ -6,16 +6,14 @@ import controllers.nodes.Output;
 import controllers.nodes.events.Event;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import javafx.stage.FileChooser;
@@ -81,7 +79,32 @@ public class MainController {
 
         addLocationButton = new Button("Add location", addLocationIcon);
         addLocationButton.setContentDisplay(ContentDisplay.TOP);
+        addLocationButton.setOnAction(event -> {
+            Stage stage = new Stage();
+            VBox root = new VBox(5);
+            Scene scene = new Scene(root);
+            TextField textField = new TextField();
+            GridPane gridPane = new GridPane();
+            Button okButton = new Button("Ok");
+            Button cancelButton = new Button("Cancel");
 
+            textField.setPromptText("Location Name");
+            gridPane.add(okButton, 0,0);
+            gridPane.add(cancelButton, 1,0);
+            root.getChildren().addAll(textField, gridPane);
+
+            okButton.setOnAction(event1 -> {
+                locationsPane.getChildren().add(locationsPane.getChildren().size()-1, new Location(textField.getText(), null));
+                stage.close();
+            });
+
+            cancelButton.setOnAction(event1 -> stage.close());
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setTitle("Add Location");
+            stage.showAndWait();
+        });
     }
 
 
@@ -99,8 +122,10 @@ public class MainController {
         });
 
         locationChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            chosenLocation = (Location) locationsPane.getChildren().get(newValue.intValue());
-            eventsEditor.setCenter(chosenLocation.getSequenceRoot());
+            if (newValue.intValue() >= 0) {
+                chosenLocation = (Location) locationsPane.getChildren().get(newValue.intValue());
+                eventsEditor.setCenter(chosenLocation.getSequenceRoot());
+            }
         });
 
         chosenLocation = new Location("World", null);
