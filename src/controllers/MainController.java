@@ -8,6 +8,8 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
@@ -61,6 +63,7 @@ public class MainController {
     private MenuItem open;
 
     private Location chosenLocation;
+    private Button addLocationButton;
 
     private Node selectedNode;
 
@@ -72,16 +75,26 @@ public class MainController {
 
 
     public MainController() {
-        Button addLocationButton = new Button("Add location");
+        ImageView addLocationIcon = new ImageView(new Image("res/add-location-icon.png"));
+        addLocationIcon.setFitHeight(Location.LOCATION_ICON_HEIGHT);
+        addLocationIcon.setFitWidth(Location.LOCATION_ICON_HEIGHT);
+
+        addLocationButton = new Button("Add location", addLocationIcon);
+        addLocationButton.setContentDisplay(ContentDisplay.TOP);
+
     }
 
 
 
     public void initialize(){
+        locationsPane.getChildren().add(addLocationButton);
+
         locationsPane.getChildren().addListener((ListChangeListener<? super javafx.scene.Node>) c -> {
             locationChoiceBox.getItems().clear();
             locationsPane.getChildren().forEach(location -> {
-                locationChoiceBox.getItems().add(((Button)location).getText());
+                if (location.getClass().getSimpleName().equals("Location")) {
+                    locationChoiceBox.getItems().add(((Location)location).getText());
+                }
             });
         });
 
@@ -91,7 +104,7 @@ public class MainController {
         });
 
         chosenLocation = new Location("World", null);
-        locationsPane.getChildren().add(chosenLocation);
+        locationsPane.getChildren().add(0, chosenLocation);
         locationChoiceBox.setValue("World");
 
 
