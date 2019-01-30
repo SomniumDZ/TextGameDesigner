@@ -74,7 +74,7 @@ public class Input extends GridPane {
                 }
                 connect(nodeId.toString(), outputId.toString());
             }
-            ((MainController)Main.getLoader().getController()).setDraggedOut(null);
+            ((MainController)Main.getLoader().getController()).getChosenLocation().setDraggedOut(null);
             event.consume();
         });
     }

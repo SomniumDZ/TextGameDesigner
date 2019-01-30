@@ -85,7 +85,7 @@ public class Output extends GridPane {
 
         container.setOnDragDetected(event -> {
             reset();
-            getController().setDraggedOut(this);
+            getController().getChosenLocation().setDraggedOut(this);
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 
             ClipboardContent content = new ClipboardContent();
@@ -187,7 +187,7 @@ public class Output extends GridPane {
     }
 
     private Pane getEventRoot() {
-        return ((MainController) Main.getLoader().getController()).getChosenSequenceEditorRoot();
+        return ((MainController) Main.getLoader().getController()).getChosenLocation().getSequenceRoot();
     }
 
     public Parent getParentNode(){

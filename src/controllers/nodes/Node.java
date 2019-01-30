@@ -109,7 +109,7 @@ public abstract class Node extends VBox {
         titleBar.setOnDragDetected(event -> {
             dragOffsetX = event.getX();
             dragOffsetY = event.getY();
-            getController().setDraggedNode(this);
+            getController().getChosenLocation().setDraggedNode(this);
             Dragboard db = startDragAndDrop(TransferMode.ANY);
 
             ClipboardContent content = new ClipboardContent();
@@ -121,7 +121,7 @@ public abstract class Node extends VBox {
 
     public void setTranslatePosition(double x, double y, boolean toLocal){
         if (toLocal) {
-            Point2D local = ((MainController)Main.getLoader().getController()).getChosenSequenceEditorRoot().sceneToLocal(x, y);
+            Point2D local = ((MainController)Main.getLoader().getController()).getChosenLocation().getSequenceRoot().sceneToLocal(x, y);
             setTranslateX(local.getX()-dragOffsetX);
             setTranslateY(local.getY()-dragOffsetY);
         }else {

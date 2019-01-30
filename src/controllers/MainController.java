@@ -11,8 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
@@ -65,8 +63,6 @@ public class MainController {
 
     private Node selectedNode;
 
-    private Node draggedNode;
-    private Output draggedOut;
     private Node initialNode;
 
     private final FileChooser saveFileChooser = new FileChooser();
@@ -138,34 +134,9 @@ public class MainController {
         });
 
 
-        getChosenSequenceEditorRoot().setOnDragOver(event -> {
-            event.acceptTransferModes(TransferMode.ANY);
-            if (draggedNode !=null) {
-                draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
-            }
-            if (draggedOut!=null){
-                draggedOut.setConnectorPosition(event.getSceneX(), event.getSceneY());
-            }
-            event.consume();
-        });
-
-        getChosenSequenceEditorRoot().setOnDragDropped(event -> {
-            event.acceptTransferModes(TransferMode.ANY);
-            draggedNode = null;
-            if (draggedOut!=null) {
-                draggedOut.reset();
-                draggedOut = null;
-            }
-            Dragboard db = event.getDragboard();
-            db.clear();
-            event.setDropCompleted(true);
-            event.consume();
-        });
-
-
 
         initialNode = new Event(50,50);
-        getChosenSequenceEditorRoot().getChildren().add(initialNode);
+        chosenLocation.getSequenceRoot().getChildren().add(initialNode);
         chosenLocation.getNodes().put(initialNode.getId(), initialNode);
 
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
@@ -262,7 +233,7 @@ public class MainController {
     private void parseSaveFile(com.somnium.handler.Element root) {
         HashMap<String, Node> reserve = new HashMap<>(getNodeMap());
         getNodeMap().clear();
-        getChosenSequenceEditorRoot().getChildren().clear();
+        chosenLocation.getSequenceRoot().getChildren().clear();
 
         root.getChildElements().forEach(element -> {
             switch (element.getName()){
@@ -290,7 +261,7 @@ public class MainController {
                                 out.setCurve(curve);
                                 curve.setMouseTransparent(true);
                                 out.getConnector().setMouseTransparent(true);
-                                getChosenSequenceEditorRoot().getChildren().addAll(curve, out.getConnector());
+                                chosenLocation.getSequenceRoot().getChildren().addAll(curve, out.getConnector());
                                 getNodeMap().get(output.getAttribute("contacted")).getInput().connect(
                                         event.getAttribute("id"),
                                         output.getAttribute("id")
@@ -303,7 +274,7 @@ public class MainController {
         });
 
         getNodeMap().forEach((s, node) -> {
-            getChosenSequenceEditorRoot().getChildren().add(node);
+            chosenLocation.getSequenceRoot().getChildren().add(node);
             node.toBack();
         });
     }
@@ -329,24 +300,8 @@ public class MainController {
         sequenceEditorTools.getChildren().add(root);
     }
 
-    public Pane getChosenSequenceEditorRoot() {
-        return chosenLocation.getSequenceRoot();
-    }
-
-    public Node getDraggedNode() {
-        return draggedNode;
-    }
-
-    public void setDraggedNode(Node draggedNode) {
-        this.draggedNode = draggedNode;
-    }
-
-    public Output getDraggedOut() {
-        return draggedOut;
-    }
-
-    public void setDraggedOut(Output draggedOut) {
-        this.draggedOut = draggedOut;
+    public Location getChosenLocation(){
+        return chosenLocation;
     }
 
     public HashMap<String, Node> getNodeMap() {

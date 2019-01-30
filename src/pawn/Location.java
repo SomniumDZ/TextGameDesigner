@@ -3,10 +3,13 @@ package pawn;
 import controllers.MainController;
 import controllers.nodes.EmptyNode;
 import controllers.nodes.Node;
+import controllers.nodes.Output;
 import controllers.nodes.events.Event;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import main.Main;
 
@@ -18,6 +21,9 @@ public class Location extends Button {
     public static final int LOCATION_ICON_HEIGHT = 64;
 
     private HashMap<String, Node> nodes = new HashMap<>();
+
+    private Node draggedNode;
+    private Output draggedOut;
 
     private Pane sequenceRoot;
     private ContextMenu sequenceRootContextMenu;
@@ -46,6 +52,30 @@ public class Location extends Button {
             }
         });
 
+        sequenceRoot.setOnDragOver(event -> {
+            event.acceptTransferModes(TransferMode.ANY);
+            if (draggedNode !=null) {
+                draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
+            }
+            if (draggedOut!=null){
+                draggedOut.setConnectorPosition(event.getSceneX(), event.getSceneY());
+            }
+            event.consume();
+        });
+
+        sequenceRoot.setOnDragDropped(event -> {
+            event.acceptTransferModes(TransferMode.ANY);
+            draggedNode = null;
+            if (draggedOut!=null) {
+                draggedOut.reset();
+                draggedOut = null;
+            }
+            Dragboard db = event.getDragboard();
+            db.clear();
+            event.setDropCompleted(true);
+            event.consume();
+        });
+
         Menu addNodeMenu = new Menu("Add event...");
 
         MenuItem addEmptyNode = new MenuItem("Empty node");
@@ -69,6 +99,22 @@ public class Location extends Button {
 
     public HashMap<String, Node> getNodes() {
         return nodes;
+    }
+
+    public Node getDraggedNode() {
+        return draggedNode;
+    }
+
+    public void setDraggedNode(Node draggedNode) {
+        this.draggedNode = draggedNode;
+    }
+
+    public Output getDraggedOut() {
+        return draggedOut;
+    }
+
+    public void setDraggedOut(Output draggedOut) {
+        this.draggedOut = draggedOut;
     }
 
     public Pane getSequenceRoot() {
