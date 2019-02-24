@@ -18,9 +18,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Location extends ToggleButton {
 
-    private static final ToggleGroup TOGGLE_GROUP = new ToggleGroup();
+    public static final ToggleGroup TOGGLE_GROUP = new ToggleGroup();
 
-    public static final int LOCATION_ICON_HEIGHT = 64;
+    public static final int ICON_HEIGHT = 64;
 
     private HashMap<String, Node> nodes = new HashMap<>();
 

@@ -70,8 +70,8 @@ public class MainController {
 
     public MainController() {
         ImageView addLocationIcon = new ImageView(new Image("res/add-location-icon.png"));
-        addLocationIcon.setFitHeight(Location.LOCATION_ICON_HEIGHT);
-        addLocationIcon.setFitWidth(Location.LOCATION_ICON_HEIGHT);
+        addLocationIcon.setFitHeight(Location.ICON_HEIGHT);
+        addLocationIcon.setFitWidth(Location.ICON_HEIGHT);
 
         addLocationButton = new Button("Add location", addLocationIcon);
         addLocationButton.setContentDisplay(ContentDisplay.TOP);
@@ -159,31 +159,45 @@ public class MainController {
             assert saveDocument != null;
             Element root = saveDocument.createElement("Nodes");
             saveDocument.appendChild(root);
-            Element events = saveDocument.createElement("events");
-            root.appendChild(events);
+            Element locations = saveDocument.createElement("locations");
+            root.appendChild(locations);
 
             Document finalSaveDocument = saveDocument;
-            chosenLocation.getNodes().forEach((nid, node) -> {
-                switch (node.getClass().getSimpleName()){
-                   case "Event":
-                       Element eventElement = finalSaveDocument.createElement("event");
-                       eventElement.setAttribute("id", nid);
-                       eventElement.setAttribute("title", node.getTitle());
-                       eventElement.setAttribute("message", node.getInput().getMessage());
-                       eventElement.setAttribute("x", String.valueOf(node.getTranslateX()));
-                       eventElement.setAttribute("y", String.valueOf(node.getTranslateY()));
-                       node.getOutputs().forEach((oid, output) -> {
-                           Element outputElement = finalSaveDocument.createElement("output");
-                           outputElement.setAttribute("id", oid);
-                           if (output.getContacted() != null) {
-                               outputElement.setAttribute("contacted", output.getContacted().getId());
-                           }
-                           outputElement.setAttribute("message", output.getMessage());
-                           eventElement.appendChild(outputElement);
-                       });
-                       events.appendChild(eventElement);
-                       break;
-               }
+
+//            Forming save structure
+
+            Location.TOGGLE_GROUP.getToggles().forEach(location ->{
+                Location nextLocation = ((Location)location);
+
+                Element locationElement = finalSaveDocument.createElement("location");
+                locationElement.setAttribute("title", nextLocation.getText());
+
+                Element events = finalSaveDocument.createElement("events");
+
+                nextLocation.getNodes().forEach((nid, node) -> {
+                    switch (node.getClass().getSimpleName()){
+                        case "Event":
+                            Element eventElement = finalSaveDocument.createElement("event");
+                            eventElement.setAttribute("id", nid);
+                            eventElement.setAttribute("title", node.getTitle());
+                            eventElement.setAttribute("message", node.getInput().getMessage());
+                            eventElement.setAttribute("x", String.valueOf(node.getTranslateX()));
+                            eventElement.setAttribute("y", String.valueOf(node.getTranslateY()));
+                            node.getOutputs().forEach((oid, output) -> {
+                                Element outputElement = finalSaveDocument.createElement("output");
+                                outputElement.setAttribute("id", oid);
+                                if (output.getContacted() != null) {
+                                    outputElement.setAttribute("contacted", output.getContacted().getId());
+                                }
+                                outputElement.setAttribute("message", output.getMessage());
+                                eventElement.appendChild(outputElement);
+                            });
+                            events.appendChild(eventElement);
+                            break;
+                    }
+                    locationElement.appendChild(events);
+                });
+                locations.appendChild(locationElement);
             });
 
             Transformer transformer = null;
