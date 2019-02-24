@@ -90,7 +90,8 @@ public class MainController {
             root.getChildren().addAll(textField, gridPane);
 
             okButton.setOnAction(event1 -> {
-                locationsPane.getChildren().add(locationsPane.getChildren().size()-1, new Location(textField.getText(), null));
+                Location createdLocation = new Location(textField.getText(), null);
+                locationsPane.getChildren().add(locationsPane.getChildren().size()-1, createdLocation);
                 stage.close();
             });
 

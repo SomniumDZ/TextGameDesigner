@@ -16,7 +16,9 @@ import main.Main;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Location extends Button {
+public class Location extends ToggleButton {
+
+    private static final ToggleGroup TOGGLE_GROUP = new ToggleGroup();
 
     public static final int LOCATION_ICON_HEIGHT = 64;
 
@@ -30,6 +32,9 @@ public class Location extends Button {
 
     public Location(String name, ImageView image) {
         super(name, image);
+
+        setToggleGroup(TOGGLE_GROUP);
+
         setContentDisplay(ContentDisplay.TOP);
 
         sequenceRoot = new Pane();
