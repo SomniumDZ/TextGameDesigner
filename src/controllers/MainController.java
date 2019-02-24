@@ -11,7 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import javafx.stage.FileChooser;
@@ -248,41 +251,46 @@ public class MainController {
     private void parseSaveFile(com.somnium.handler.Element root) {
         HashMap<String, Node> reserve = new HashMap<>(getNodeMap());
         getNodeMap().clear();
+        locationsPane.getChildren().clear();
+        locationChoiceBox.getItems().clear();
+        locationsPane.getChildren().add(addLocationButton);
         chosenLocation.getSequenceRoot().getChildren().clear();
 
         root.getChildElements().forEach(element -> {
             switch (element.getName()){
-                case "events":
-                    element.getChildElements().forEach(event ->{
-                        Event current = new Event(
-                                Double.parseDouble(event.getAttribute("x")),
-                                Double.parseDouble(event.getAttribute("y")),
-                                event.getAttributes().get("id")
-                        );
-                        current.setTitle(event.getAttribute("title"));
-                        event.getChildElements().forEach(output -> {
-                            current.addOutput(new Output(
-                                    output.getAttribute("id"),
-                                    output.getAttribute("message")
-                            ));
-                        });
-                    });
-                    element.getChildElements().forEach(event ->{
-                        event.getChildElements().forEach(output ->{
-                            if (output.containsAttribute("contacted")){
-                                Output out = getNodeMap().get(event.getAttribute("id")).getOutputs()
-                                        .get(output.getAttribute("id"));
-                                CubicCurve curve = out.spawnNewConnectionCurve(out.getContainer());
-                                out.setCurve(curve);
-                                curve.setMouseTransparent(true);
-                                out.getConnector().setMouseTransparent(true);
-                                chosenLocation.getSequenceRoot().getChildren().addAll(curve, out.getConnector());
-                                getNodeMap().get(output.getAttribute("contacted")).getInput().connect(
-                                        event.getAttribute("id"),
-                                        output.getAttribute("id")
-                                );
+                case "locations":
+                    element.getChildElements().forEach(location -> {
+                        Location nextLocation = new Location(location.getAttribute("title"), null);
+                        location.getChildElements().forEach(element1 -> {
+                            switch (element1.getName()) {
+                                case "events":
+                                    element1.getChildElements().forEach(event ->{
+                                        Event current = new Event(
+                                                Double.parseDouble(event.getAttribute("x")),
+                                                Double.parseDouble(event.getAttribute("y")),
+                                                event.getAttributes().get("id")
+                                        );
+                                        current.setTitle(event.getAttribute("title"));
+                                        nextLocation.getSequenceRoot().getChildren().add(current);
+                                        event.getChildElements().forEach(output ->{
+                                            if (output.containsAttribute("contacted")){
+                                                Output out = getNodeMap().get(event.getAttribute("id")).getOutputs()
+                                                        .get(output.getAttribute("id"));
+                                                CubicCurve curve = out.spawnNewConnectionCurve(out.getContainer());
+                                                out.setCurve(curve);
+                                                curve.setMouseTransparent(true);
+                                                out.getConnector().setMouseTransparent(true);
+                                                nextLocation.getSequenceRoot().getChildren().addAll(curve, out.getConnector());
+                                                getNodeMap().get(output.getAttribute("contacted")).getInput().connect(
+                                                        event.getAttribute("id"),
+                                                        output.getAttribute("id")
+                                                );
+                                            }
+                                        });
+                                    });
                             }
                         });
+                        locationsPane.getChildren().add(nextLocation);
                     });
                     break;
             }
