@@ -16,12 +16,14 @@ public class Main extends Application {
     public static ErrorWindow ew;
 
     private static FXMLLoader mainFXMLLoader;
+    private static FXMLLoader modalWindowsLoader;
 
     private static HashMap<String, Location> locations;
 
     public static void main(String[] args) {
         launch(args);
     }
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -43,10 +45,12 @@ public class Main extends Application {
 
         mainFXMLLoader = new FXMLLoader();
         Location.setLoader(new FXMLLoader());
+        modalWindowsLoader = new FXMLLoader();
         BorderPane root = new BorderPane();
         mainFXMLLoader.setRoot(root);
         System.out.println(mainFXMLFile.toString());
         mainFXMLLoader.load(mainFXMLFile);
+        mainFXMLFile.close();
         Scene scene = new Scene(root, 600, 400);
 
         locations.put(
@@ -63,6 +67,10 @@ public class Main extends Application {
 
     public static FXMLLoader getMainFXMLLoader() {
         return mainFXMLLoader;
+    }
+
+    public static FXMLLoader getModalWindowsLoader() {
+        return modalWindowsLoader;
     }
 
     public static MainController getMainController(){
