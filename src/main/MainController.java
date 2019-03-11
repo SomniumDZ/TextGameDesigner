@@ -4,13 +4,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import unnamed.Location;
 
 public class MainController {
     @FXML
     public BorderPane eventsAndActionsPane;
     @FXML
+    public FlowPane locationsPane;
+    @FXML
     ComboBox locationsComboBox;
+
+    public MainController() {
+    }
 
     @FXML
     void initialize(){
@@ -27,5 +33,7 @@ public class MainController {
         return locationsComboBox;
     }
 
-
+    public FlowPane getLocationsPane() {
+        return locationsPane;
+    }
 }

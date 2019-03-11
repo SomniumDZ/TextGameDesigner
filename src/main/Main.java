@@ -15,6 +15,8 @@ import java.util.HashMap;
 public class Main extends Application {
     public static ErrorWindow ew;
 
+    private static FXMLLoader mainFXMLLoader;
+
     private static HashMap<String, Location> locations;
 
     public static void main(String[] args) {
@@ -39,10 +41,11 @@ public class Main extends Application {
         Location.setViewFXMLFile(locationViewFXMLFile);
         FileInputStream nodeViewFXMLFile = new FileInputStream("fxmls/NodeView.fxml");
 
-        FXMLLoader mainFXMLLoader = new FXMLLoader();
+        mainFXMLLoader = new FXMLLoader();
         Location.setLoader(new FXMLLoader());
         BorderPane root = new BorderPane();
         mainFXMLLoader.setRoot(root);
+        System.out.println(mainFXMLFile.toString());
         mainFXMLLoader.load(mainFXMLFile);
         Scene scene = new Scene(root, 600, 400);
 
@@ -50,11 +53,20 @@ public class Main extends Application {
                 "World",
                 new Location(
                         "World",
-                        ((MainController) mainFXMLLoader.getController()).getLocationChoiceBox())
-                );
+                        getMainController().getLocationChoiceBox()
+                )
+        );
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static FXMLLoader getMainFXMLLoader() {
+        return mainFXMLLoader;
+    }
+
+    public static MainController getMainController(){
+        return getMainFXMLLoader().getController();
     }
 
     public static HashMap<String, Location> getLocations() {

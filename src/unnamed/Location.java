@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import main.Main;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,7 +28,10 @@ public class Location {
     HashMap<String, Node> nodes;
     Pane canvas;
 
+    String UID;
+
     public Location(String UID, ComboBox locationComboBox) {
+        this.UID = UID;
         nodes = new HashMap<>();
         locationComboBox.getItems().add(UID);
         canvas = new Pane();
@@ -41,13 +45,18 @@ public class Location {
             e.printStackTrace();
             ew.throwError("Location fxml loader error");
         }
+        ((Location) loader.getController()).getLocationViewLabel().setText(UID);
+
+        Main.getMainController().getLocationsPane().getChildren().add(
+                Main.getMainController().getLocationsPane().getChildren().size()-1,
+                view
+        );
     }
 
     public Location(){}
 
     @FXML
     public void initialize(){
-
     }
 
     public static void setLoader(FXMLLoader loader) {
@@ -56,6 +65,10 @@ public class Location {
 
     public static void setViewFXMLFile(FileInputStream viewFXMLFile) {
         Location.viewFXMLFile = viewFXMLFile;
+    }
+
+    public Label getLocationViewLabel() {
+        return locationViewLabel;
     }
 
     public Pane getCanvas() {
