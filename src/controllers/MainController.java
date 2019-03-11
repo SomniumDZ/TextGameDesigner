@@ -72,7 +72,7 @@ public class MainController {
 
 
     public MainController() {
-        ImageView addLocationIcon = new ImageView(new Image("res/add-location-icon.png"));
+        ImageView addLocationIcon = new ImageView(new Image("/add-location-icon.png"));
         addLocationIcon.setFitHeight(Location.ICON_HEIGHT);
         addLocationIcon.setFitWidth(Location.ICON_HEIGHT);
 

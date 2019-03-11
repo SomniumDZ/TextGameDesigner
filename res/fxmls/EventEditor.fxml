@@ -18,7 +18,7 @@
               <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                 <VBox minWidth="372.0" prefHeight="376.0" prefWidth="372.0" HBox.hgrow="SOMETIMES">
                   <ImageView id="" fitHeight="176.765625" fitWidth="419.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                    <Image url="/res/debugBackgroundImage.jpg" />
+                    <Image url="/ugBackgroundImage.jpg" />
                   </ImageView>
                   <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                     <TextArea fx:id="messageField" prefWidth="200.0" promptText="Event message" wrapText="true" />
@@ -57,7 +57,7 @@
                         <children>
                           <ImageView id="" fitHeight="176.765625" fitWidth="419.0" focusTraversable="false" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                             <image>
-                              <Image url="/res/debugBackgroundImage.jpg" />
+                              <Image url="/ugBackgroundImage.jpg" />
                             </image>
                           </ImageView>
                           <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
