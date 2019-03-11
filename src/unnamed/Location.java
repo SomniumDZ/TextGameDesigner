@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -40,6 +41,7 @@ public class Location {
         VBox view = new VBox();
         loader.setRoot(view);
         try {
+            // FIXME: 11.03.2019 reload fxml file every time
             loader.load(viewFXMLFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,6 +56,11 @@ public class Location {
     }
 
     public Location(){}
+
+    public Location(String name, ComboBox locationChoiceBox, Image image) {
+        this(name, locationChoiceBox);
+        ((Location) loader.getController()).locationViewImage.setImage(image);
+    }
 
     @FXML
     public void initialize(){
