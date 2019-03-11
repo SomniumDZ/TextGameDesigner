@@ -29,6 +29,11 @@ public class MainController {
         eventsAndActionsPane.setCenter(chosenLocation.getCanvas());
     }
 
+    @FXML
+    void addLocation(){
+
+    }
+
     public ComboBox getLocationChoiceBox() {
         return locationsComboBox;
     }

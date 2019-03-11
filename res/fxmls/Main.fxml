@@ -34,7 +34,9 @@
           <content>
             <FlowPane fx:id="locationsPane" hgap="5.0" prefHeight="200.0" prefWidth="200.0" vgap="5.0">
               <children>
-                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" text="Add location">
+                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" text="Add location"
+                        onAction="#addLocation"
+                >
                   <graphic>
                     <ImageView fitHeight="100.0" fitWidth="100.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                       <image>
