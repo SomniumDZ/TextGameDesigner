@@ -22,4 +22,7 @@
             </Label>
         </HBox>
     </top>
+    <center>
+        <VBox fx:id="root"/>
+    </center>
 </fx:root>
