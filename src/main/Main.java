@@ -35,9 +35,12 @@ public class Main extends Application {
 
         //Files init
         FileInputStream mainFXMLFile = new FileInputStream("fxmls/Main.fxml");
-        FileInputStream nodeFXMLFile = new FileInputStream("fxmls/NodeView.fxml");
+        FileInputStream locationViewFXMLFile = new FileInputStream("fxmls/LocationView.fxml");
+        Location.setViewFXMLFile(locationViewFXMLFile);
+        FileInputStream nodeViewFXMLFile = new FileInputStream("fxmls/NodeView.fxml");
 
         FXMLLoader mainFXMLLoader = new FXMLLoader();
+        Location.setLoader(new FXMLLoader());
         BorderPane root = new BorderPane();
         mainFXMLLoader.setRoot(root);
         mainFXMLLoader.load(mainFXMLFile);
@@ -45,8 +48,10 @@ public class Main extends Application {
 
         locations.put(
                 "World",
-                new Location("World", ((MainController) mainFXMLLoader.getController()).getLocationChoiceBox())
-        );
+                new Location(
+                        "World",
+                        ((MainController) mainFXMLLoader.getController()).getLocationChoiceBox())
+                );
 
         primaryStage.setScene(scene);
         primaryStage.show();

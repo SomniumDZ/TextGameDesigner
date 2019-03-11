@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="VBox"
+         alignment="CENTER"
+         prefHeight="130.0" prefWidth="220.0"
+         xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+         style="-fx-background-color: rgb(194, 194, 194)"
+         fx:controller="unnamed.Location">
+  <ImageView fx:id="locationViewImage" fitHeight="85.0" fitWidth="200.0" />
+  <Label fx:id="locationViewLabel" text="Location Name" />
+</fx:root>
