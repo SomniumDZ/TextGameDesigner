@@ -26,7 +26,31 @@ public class MainController {
     @FXML
     ComboBox<String> locationsComboBox;
 
+    private Stage addLocationMenuStage;
+
     public MainController() {
+        addLocationMenuStage = new Stage();
+        addLocationMenuStage.initModality(Modality.APPLICATION_MODAL);
+        VBox root = new VBox();
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream("fxmls/AddLocationMenu.fxml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            ew.throwError("File not fonded");
+            return;
+        }
+        FXMLLoader addLocationMenuLoader = new FXMLLoader();
+        addLocationMenuLoader.setRoot(root);
+        try {
+            addLocationMenuLoader.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ew.throwError("FXML loading error");
+        }
+        Scene scene = new Scene(root);
+        addLocationMenuStage.setScene(scene);
+        addLocationMenuStage.setTitle("Add location");
     }
 
     @FXML
@@ -42,32 +66,7 @@ public class MainController {
 
     @FXML
     void addLocation(){
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        VBox root = new VBox();
-
-        FileInputStream fis;
-        try {
-            fis = new FileInputStream("fxmls/AddLocationMenu.fxml");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            ew.throwError("File not fonded");
-            return;
-        }
-
-        FXMLLoader addLocationMenuLoader = new FXMLLoader();
-        addLocationMenuLoader.setRoot(root);
-        try {
-            addLocationMenuLoader.load(fis);
-        } catch (IOException e) {
-            e.printStackTrace();
-            ew.throwError("FXML loading error");
-        }
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Add location");
-        stage.showAndWait();
+        addLocationMenuStage.showAndWait();
     }
 
     public ComboBox<String> getLocationChoiceBox() {
@@ -76,5 +75,9 @@ public class MainController {
 
     public FlowPane getLocationsPane() {
         return locationsPane;
+    }
+
+    public Stage getAddLocationMenuStage() {
+        return addLocationMenuStage;
     }
 }

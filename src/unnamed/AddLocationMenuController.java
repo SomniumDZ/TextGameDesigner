@@ -44,12 +44,28 @@ public class AddLocationMenuController {
             return;
         }
 
+        if (imagePathTextField.getText().equals("")){
+            Main.getLocations().put(
+                    name,
+                    new Location(name, Main.getMainController().getLocationChoiceBox())
+            );
+            closeAddLocationMenu();
+            return;
+        }
+
         Image image = new Image(new FileInputStream(imagePathTextField.getText()));
 
         Main.getLocations().put(
                 name,
                 new Location(name, Main.getMainController().getLocationChoiceBox(), image)
         );
+        closeAddLocationMenu();
+    }
+
+    private void closeAddLocationMenu(){
+        nameTextField.setText("");
+        imagePathTextField.setText("");
+        Main.getMainController().getAddLocationMenuStage().close();
     }
 
     @FXML
