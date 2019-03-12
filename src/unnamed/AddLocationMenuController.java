@@ -39,6 +39,9 @@ public class AddLocationMenuController {
         if (name.equals("")){
             ew.throwError("Enter name, please.");
             return;
+        }else if (Main.getLocations().containsKey(name)){
+            ew.throwError("Location name \""+name+"\" already taken");
+            return;
         }
 
         Image image = new Image(new FileInputStream(imagePathTextField.getText()));
