@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <fx:root type="BorderPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="main.MainController">
-  <center>
-    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-        <Tab text="Events&amp;Actions">
-          <content>
-            <BorderPane fx:id="eventsAndActionsPane" prefHeight="200.0" prefWidth="200.0">
-              <top>
-                <ToolBar>
-                  <items>
-                    <ComboBox fx:id="locationsComboBox" onAction="#changeLocation" promptText="Chose Location">
-                      <items>
-                        <FXCollections fx:factory="observableArrayList" />
-                      </items>
-                    </ComboBox>
-                  </items>
-                </ToolBar>
-              </top>
-            </BorderPane>
-          </content>
-        </Tab>
-        <Tab text="Locations">
-          <content>
-            <FlowPane fx:id="locationsPane" hgap="5.0" prefHeight="200.0" prefWidth="200.0" vgap="5.0">
-              <children>
-                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" text="Add location"
-                        onAction="#addLocation"
-                >
-                  <graphic>
-                    <ImageView fitHeight="100.0" fitWidth="100.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="@/add-location-icon.png" />
-                      </image>
-                    </ImageView>
-                  </graphic>
-                </Button>
-              </children>
-              <padding>
-                <Insets left="5.0" right="5.0" top="5.0" />
-              </padding>
-            </FlowPane>
-          </content>
-        </Tab>
-      </tabs>
-    </TabPane>
-  </center>
-  <top>
-    <MenuBar>
-      <Menu mnemonicParsing="false" text="File">
-        <MenuItem mnemonicParsing="false" text="Close" />
-      </Menu>
-      <Menu mnemonicParsing="false" text="Edit">
-        <MenuItem mnemonicParsing="false" text="Delete" />
-      </Menu>
-      <Menu mnemonicParsing="false" text="Help">
-        <MenuItem mnemonicParsing="false" text="About" />
-      </Menu>
-    </MenuBar>
-  </top>
+    <top>
+        <MenuBar>
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem mnemonicParsing="false" text="Save" />
+                <MenuItem mnemonicParsing="false" text="Open" />
+                <MenuItem mnemonicParsing="false" text="Close" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+                <MenuItem mnemonicParsing="false" text="Delete" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" text="About" />
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Events&amp;Actions">
+                    <content>
+                        <BorderPane fx:id="eventsAndActionsPane" prefHeight="200.0" prefWidth="200.0">
+                            <top>
+                                <ToolBar>
+                                    <items>
+                                        <ComboBox fx:id="locationsComboBox" onAction="#changeLocation" promptText="Chose Location">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList" />
+                                            </items>
+                                        </ComboBox>
+                                    </items>
+                                </ToolBar>
+                            </top>
+                        </BorderPane>
+                    </content>
+                </Tab>
+                <Tab text="Locations">
+                    <content>
+                        <FlowPane fx:id="locationsPane" hgap="5.0" prefHeight="200.0" prefWidth="200.0" vgap="5.0">
+                            <children>
+                                <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" text="Add location"
+                                        onAction="#addLocation"
+                                >
+                                    <graphic>
+                                        <ImageView fitHeight="100.0" fitWidth="100.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@/add-location-icon.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                            <padding>
+                                <Insets left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </FlowPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
 </fx:root>
