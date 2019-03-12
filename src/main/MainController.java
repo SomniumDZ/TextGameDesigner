@@ -23,7 +23,7 @@ public class MainController {
     @FXML
     public FlowPane locationsPane;
     @FXML
-    ComboBox locationsComboBox;
+    ComboBox<String> locationsComboBox;
 
     public MainController() {
     }
@@ -68,7 +68,7 @@ public class MainController {
         stage.showAndWait();
     }
 
-    public ComboBox getLocationChoiceBox() {
+    public ComboBox<String> getLocationChoiceBox() {
         return locationsComboBox;
     }
 

@@ -39,12 +39,9 @@ public class Main extends Application {
 
         //Files init
         FileInputStream mainFXMLFile = new FileInputStream("fxmls/Main.fxml");
-        FileInputStream locationViewFXMLFile = new FileInputStream("fxmls/LocationView.fxml");
-        Location.setViewFXMLFile(locationViewFXMLFile);
         FileInputStream nodeViewFXMLFile = new FileInputStream("fxmls/NodeView.fxml");
 
         mainFXMLLoader = new FXMLLoader();
-        Location.setLoader(new FXMLLoader());
         modalWindowsLoader = new FXMLLoader();
         BorderPane root = new BorderPane();
         mainFXMLLoader.setRoot(root);
