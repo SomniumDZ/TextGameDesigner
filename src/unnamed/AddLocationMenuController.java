@@ -70,7 +70,7 @@ public class AddLocationMenuController {
 
     @FXML
     void cancelPressed(){
-        // TODO: 11.03.2019 Make cancel
+        closeAddLocationMenu();
     }
 
     public AddLocationMenuController() {
