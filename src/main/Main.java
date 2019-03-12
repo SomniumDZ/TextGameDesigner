@@ -60,7 +60,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static FXMLLoader getMainFXMLLoader() {
+    private static FXMLLoader getMainFXMLLoader() {
         return mainFXMLLoader;
     }
 

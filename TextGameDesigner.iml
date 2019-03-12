@@ -9,6 +9,5 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ErrorWindow" exported="" />
-    <orderEntry type="module" module-name="XMLHandler" exported="" />
   </component>
 </module>

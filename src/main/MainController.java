@@ -69,6 +69,16 @@ public class MainController {
         addLocationMenuStage.showAndWait();
     }
 
+    @FXML
+    void save(){
+        
+    }
+
+    @FXML
+    void open(){
+
+    }
+
     public ComboBox<String> getLocationChoiceBox() {
         return locationsComboBox;
     }

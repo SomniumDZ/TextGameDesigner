@@ -11,8 +11,8 @@
     <top>
         <MenuBar>
             <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" text="Save" />
-                <MenuItem mnemonicParsing="false" text="Open" />
+                <MenuItem mnemonicParsing="false" text="Save" onAction="#save"/>
+                <MenuItem mnemonicParsing="false" text="Open" onAction="#open"/>
                 <MenuItem mnemonicParsing="false" text="Close" />
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
