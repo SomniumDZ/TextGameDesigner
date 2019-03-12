@@ -2,6 +2,7 @@ package main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
@@ -54,9 +55,10 @@ public class MainController {
             return;
         }
 
-        Main.getModalWindowsLoader().setRoot(root);
+        FXMLLoader addLocationMenuLoader = new FXMLLoader();
+        addLocationMenuLoader.setRoot(root);
         try {
-            Main.getModalWindowsLoader().load(fis);
+            addLocationMenuLoader.load(fis);
         } catch (IOException e) {
             e.printStackTrace();
             ew.throwError("FXML loading error");

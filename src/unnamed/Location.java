@@ -1,6 +1,5 @@
 package unnamed;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -51,10 +50,6 @@ public class Location {
     public Location(String name, ComboBox<String> locationChoiceBox, Image image) {
         this(name, locationChoiceBox);
         ((LocationViewController) loader.getController()).getLocationViewImage().setImage(image);
-    }
-
-    @FXML
-    public void initialize(){
     }
 
     public Pane getCanvas() {

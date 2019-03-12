@@ -16,7 +16,6 @@ public class Main extends Application {
     public static ErrorWindow ew;
 
     private static FXMLLoader mainFXMLLoader;
-    private static FXMLLoader modalWindowsLoader;
 
     private static HashMap<String, Location> locations;
 
@@ -42,7 +41,6 @@ public class Main extends Application {
         FileInputStream nodeViewFXMLFile = new FileInputStream("fxmls/NodeView.fxml");
 
         mainFXMLLoader = new FXMLLoader();
-        modalWindowsLoader = new FXMLLoader();
         BorderPane root = new BorderPane();
         mainFXMLLoader.setRoot(root);
         System.out.println(mainFXMLFile.toString());
@@ -64,10 +62,6 @@ public class Main extends Application {
 
     public static FXMLLoader getMainFXMLLoader() {
         return mainFXMLLoader;
-    }
-
-    public static FXMLLoader getModalWindowsLoader() {
-        return modalWindowsLoader;
     }
 
     public static MainController getMainController(){
