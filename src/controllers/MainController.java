@@ -8,10 +8,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.Main;
 import unnamed.Location;
 
 import java.io.FileInputStream;
@@ -19,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static main.Main.ew;
+import static main.Main.getCurrentProject;
 
 public class MainController {
     @FXML
@@ -62,7 +61,7 @@ public class MainController {
 
     @FXML
     void changeLocation(ActionEvent event){
-        Location chosenLocation = Main.getCurrentProject().getLocations().get(locationsComboBox.getSelectionModel().getSelectedItem()+"");
+        Location chosenLocation = getCurrentProject().getLocations().get(locationsComboBox.getSelectionModel().getSelectedItem()+"");
         eventsAndActionsPane.setCenter(chosenLocation.getCanvas());
     }
 
@@ -73,8 +72,12 @@ public class MainController {
 
     @FXML
     void save(){
-        FileChooser fileChooser = new FileChooser();
+        getCurrentProject().save(false);
+    }
 
+    @FXML
+    void saveAs(){
+        getCurrentProject().save(true);
     }
 
     @FXML

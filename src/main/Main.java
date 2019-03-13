@@ -36,7 +36,6 @@ public class Main extends Application {
 
         //Files init
         FileInputStream mainFXMLFile = new FileInputStream("fxmls/Main.fxml");
-        FileInputStream nodeViewFXMLFile = new FileInputStream("fxmls/NodeView.fxml");
 
         mainFXMLLoader = new FXMLLoader();
         BorderPane root = new BorderPane();

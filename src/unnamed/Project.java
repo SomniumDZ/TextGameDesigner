@@ -1,8 +1,13 @@
 package unnamed;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import main.Main;
 
+import java.io.File;
 import java.util.HashMap;
+
+import static main.Main.ew;
 
 public class Project {
     private String path;
@@ -48,4 +53,23 @@ public class Project {
         return locations;
     }
 
+    public void save(boolean saveAs) {
+        String savePath;
+        if (path.equals("")||saveAs){
+            FileChooser fileChooser = new FileChooser();
+            Stage stage = new Stage();
+            fileChooser.setInitialFileName(name);
+            File saveMetaData = fileChooser.showSaveDialog(stage);
+            savePath = saveMetaData.getAbsolutePath();
+            name = saveMetaData.getName();
+            if (path.equals("")){
+                path = savePath;
+            }
+            if (!new File(savePath+"/images").mkdirs()) {
+                ew.throwError("save error");
+            }
+        }else savePath = path;
+
+
+    }
 }
