@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static main.Main.ew;
+import static main.Main.getCurrentProject;
 
 public class AddLocationMenuController {
 
@@ -40,13 +41,13 @@ public class AddLocationMenuController {
         if (name.equals("")){
             ew.throwError("Enter name, please.");
             return;
-        }else if (Main.getLocations().containsKey(name)){
+        }else if (getCurrentProject().getLocations().containsKey(name)){
             ew.throwError("Location name \""+name+"\" already taken");
             return;
         }
 
         if (imagePathTextField.getText().equals("")){
-            Main.getLocations().put(
+            getCurrentProject().getLocations().put(
                     name,
                     new Location(name, Main.getMainController().getLocationChoiceBox())
             );
@@ -56,7 +57,7 @@ public class AddLocationMenuController {
 
         Image image = new Image(new FileInputStream(imagePathTextField.getText()));
 
-        Main.getLocations().put(
+        getCurrentProject().getLocations().put(
                 name,
                 new Location(name, Main.getMainController().getLocationChoiceBox(), image)
         );

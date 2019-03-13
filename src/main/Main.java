@@ -6,19 +6,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import unnamed.Location;
+import unnamed.Project;
 import window.ErrorWindow;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class Main extends Application {
     public static ErrorWindow ew;
 
     private static FXMLLoader mainFXMLLoader;
 
-    private static HashMap<String, Location> locations;
+    private static Project currentProject;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,8 +34,6 @@ public class Main extends Application {
             }
         };
 
-        locations = new HashMap<>();
-
         //Files init
         FileInputStream mainFXMLFile = new FileInputStream("fxmls/Main.fxml");
         FileInputStream nodeViewFXMLFile = new FileInputStream("fxmls/NodeView.fxml");
@@ -49,16 +46,18 @@ public class Main extends Application {
         mainFXMLFile.close();
         Scene scene = new Scene(root, 600, 400);
 
-        locations.put(
-                "World",
-                new Location(
-                        "World",
-                        getMainController().getLocationChoiceBox()
-                )
-        );
+        currentProject = new Project();
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static Project getCurrentProject() {
+        return currentProject;
+    }
+
+    public static void setCurrentProject(Project currentProject) {
+        Main.currentProject = currentProject;
     }
 
     private static FXMLLoader getMainFXMLLoader() {
@@ -67,9 +66,5 @@ public class Main extends Application {
 
     public static MainController getMainController(){
         return getMainFXMLLoader().getController();
-    }
-
-    public static HashMap<String, Location> getLocations() {
-        return locations;
     }
 }
