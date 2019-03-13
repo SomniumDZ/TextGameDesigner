@@ -1,4 +1,4 @@
-package main;
+package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +8,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Main;
 import unnamed.Location;
 
 import java.io.FileInputStream;
@@ -71,7 +73,8 @@ public class MainController {
 
     @FXML
     void save(){
-        
+        FileChooser fileChooser = new FileChooser();
+
     }
 
     @FXML

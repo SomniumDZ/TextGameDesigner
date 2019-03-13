@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<fx:root type="VBox" minHeight="140.0" minWidth="390.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="unnamed.AddLocationMenuController">
+<fx:root type="VBox" minHeight="140.0" minWidth="390.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.AddLocationMenuController">
   <GridPane hgap="10.0" vgap="20.0" VBox.vgrow="SOMETIMES">
     <columnConstraints>
       <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0"/>

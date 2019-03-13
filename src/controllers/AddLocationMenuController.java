@@ -1,4 +1,4 @@
-package unnamed;
+package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.Main;
+import unnamed.Location;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
