@@ -2,6 +2,7 @@ package unnamed;
 
 import controllers.LocationTabController;
 import customs.PaneUp;
+import customs.base.LocationWorkspaceController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -50,6 +51,7 @@ public class Location {
         FXMLLoader workspaceLoader = new FXMLLoader();
         try {
             workspace = workspaceLoader.load(new FileInputStream("fxmls/LocationWorkspace.fxml"));
+            ((LocationWorkspaceController) workspaceLoader.getController()).setLocation(this);
         } catch (IOException e) {
             ew.throwError("workspace loading error");
             throw new RuntimeException(e);
