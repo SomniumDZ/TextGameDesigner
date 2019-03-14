@@ -22,7 +22,10 @@ public class Location {
     private ArrayList<Element> roadMap;
     private PaneUp workspace;
 
+    private String name;
+
     public Location(String name, ComboBox<String> locationComboBox) {
+        this.name = name;
         roadMap = new ArrayList<>();
         locationComboBox.getItems().add(name);
 
@@ -60,6 +63,13 @@ public class Location {
     public Location(String name, ComboBox<String> locationChoiceBox, Image image) {
         this(name, locationChoiceBox);
         ((LocationTabController) loader.getController()).getLocationViewImage().setImage(image);
+    }
+
+    public void setName(String name){
+        ((LocationTabController)loader.getController()).getLocationViewLabel().setText(name);
+        Main.getMainController().getLocationChoiceBox().getItems().removeAll(this.name);
+        Main.getMainController().getLocationChoiceBox().getItems().add(name);
+        this.name = name;
     }
 
     public Pane getWorkspace() {
