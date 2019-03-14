@@ -62,7 +62,7 @@ public class MainController {
     @FXML
     void changeLocation(ActionEvent event){
         Location chosenLocation = getCurrentProject().getLocations().get(locationsComboBox.getSelectionModel().getSelectedItem()+"");
-        eventsAndActionsPane.setCenter(chosenLocation.getCanvas());
+        eventsAndActionsPane.setCenter(chosenLocation.getWorkspace());
     }
 
     @FXML

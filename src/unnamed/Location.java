@@ -1,9 +1,9 @@
 package unnamed;
 
-import controllers.LocationController;
+import controllers.LocationTabController;
+import customs.PaneUp;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,54 +19,52 @@ public class Location {
     private FXMLLoader loader;
 
     private ArrayList<Element> roadMap;
-    private Pane canvas;
+    private PaneUp workspace;
 
     private String UID;
-
-    private ContextMenu contextMenu;
 
     public Location(String UID, ComboBox<String> locationComboBox) {
         this.UID = UID;
         roadMap = new ArrayList<>();
         locationComboBox.getItems().add(UID);
-        canvas = new Pane();
 
         //View loading
-        VBox view = new VBox();
+        VBox tabView = new VBox();
         loader = new FXMLLoader();
-        loader.setRoot(view);
-        FXMLLoader contextMenuLoader = new FXMLLoader();
-        contextMenu = new ContextMenu();
-        contextMenuLoader.setRoot(contextMenu);
+        loader.setRoot(tabView);
         try {
             loader.load(new FileInputStream("fxmls/LocationView.fxml"));
-            contextMenuLoader.setController(loader.getController());
-            contextMenuLoader.load(new FileInputStream("fxmls/LocationContextMenu.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             ew.throwError("Location fxml loader error");
         }
-        ((LocationController)loader.getController()).initialization();
-        ((LocationController)loader.getController()).getLocationViewLabel().setText(UID);
-        ((LocationController)loader.getController()).setLocation(this);
+        ((LocationTabController)loader.getController()).getLocationViewLabel().setText(UID);
+        ((LocationTabController)loader.getController()).setLocation(this);
 
         Main.getMainController().getLocationsPane().getChildren().add(
                 Main.getMainController().getLocationsPane().getChildren().size()-1,
-                view
+                tabView
         );
 
-        canvas.setOnContextMenuRequested(event -> contextMenu.show(canvas, event.getScreenX(), event.getScreenY()));
+        //Workspace loading
+        FXMLLoader workspaceLoader = new FXMLLoader();
+        try {
+            workspace = workspaceLoader.load(new FileInputStream("fxmls/LocationWorkspace.fxml"));
+        } catch (IOException e) {
+            ew.throwError("workspace loading error");
+            throw new RuntimeException(e);
+        }
     }
 
     public Location(){}
 
     public Location(String name, ComboBox<String> locationChoiceBox, Image image) {
         this(name, locationChoiceBox);
-        ((LocationController) loader.getController()).getLocationViewImage().setImage(image);
+        ((LocationTabController) loader.getController()).getLocationViewImage().setImage(image);
     }
 
-    public Pane getCanvas() {
-        return canvas;
+    public Pane getWorkspace() {
+        return workspace;
     }
 
     public ArrayList<Element> getRoadMap() {

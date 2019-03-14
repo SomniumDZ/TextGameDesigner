@@ -7,7 +7,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import unnamed.Location;
 
-public class LocationController {
+public class LocationTabController {
     @FXML
     private ImageView locationViewImage;
     @FXML
@@ -19,7 +19,7 @@ public class LocationController {
     @FXML
     private MenuItem addEventMenuItem;
 
-    public LocationController() {
+    public LocationTabController() {
 
     }
 
