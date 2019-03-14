@@ -10,21 +10,21 @@ import main.Main;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import static main.Main.ew;
 
 public class Location {
     private FXMLLoader loader;
 
-    private HashMap<String, Node> nodes;
+    private ArrayList<Element> roadMap;
     private Pane canvas;
 
     private String UID;
 
     public Location(String UID, ComboBox<String> locationComboBox) {
         this.UID = UID;
-        nodes = new HashMap<>();
+        roadMap = new ArrayList<>();
         locationComboBox.getItems().add(UID);
         canvas = new Pane();
 
@@ -55,5 +55,9 @@ public class Location {
 
     public Pane getCanvas() {
         return canvas;
+    }
+
+    public ArrayList<Element> getRoadMap() {
+        return roadMap;
     }
 }
