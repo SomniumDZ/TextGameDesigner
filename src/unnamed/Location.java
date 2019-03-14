@@ -22,12 +22,9 @@ public class Location {
     private ArrayList<Element> roadMap;
     private PaneUp workspace;
 
-    private String UID;
-
-    public Location(String UID, ComboBox<String> locationComboBox) {
-        this.UID = UID;
+    public Location(String name, ComboBox<String> locationComboBox) {
         roadMap = new ArrayList<>();
-        locationComboBox.getItems().add(UID);
+        locationComboBox.getItems().add(name);
 
         //View loading
         VBox tabView = new VBox();
@@ -39,7 +36,7 @@ public class Location {
             e.printStackTrace();
             ew.throwError("Location fxml loader error");
         }
-        ((LocationTabController)loader.getController()).getLocationViewLabel().setText(UID);
+        ((LocationTabController)loader.getController()).getLocationViewLabel().setText(name);
         ((LocationTabController)loader.getController()).setLocation(this);
 
         Main.getMainController().getLocationsPane().getChildren().add(
