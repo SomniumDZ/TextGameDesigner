@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<fx:root type="ContextMenu" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         prefHeight="400.0" prefWidth="600.0">
+    <items>
+        <MenuItem fx:id="addEventMenuItem" text="Add Event" accelerator="Shift+E" />
+    </items>
+</fx:root>

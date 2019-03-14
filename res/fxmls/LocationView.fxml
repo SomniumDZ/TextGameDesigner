@@ -8,7 +8,7 @@
          prefHeight="130.0" prefWidth="220.0"
          xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
          style="-fx-background-color: rgb(194, 194, 194)"
-         fx:controller="controllers.LocationViewController">
+         fx:controller="controllers.LocationController">
   <ImageView fx:id="locationViewImage" fitHeight="85.0" fitWidth="200.0" />
   <Label fx:id="locationViewLabel" text="Location Name" />
 </fx:root>
