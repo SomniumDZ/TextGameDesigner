@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import main.Main;
 import unnamed.Location;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -30,7 +31,9 @@ public class AddLocationMenuController {
     void choseImage(){
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
-        imagePathTextField.setText(fileChooser.showOpenDialog(stage).getAbsolutePath());
+        File openedFile = fileChooser.showOpenDialog(stage);
+        if (openedFile == null) return;
+        imagePathTextField.setText(openedFile.getAbsolutePath());
     }
 
     @FXML

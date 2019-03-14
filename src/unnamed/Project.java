@@ -60,6 +60,7 @@ public class Project {
             Stage stage = new Stage();
             fileChooser.setInitialFileName(name);
             File saveMetaData = fileChooser.showSaveDialog(stage);
+            if (saveMetaData == null) return;
             savePath = saveMetaData.getAbsolutePath();
             name = saveMetaData.getName();
             if (path.equals("")){
