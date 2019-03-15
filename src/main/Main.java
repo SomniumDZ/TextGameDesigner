@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import unnamed.Location;
 import unnamed.Project;
 import window.ErrorWindow;
 
@@ -57,6 +58,12 @@ public class Main extends Application {
 
     public static void setCurrentProject(Project currentProject) {
         Main.currentProject = currentProject;
+    }
+
+    public static Location checkedLocation(){
+        return currentProject.getLocations().get(
+                getMainController().getLocationChoiceBox().getSelectionModel().getSelectedItem()
+        );
     }
 
     private static FXMLLoader getMainFXMLLoader() {
