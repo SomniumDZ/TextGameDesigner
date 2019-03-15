@@ -12,21 +12,18 @@ import main.Main;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static main.Main.ew;
 
 public class Location {
     private FXMLLoader loader;
 
-    private ArrayList<Element> roadMap;
     private PaneUp workspace;
 
     private String name;
 
     public Location(String name, ComboBox<String> locationComboBox) {
         this.name = name;
-        roadMap = new ArrayList<>();
         locationComboBox.getItems().add(name);
 
         //View loading
@@ -76,7 +73,4 @@ public class Location {
         return workspace;
     }
 
-    public ArrayList<Element> getRoadMap() {
-        return roadMap;
-    }
 }
