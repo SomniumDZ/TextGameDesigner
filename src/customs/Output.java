@@ -1,5 +1,6 @@
 package customs;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -43,12 +44,21 @@ public class Output extends HBox {
         outputTrigger.setOnMouseDragged(mouseEvent -> {
             outputDraggableElement.setTranslateX(mouseEvent.getSceneX() + deltaX.get());
             outputDraggableElement.setTranslateY(mouseEvent.getSceneY() + deltaY.get());
+            linkCurve.setVisible(true);
         });
 
         outputTrigger.setOnDragDetected(event -> {
             startDragAndDrop(TransferMode.ANY);
             System.out.println("detected");
         });
+    }
+
+    @FXML
+    void initialize(){
+        linkCurve.controlX1Property().bind(Bindings.add(linkCurve.startXProperty(), 100));
+        linkCurve.controlY1Property().bind(linkCurve.startYProperty());
+        linkCurve.controlX2Property().bind(Bindings.add(linkCurve.endXProperty(), -100));
+        linkCurve.controlY2Property().bind(linkCurve.endYProperty());
     }
 
     public String  getOutputText() {
