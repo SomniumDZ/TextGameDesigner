@@ -8,6 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -52,6 +53,12 @@ public class DraggableNode extends BorderPane {
             setLayoutY(mouseEvent.getSceneY() + deltaY.get());
         });
         header.setOnMouseEntered(mouseEvent -> header.setCursor(Cursor.HAND));
+
+        inputCircle.setOnDragOver(event -> {
+            event.acceptTransferModes(TransferMode.ANY);
+            System.out.println("over");
+        });
+        inputCircle.setOnDragDropped(this::inputContact);
     }
 
     @FXML

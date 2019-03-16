@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?language java?>
+<?language javascript?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -13,10 +13,9 @@
             <Insets left="5.0" />
         </HBox.margin>
     </Label>
-    <StackPane>
-        <Circle onMousePressed="System.out.println('drag')" fx:id="outputTrigger" fill="DODGERBLUE" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
-        <CubicCurve fx:id="linkCurve" fill="DODGERBLUE" stroke="BLACK" endX="${outputDraggableElement.centerX}"
-                    endY="${outputDraggableElement.centerY}"/>
+    <StackPane maxHeight="14.0" maxWidth="14.0">
+        <Circle fx:id="outputTrigger" fill="DODGERBLUE" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+        <CubicCurve fx:id="linkCurve"  fill="DODGERBLUE" stroke="BLACK"/>
         <Circle fx:id="outputDraggableElement" fill="#66a3ff" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
     </StackPane>
     <padding>

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import customs.DraggableNode?>
+<?import customs.Option?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
 <fx:root type="DraggableNode" title="Event" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml">
     <Label fx:id="eventMessage" text="Event message"/>
+    <VBox fx:id="optionsBox">
+        <Option/>
+    </VBox>
 </fx:root>
