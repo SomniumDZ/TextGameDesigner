@@ -16,7 +16,7 @@
     <StackPane maxHeight="14.0" maxWidth="14.0">
         <Circle fx:id="outputTrigger" fill="DODGERBLUE" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
         <CubicCurve fx:id="linkCurve"  fill="DODGERBLUE" stroke="BLACK"/>
-        <Circle fx:id="outputDraggableElement" fill="#66a3ff" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="outputDraggableElement" fill="#82bcff" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
     </StackPane>
     <padding>
         <Insets bottom="2.0" right="2.0" top="2.0" />
