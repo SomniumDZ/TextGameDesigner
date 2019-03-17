@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurve;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -24,11 +23,11 @@ public class Output extends HBox {
     Label outputTextLabel;
 
     public Output() {
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Output.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
-            loader.load(new FileInputStream("fxmls/Output.fxml"));
+            loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

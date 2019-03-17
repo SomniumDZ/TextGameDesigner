@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.Main;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import static main.Main.ew;
@@ -28,10 +27,10 @@ public class Location {
 
         //View loading
         VBox tabView = new VBox();
-        loader = new FXMLLoader();
+        loader = new FXMLLoader(getClass().getResource("/fxmls/LocationView.fxml"));
         loader.setRoot(tabView);
         try {
-            loader.load(new FileInputStream("fxmls/LocationView.fxml"));
+            loader.load();
         } catch (IOException e) {
             e.printStackTrace();
             ew.throwError("Location fxml loader error");
@@ -45,9 +44,9 @@ public class Location {
         );
 
         //Workspace loading
-        FXMLLoader workspaceLoader = new FXMLLoader();
+        FXMLLoader workspaceLoader = new FXMLLoader(getClass().getResource("/fxmls/LocationWorkspace.fxml"));
         try {
-            workspace = workspaceLoader.load(new FileInputStream("fxmls/LocationWorkspace.fxml"));
+            workspace = workspaceLoader.load();
             ((LocationWorkspaceController) workspaceLoader.getController()).setLocation(this);
         } catch (IOException e) {
             ew.throwError("workspace loading error");

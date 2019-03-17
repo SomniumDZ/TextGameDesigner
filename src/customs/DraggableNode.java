@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -30,11 +29,11 @@ public class DraggableNode extends BorderPane {
     Circle inputCircle;
 
     public DraggableNode() {
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/DraggableNode.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
-            loader.load(new FileInputStream("fxmls/DraggableNode.fxml"));
+            loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

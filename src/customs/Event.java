@@ -2,17 +2,16 @@ package customs;
 
 import javafx.fxml.FXMLLoader;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Event extends DraggableNode {
 
     public Event() {
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxmls/Event.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
-            loader.load(new FileInputStream("fxmls/Event.fxml"));
+            loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
