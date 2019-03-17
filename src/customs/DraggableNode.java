@@ -45,6 +45,7 @@ public class DraggableNode extends BorderPane {
             deltaX.set(getLayoutX() - mouseEvent.getSceneX());
             deltaY.set(getLayoutY() - mouseEvent.getSceneY());
             header.setCursor(Cursor.CLOSED_HAND);
+            toFront();
         });
         header.setOnMouseReleased(mouseEvent -> header.setCursor(Cursor.HAND));
         header.setOnMouseDragged(mouseEvent -> {
@@ -54,10 +55,11 @@ public class DraggableNode extends BorderPane {
         header.setOnMouseEntered(mouseEvent -> header.setCursor(Cursor.HAND));
 
         inputCircle.setOnDragOver(event -> {
-            event.acceptTransferModes(TransferMode.ANY);
             System.out.println("over");
+            event.acceptTransferModes(TransferMode.ANY);
         });
         inputCircle.setOnDragDropped(this::inputContact);
+        inputCircle.setOnDragEntered(event -> System.out.println("entered"));
     }
 
     @FXML

@@ -34,7 +34,6 @@ public class Output extends HBox {
 
         AtomicReference<Double> deltaX = new AtomicReference<>((double) 0);
         AtomicReference<Double> deltaY = new AtomicReference<>((double) 0);
-        outputDraggableElement.setMouseTransparent(true);
         outputTrigger.setOnMousePressed(mouseEvent -> {
             // record a delta distance for the drag and drop operation.
             deltaX.set(outputTrigger.getTranslateX() - mouseEvent.getSceneX());
@@ -58,6 +57,7 @@ public class Output extends HBox {
         linkCurve.controlY1Property().bind(linkCurve.startYProperty());
         linkCurve.controlX2Property().bind(Bindings.add(linkCurve.endXProperty(), -100));
         linkCurve.controlY2Property().bind(linkCurve.endYProperty());
+        linkCurve.toFront();
     }
 
     public String  getOutputText() {
