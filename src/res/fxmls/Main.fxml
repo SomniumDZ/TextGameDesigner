@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controllers.MainController">
+  <center>
+    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab fx:id="editorTab" text="Events&amp;Actions">
+          <BorderPane fx:id="eventsEditor">
+            <center>
+            </center>
+            <right>
+              <VBox fx:id="sequenceEditorTools" style="-fx-background-color: lightgray;" />
+            </right>
+            <top>
+              <ToolBar>
+                <items>
+                  <ChoiceBox fx:id="locationChoiceBox">
+                    <items>
+                      <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Item 1" />
+                        <String fx:value="Item 2" />
+                        <String fx:value="Item 3" />
+                      </FXCollections>
+                    </items>
+                  </ChoiceBox>
+                </items>
+              </ToolBar>
+            </top>
+          </BorderPane>
+        </Tab>
+        <Tab text="Items">
+          <VBox prefHeight="200.0" prefWidth="100.0" />
+        </Tab>
+        <Tab text="NPC`s">
+          <content>
+            <VBox fx:id="npcList" prefHeight="200.0" prefWidth="100.0" />
+          </content>
+        </Tab>
+        <Tab text="Locations">
+          <content>
+            <FlowPane fx:id="locationsPane" prefHeight="200.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </center>
+  <top>
+    <MenuBar>
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Save" fx:id="save" />
+            <MenuItem mnemonicParsing="false" text="Open" fx:id="open" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="main.Preview">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Run preview" fx:id="btnRunPreview" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
+</BorderPane>

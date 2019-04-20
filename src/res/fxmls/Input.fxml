@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<fx:root type="GridPane" style="-fx-background-color: #dbdbdb" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <columnConstraints>
+    <ColumnConstraints halignment="LEFT" hgrow="NEVER" percentWidth="-1.0" />
+    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="30.0" percentWidth="-1.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  <Label prefWidth="48.0" fx:id="message" text="Input" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+  <Rectangle fx:id="container" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="23.0" stroke="BLACK" strokeType="INSIDE" width="28.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <GridPane.margin>
+      <Insets left="-5.0" />
+    </GridPane.margin>
+  </Rectangle>
+</fx:root>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<fx:root type="GridPane" style="-fx-background-color: #dbdbdb" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <columnConstraints>
+    <ColumnConstraints halignment="RIGHT" hgrow="NEVER" percentWidth="-1.0" />
+    <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" minWidth="30.0" percentWidth="-1.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  <Label prefWidth="48.0" fx:id="message" text="Output" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+  <AnchorPane fx:id="container" style="-fx-background-color: #0d86ac; -fx-border-color: #335889" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+</fx:root>
