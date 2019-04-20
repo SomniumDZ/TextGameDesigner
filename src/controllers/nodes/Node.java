@@ -7,10 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,13 +16,14 @@ import main.Main;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static main.Main.ew;
 
 public abstract class Node extends VBox {
 
     @FXML
-    private HBox titleBar;
+    private HBox header;
     @FXML
     private VBox workSpace;
     @FXML
@@ -76,9 +74,9 @@ public abstract class Node extends VBox {
         MenuItem markInitial = new MenuItem("Mark as initial");
         markInitial.setOnAction(event -> {
             getController().setInitialNode(this);
-            titleBar.setStyle("-fx-background-color: #985d5a");
+            header.setStyle("-fx-background-color: #985d5a");
             getController().getNodeMap().forEach((id, node) -> {
-                node.getTitleBar().setStyle("-fx-background-color: lightgray");
+                node.getHeader().setStyle("-fx-background-color: lightgray");
             });
             event.consume();
         });
@@ -106,16 +104,27 @@ public abstract class Node extends VBox {
     public abstract void edit() throws IOException;
 
     private void buildNodeDrag() {
-        titleBar.setOnDragDetected(event -> {
-            dragOffsetX = event.getX();
-            dragOffsetY = event.getY();
-            getController().getChosenLocation().setDraggedNode(this);
-            Dragboard db = startDragAndDrop(TransferMode.ANY);
-
-            ClipboardContent content = new ClipboardContent();
-            content.putString(getId());
-            db.setContent(content);
-            event.consume();
+//        header.setOnDragDetected(event -> {
+//            dragOffsetX = event.getX();
+//            dragOffsetY = event.getY();
+//            getController().getChosenLocation().setDraggedNode(this);
+//            Dragboard db = startDragAndDrop(TransferMode.ANY);
+//
+//            ClipboardContent content = new ClipboardContent();
+//            content.putString(getId());
+//            db.setContent(content);
+//            event.consume();
+//        });
+        AtomicReference<Double> deltaX = new AtomicReference<>((double) 0);
+        AtomicReference<Double> deltaY = new AtomicReference<>((double) 0);
+        header.setOnMousePressed(mouseEvent -> {
+            // record a delta distance for the drag and drop operation.
+            deltaX.set(getTranslateX() - mouseEvent.getSceneX());
+            deltaY.set(getTranslateY() - mouseEvent.getSceneY());
+        });
+        header.setOnMouseDragged(mouseEvent -> {
+            setTranslateX(mouseEvent.getSceneX() + deltaX.get());
+            setTranslateY(mouseEvent.getSceneY() + deltaY.get());
         });
     }
 
@@ -157,8 +166,8 @@ public abstract class Node extends VBox {
         return title.getText();
     }
 
-    public HBox getTitleBar() {
-        return titleBar;
+    public HBox getHeader() {
+        return header;
     }
 
     public void setTitle(String title){
