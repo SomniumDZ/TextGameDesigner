@@ -37,6 +37,9 @@ public abstract class Node extends VBox {
     private double dragOffsetX;
     private double dragOffsetY;
 
+    //For resolving onMouseClicked (node selected) and onMouseDragged (node dragged) conflict
+    private boolean dragged;
+
 
     public Node(double x, double y, String id) {
         setId(id);
@@ -80,6 +83,7 @@ public abstract class Node extends VBox {
         header.setOnMouseDragged(mouseEvent -> {
             setTranslateX(mouseEvent.getSceneX() + deltaX.get());
             setTranslateY(mouseEvent.getSceneY() + deltaY.get());
+            dragged = true;
         });
 
         getWorkSpace().getChildren().add(input);
@@ -95,20 +99,25 @@ public abstract class Node extends VBox {
         contextMenu.getItems().add(markInitial);
 
         setOnMouseClicked(event -> {
-            if (event.getClickCount()>=2){
-                try {
-                    edit();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    ew.throwError("Editor error");
+            if (!dragged) {
+                if (event.getClickCount()>=2){
+                    try {
+                        edit();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        ew.throwError("Editor error");
+                    }
+                }else {
+                    if (event.getButton()!= MouseButton.SECONDARY) {
+                        if (getController().getSelectedNode() != this) {
+                            getController().setSelectedNode(this);
+                        }
+                        event.consume();
+                    }
                 }
             }else {
-                if (event.getButton()!= MouseButton.SECONDARY) {
-                    if (getController().getSelectedNode() != this) {
-                        getController().setSelectedNode(this);
-                    }
-                    event.consume();
-                }
+                dragged = false;
+                event.consume();
             }
         });
     }
