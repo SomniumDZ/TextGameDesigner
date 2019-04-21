@@ -12,11 +12,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.Main;
+import main.service.LambdaResistantReference;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static main.Main.ew;
 
@@ -115,8 +115,8 @@ public abstract class Node extends VBox {
 //            db.setContent(content);
 //            event.consume();
 //        });
-        AtomicReference<Double> deltaX = new AtomicReference<>((double) 0);
-        AtomicReference<Double> deltaY = new AtomicReference<>((double) 0);
+        LambdaResistantReference<Double> deltaX = new LambdaResistantReference<>((double) 0);
+        LambdaResistantReference<Double> deltaY = new LambdaResistantReference<>((double) 0);
         header.setOnMousePressed(mouseEvent -> {
             // record a delta distance for the drag and drop operation.
             deltaX.set(getTranslateX() - mouseEvent.getSceneX());

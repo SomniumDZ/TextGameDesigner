@@ -1,8 +1,8 @@
 package main.service;
 
-public class LambdaResistant <Type>{
+public class LambdaResistantReference<Type>{
     private Type value;
-    public LambdaResistant(Type value) {
+    public LambdaResistantReference(Type value) {
         this.value = value;
     }
 
