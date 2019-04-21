@@ -34,9 +34,6 @@ public abstract class Node extends VBox {
 
     private ContextMenu contextMenu = new ContextMenu();
 
-    private double dragOffsetX;
-    private double dragOffsetY;
-
     //For resolving onMouseClicked (node selected) and onMouseDragged (node dragged) conflict
     private boolean dragged;
 
