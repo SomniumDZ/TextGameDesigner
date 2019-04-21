@@ -69,7 +69,19 @@ public abstract class Node extends VBox {
 
     @FXML
     private void initialize(){
-        buildNodeDrag();
+        //Node dragging logic
+        LambdaResistantReference<Double> deltaX = new LambdaResistantReference<>((double) 0);
+        LambdaResistantReference<Double> deltaY = new LambdaResistantReference<>((double) 0);
+        header.setOnMousePressed(mouseEvent -> {
+            // record a delta distance for the drag and drop operation.
+            deltaX.set(getTranslateX() - mouseEvent.getSceneX());
+            deltaY.set(getTranslateY() - mouseEvent.getSceneY());
+        });
+        header.setOnMouseDragged(mouseEvent -> {
+            setTranslateX(mouseEvent.getSceneX() + deltaX.get());
+            setTranslateY(mouseEvent.getSceneY() + deltaY.get());
+        });
+
         getWorkSpace().getChildren().add(input);
         MenuItem markInitial = new MenuItem("Mark as initial");
         markInitial.setOnAction(event -> {
@@ -102,20 +114,6 @@ public abstract class Node extends VBox {
     }
 
     public abstract void edit() throws IOException;
-
-    private void buildNodeDrag() {
-        LambdaResistantReference<Double> deltaX = new LambdaResistantReference<>((double) 0);
-        LambdaResistantReference<Double> deltaY = new LambdaResistantReference<>((double) 0);
-        header.setOnMousePressed(mouseEvent -> {
-            // record a delta distance for the drag and drop operation.
-            deltaX.set(getTranslateX() - mouseEvent.getSceneX());
-            deltaY.set(getTranslateY() - mouseEvent.getSceneY());
-        });
-        header.setOnMouseDragged(mouseEvent -> {
-            setTranslateX(mouseEvent.getSceneX() + deltaX.get());
-            setTranslateY(mouseEvent.getSceneY() + deltaY.get());
-        });
-    }
 
     public void setTranslatePosition(double x, double y){
         setTranslateX(x);
