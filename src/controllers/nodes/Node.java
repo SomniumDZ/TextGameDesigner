@@ -104,17 +104,6 @@ public abstract class Node extends VBox {
     public abstract void edit() throws IOException;
 
     private void buildNodeDrag() {
-//        header.setOnDragDetected(event -> {
-//            dragOffsetX = event.getX();
-//            dragOffsetY = event.getY();
-//            getController().getChosenLocation().setDraggedNode(this);
-//            Dragboard db = startDragAndDrop(TransferMode.ANY);
-//
-//            ClipboardContent content = new ClipboardContent();
-//            content.putString(getId());
-//            db.setContent(content);
-//            event.consume();
-//        });
         LambdaResistantReference<Double> deltaX = new LambdaResistantReference<>((double) 0);
         LambdaResistantReference<Double> deltaY = new LambdaResistantReference<>((double) 0);
         header.setOnMousePressed(mouseEvent -> {

@@ -24,7 +24,6 @@ public class Location extends ToggleButton {
 
     private HashMap<String, Node> nodes = new HashMap<>();
 
-    private Node draggedNode;
     private Output draggedOut;
 
     private Pane sequenceRoot;
@@ -59,9 +58,6 @@ public class Location extends ToggleButton {
 
         sequenceRoot.setOnDragOver(event -> {
             event.acceptTransferModes(TransferMode.ANY);
-            if (draggedNode !=null) {
-                draggedNode.setTranslatePosition(event.getSceneX(), event.getSceneY(), true);
-            }
             if (draggedOut!=null){
                 draggedOut.setConnectorPosition(event.getSceneX(), event.getSceneY());
             }
@@ -70,7 +66,6 @@ public class Location extends ToggleButton {
 
         sequenceRoot.setOnDragDropped(event -> {
             event.acceptTransferModes(TransferMode.ANY);
-            draggedNode = null;
             if (draggedOut!=null) {
                 draggedOut.reset();
                 draggedOut = null;
@@ -104,14 +99,6 @@ public class Location extends ToggleButton {
 
     public HashMap<String, Node> getNodes() {
         return nodes;
-    }
-
-    public Node getDraggedNode() {
-        return draggedNode;
-    }
-
-    public void setDraggedNode(Node draggedNode) {
-        this.draggedNode = draggedNode;
     }
 
     public Output getDraggedOut() {
