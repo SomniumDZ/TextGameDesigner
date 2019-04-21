@@ -51,7 +51,7 @@ public abstract class Node extends VBox {
             ew.throwError("FXML error");
         }
 
-        setTranslatePosition(x, y, false);
+        setTranslatePosition(x, y);
 
         setOnContextMenuRequested(event -> {
             contextMenu.show(this, event.getScreenX(), event.getScreenY());
@@ -117,15 +117,14 @@ public abstract class Node extends VBox {
         });
     }
 
-    public void setTranslatePosition(double x, double y, boolean toLocal){
-        if (toLocal) {
-            Point2D local = ((MainController)Main.getLoader().getController()).getChosenLocation().getSequenceRoot().sceneToLocal(x, y);
-            setTranslateX(local.getX()-dragOffsetX);
-            setTranslateY(local.getY()-dragOffsetY);
-        }else {
-            setTranslateY(y);
-            setTranslateX(x);
-        }
+    public void setTranslatePosition(double x, double y){
+        setTranslateX(x);
+        setTranslateY(y);
+    }
+
+    public void setTranslatePosition(Point2D position){
+        setTranslateX(position.getX());
+        setTranslateY(position.getY());
     }
 
     public void addOutput(Output output){
