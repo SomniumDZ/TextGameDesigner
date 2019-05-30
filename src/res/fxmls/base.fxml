@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
-            fx:controller="UIControllers.BaseController"
-            prefHeight="400" prefWidth="600"
->
-    <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-            <Tab text="Sequence">
-                <BorderPane id="Sequence" fx:id="sequenceEditor" prefHeight="200.0" prefWidth="200.0">
-                    <bottom>
-                        <ToolBar>
-                            <ComboBox fx:id="locationSwitchBox">
-                            </ComboBox>
-                        </ToolBar>
-                    </bottom>
-                </BorderPane>
-            </Tab>
-            <Tab text="Locations">
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-            </Tab>
-        </TabPane>
-    </center>
-    <top>
-        <MenuBar>
-            <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" text="Close"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-                <MenuItem mnemonicParsing="false" text="Delete"/>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-                <MenuItem mnemonicParsing="false" text="About"/>
-            </Menu>
-        </MenuBar>
-    </top>
+<?import javafx.scene.layout.FlowPane?>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="UIControllers.BaseController">
+  <center>
+    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+      <Tab text="Sequence">
+        <BorderPane id="Sequence" fx:id="sequenceEditor" prefHeight="200.0" prefWidth="200.0">
+          <bottom>
+            <ToolBar>
+              <ComboBox fx:id="locationSwitchBox" />
+            </ToolBar>
+          </bottom>
+        </BorderPane>
+      </Tab>
+      <Tab text="Locations">
+        <FlowPane fx:id="locationButtonsPane" prefHeight="200.0" prefWidth="200.0" />
+      </Tab>
+    </TabPane>
+  </center>
+  <top>
+    <MenuBar>
+      <Menu mnemonicParsing="false" text="File">
+        <MenuItem mnemonicParsing="false" text="Close" />
+      </Menu>
+      <Menu mnemonicParsing="false" text="Edit">
+        <MenuItem mnemonicParsing="false" text="Delete" />
+      </Menu>
+      <Menu mnemonicParsing="false" text="Help">
+        <MenuItem mnemonicParsing="false" text="About" />
+      </Menu>
+    </MenuBar>
+  </top>
 </BorderPane>
