@@ -1,9 +1,12 @@
 package сore;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 
 public class Location {
     public final static ToggleGroup LOCATIONS_TOGGLE_GROUP = new ToggleGroup();
@@ -15,14 +18,21 @@ public class Location {
 
     public Location(String name, Image icon) {
         this.name = name;
-        this.button = button;
+        buttonImageView = new ImageView(icon);
+        try {
+            button = FXMLLoader.load(getClass().getResource("/fxmls/locationButton.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        button.setToggleGroup(LOCATIONS_TOGGLE_GROUP);
+        button.setGraphic(buttonImageView);
     }
 
-    static void createLocation(String name) {
+    public static void createLocation(String name) {
         createLocation(name, null);
     }
 
-    static void createLocation(String name, Image image) {
+    public static void createLocation(String name, Image image) {
         Main.locationList.add(new Location(name,image));
 
     }

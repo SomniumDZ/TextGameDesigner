@@ -9,12 +9,12 @@
     <GridPane alignment="CENTER_RIGHT" hgap="5.0" vgap="10.0">
       <children>
         <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField prefWidth="50.0" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="0" />
+        <TextField fx:id="nameField" prefWidth="50.0" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="0" />
         <Label text="Background Image" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <HBox prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <children>
-            <TextField prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-            <Button mnemonicParsing="false" text="..." />
+            <TextField fx:id="imageField" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+            <Button fx:id="browseImageButton" mnemonicParsing="false" text="..." />
           </children>
         </HBox>
       </children>
@@ -30,11 +30,11 @@
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" fx:id="x1" />
       </VBox.margin>
     </GridPane>
-    <ImageView fitHeight="192.0" fitWidth="341.0" pickOnBounds="true" preserveRatio="true" VBox.margin="$x1" />
+    <ImageView fx:id="previewImageView" fitHeight="192.0" fitWidth="341.0" pickOnBounds="true" preserveRatio="true" VBox.margin="$x1" />
     <HBox alignment="CENTER_RIGHT" prefHeight="-1.0" prefWidth="-1.0" spacing="10.0">
       <children>
-        <Button mnemonicParsing="false" text="Ok" />
-        <Button mnemonicParsing="false" text="Cancel" />
+        <Button fx:id="okButton" mnemonicParsing="false" text="Ok" />
+        <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
       </children>
       <padding>
         <Insets top="20.0" />
