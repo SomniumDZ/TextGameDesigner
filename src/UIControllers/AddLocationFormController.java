@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class AddLocationParametersController {
+public class AddLocationFormController {
     public TextField nameField;
     public TextField imageField;
     public Button browseImageButton;
@@ -21,7 +21,7 @@ public class AddLocationParametersController {
     public Button cancelButton;
     private Image image;
 
-    public AddLocationParametersController() {
+    public AddLocationFormController() {
     }
 
     public void initialize(){
@@ -33,14 +33,17 @@ public class AddLocationParametersController {
         imageField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 image = new Image(new FileInputStream(newValue));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            } catch (FileNotFoundException ignored) {
+
             }
             previewImageView.setImage(image);
         });
         okButton.setDefaultButton(true);
         cancelButton.setCancelButton(true);
-        okButton.setOnAction(event -> Location.createLocation(nameField.getText(), image));
+        okButton.setOnAction(event -> {
+            Location.createLocation(nameField.getText(), image);
+            BaseController.ADD_LOCATION_STAGE.close();
+        });
         cancelButton.setOnAction(event -> BaseController.ADD_LOCATION_STAGE.close());
     }
 }
