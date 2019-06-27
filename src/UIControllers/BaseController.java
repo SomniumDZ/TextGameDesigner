@@ -45,6 +45,12 @@ public class BaseController {
         ADD_LOCATION_STAGE.initModality(Modality.APPLICATION_MODAL);
         ADD_LOCATION_BUTTON.setOnAction(event -> ADD_LOCATION_STAGE.showAndWait());
         locationButtonsPane.getChildren().add(ADD_LOCATION_BUTTON);
+        //loading initialization
+        Main.locationList.forEach(location -> {
+            int position = Main.locationList.size()-1;
+            locationButtonsPane.getChildren().add(position, location.getButton());
+        });
+
         Main.locationList.addListener((ListChangeListener<Location>) c -> {
             locationButtonsPane.getChildren().remove(ADD_LOCATION_BUTTON);
             while (c.next()) {

@@ -29,7 +29,6 @@ public class Location {
 
     public static void createLocation(String name, Image image) {
         Main.locationList.add(new Location(name,image));
-
     }
 
     public String getName() {
