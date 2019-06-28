@@ -33,6 +33,9 @@ public class BaseController {
     public void initialize(){
         //Locations tab init
         locationSwitchBox.setItems(Main.locationList);
+        locationSwitchBox.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
+            sequenceEditor.setCenter(newValue.getSelectedItem().getSequencePane());
+        });
         VBox addLocationStageRoot;
         try {
             addLocationStageRoot = FXMLLoader.load(getClass().getResource("/fxmls/addLocationForm.fxml"));
