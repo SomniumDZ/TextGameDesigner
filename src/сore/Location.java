@@ -4,9 +4,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import service.ButtonsFactory;
-import service.SequencePane;
 
 public class Location {
     public final static ToggleGroup LOCATIONS_TOGGLE_GROUP = new ToggleGroup();

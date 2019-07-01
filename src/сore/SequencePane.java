@@ -1,10 +1,10 @@
-package service;
+package сore;
 
 import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.Pane;
 
 public class SequencePane extends Pane {
-    ContextMenu contextMenu;
+    private ContextMenu contextMenu;
 
     public SequencePane(ContextMenu contextMenu) {
         this.contextMenu = contextMenu;
