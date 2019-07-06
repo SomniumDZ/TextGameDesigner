@@ -23,8 +23,6 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        DraggablePane node =
     }
 
     public static void newProject(){

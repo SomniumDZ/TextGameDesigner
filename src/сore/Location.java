@@ -1,10 +1,10 @@
 package сore;
 
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import service.ButtonsFactory;
+import сore.nodes.SequenceNode;
 
 public class Location {
     public final static ToggleGroup LOCATIONS_TOGGLE_GROUP = new ToggleGroup();
@@ -22,6 +22,7 @@ public class Location {
         button.setToggleGroup(LOCATIONS_TOGGLE_GROUP);
         button.setGraphic(buttonImageView);
         button.setText(name);
+        sequencePane = new SequencePane(sequenceContextMenu());
     }
 
     public static void createLocation(String name) {
@@ -47,5 +48,17 @@ public class Location {
 
     public SequencePane getSequencePane() {
         return sequencePane;
+    }
+
+    public ContextMenu sequenceContextMenu(){
+        MenuItem addEvent = new MenuItem("Add event");
+
+        addEvent.setOnAction(event -> {
+            sequencePane.getChildren().add(new SequenceNode());
+        });
+
+        Menu addNode = new Menu("Add node", null, addEvent);
+
+        return new ContextMenu(addNode);
     }
 }
