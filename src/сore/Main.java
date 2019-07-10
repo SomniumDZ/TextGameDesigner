@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import сore.nodes.DraggablePane;
 
 public class Main extends Application {
     public static ObservableList<Location> locationList;

@@ -6,14 +6,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import сore.nodes.DraggablePane?>
-<?import javafx.scene.shape.Rectangle?>
-<fx:root type="DraggablePane" xmlns="http://javafx.com/javafx"
-         xmlns:fx="http://javafx.com/fxml"
-         draggableElement="$header"
->
-    <HBox fx:id="header">
-        <Rectangle fx:id="inputPort"/>
-        <Label fx:id="title"/>
-    </HBox>
-</fx:root>
+<?import javafx.scene.shape.Circle?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            >
+    <top>
+        <HBox fx:id="header">
+            <Circle fx:id="inputCircle" radius="5"/>
+            <Label fx:id="title"/>
+        </HBox>
+    </top>
+</BorderPane>
