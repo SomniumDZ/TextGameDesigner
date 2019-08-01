@@ -1,10 +1,9 @@
 package сore;
 
-import UIControllers.BaseController;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
+import сore.nodes.NodeType;
+import сore.nodes.SequenceNode;
 
 public class SequencePane extends Pane {
     private ContextMenu contextMenu;
@@ -19,5 +18,15 @@ public class SequencePane extends Pane {
 
     public void setContextMenu(ContextMenu contextMenu) {
         this.contextMenu = contextMenu;
+    }
+
+    public void addNode(NodeType type) {
+        switch (type) {
+            case Event:
+                getChildren().add(new SequenceNode());
+                break;
+            case Action:
+                break;
+        }
     }
 }

@@ -13,7 +13,7 @@ public class SequenceNode extends BorderPane {
     HBox header;
 
     public SequenceNode() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/fxmls/SequenceNode.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxmls/SequenceNode.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

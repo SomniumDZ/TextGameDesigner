@@ -4,6 +4,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import service.ButtonsFactory;
+import сore.nodes.NodeType;
 import сore.nodes.SequenceNode;
 
 public class Location {
@@ -54,7 +55,7 @@ public class Location {
         MenuItem addEvent = new MenuItem("Add event");
 
         addEvent.setOnAction(event -> {
-            sequencePane.getChildren().add(new SequenceNode());
+            sequencePane.addNode(NodeType.Event);
         });
 
         Menu addNode = new Menu("Add node", null, addEvent);
