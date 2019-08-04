@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<fx:root type="BorderPane" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            >
+
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
     <top>
-        <HBox fx:id="header">
-            <Circle fx:id="inputCircle" radius="5"/>
-            <Label fx:id="title"/>
+        <HBox fx:id="header" alignment="CENTER_LEFT" minWidth="60.0" spacing="5.0"
+              style="-fx-background-color: #9b9b9b;" BorderPane.alignment="CENTER_LEFT">
+            <Circle fx:id="inputCircle" radius="5" />
+            <Label fx:id="title" text="Node" />
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="4.0" />
+         </padding>
         </HBox>
     </top>
+   <center>
+      <VBox fx:id="workspace" minHeight="10.0" BorderPane.alignment="CENTER"
+            style="-fx-background-color: #d7d7d7"/>
+   </center>
 </fx:root>
