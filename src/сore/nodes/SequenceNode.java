@@ -1,20 +1,28 @@
 package сore.nodes;
 
+import javafx.beans.DefaultProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import service.ModalWindow;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
+@DefaultProperty(value = "workspace")
 public class SequenceNode extends BorderPane {
     @FXML
     HBox header;
     @FXML
     Label title;
+    @FXML
+    VBox workspace;
 
     public SequenceNode() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxmls/SequenceNode.fxml"));
@@ -45,4 +53,7 @@ public class SequenceNode extends BorderPane {
         });
     }
 
+    public ObservableList<Node> getWorkspace() {
+        return workspace.getChildren();
+    }
 }
